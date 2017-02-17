@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">O.W.L.</string>
+    <string name="main_dictionary_button_text">Dictionary</string>
+    <string name="main_lessons_button_text">Lessons</string>
+    <string name="main_tests_button_text">Tests</string>
+    <string name="main_favourites_button_text">Favourites</string>
+</resources>
