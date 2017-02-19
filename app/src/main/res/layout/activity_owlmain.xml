@@ -39,7 +39,7 @@
                 android:layout_weight="1"
                 android:drawableTop="@drawable/dictionary_icon"
                 android:onClick="enterDictionary"
-                android:padding="@dimen/text_margin"
+                android:padding="@dimen/main_button_padding"
                 android:text="@string/main_dictionary_button_text" />
 
             <Button
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawableTop="@drawable/dictionary_icon"
-                android:padding="@dimen/text_margin"
+                android:padding="@dimen/main_button_padding"
                 android:text="@string/main_lessons_button_text" />
         </LinearLayout>
 
@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawableTop="@drawable/dictionary_icon"
-                android:padding="@dimen/text_margin"
+                android:padding="@dimen/main_button_padding"
                 android:text="@string/main_tests_button_text" />
 
             <Button
@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawableTop="@drawable/dictionary_icon"
-                android:padding="@dimen/text_margin"
+                android:padding="@dimen/main_button_padding"
                 android:text="@string/main_favourites_button_text" />
         </LinearLayout>
     </RelativeLayout>
