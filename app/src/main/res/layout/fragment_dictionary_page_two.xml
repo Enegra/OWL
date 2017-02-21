@@ -1,7 +1,8 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
     tools:context="com.app.agnie.owl.Fragments.DictionaryPageTwo">
 
     <!-- TODO: Update blank fragment layout -->
@@ -9,5 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/dictionary_list_header" />
+    <GridView
+        android:id="@+id/dictionary_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="2"
+        android:scrollbars="none">
 
-</FrameLayout>
+    </GridView>
+
+</LinearLayout>

@@ -11,12 +11,16 @@ import android.view.Menu;
 import com.app.agnie.owl.Adapters.TabsPagerAdapter;
 import com.app.agnie.owl.Fragments.DictionaryPageOne;
 import com.app.agnie.owl.Fragments.DictionaryPageTwo;
+import com.app.agnie.owl.Util.DictionaryEntry;
+
+import java.util.ArrayList;
 
 
-public class Dictionary extends AppCompatActivity {
+public class Dictionary extends AppCompatActivity implements DictionaryEntryHandler{
 
     PagerAdapter dictionaryPagerAdapter;
     ViewPager viewPager;
+    ArrayList<DictionaryEntry> dictionaryEntries;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +45,30 @@ public class Dictionary extends AppCompatActivity {
         viewPager.setAdapter(tabsPagerAdapter);
     }
 
+    private void setupDictionary(){
+        
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_dictionary, menu);
         return true;
     }
 
+    @Override
+    public DictionaryEntry getDictionaryEntry(int index) {
+        return dictionaryEntries.get(index);
+    }
+
+    @Override
+    public int getEntriesCount() {
+        return dictionaryEntries.size();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return dictionaryEntries.isEmpty();
+    }
 }
 
 
