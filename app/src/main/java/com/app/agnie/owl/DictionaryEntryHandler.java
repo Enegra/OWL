@@ -14,4 +14,6 @@ public interface DictionaryEntryHandler {
 
     public boolean isEmpty();
 
+    public int getImageID(int index);
+
 }

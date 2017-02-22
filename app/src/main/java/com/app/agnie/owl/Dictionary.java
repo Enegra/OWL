@@ -1,10 +1,10 @@
 package com.app.agnie.owl;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
@@ -16,7 +16,7 @@ import com.app.agnie.owl.Util.DictionaryEntry;
 import java.util.ArrayList;
 
 
-public class Dictionary extends AppCompatActivity implements DictionaryEntryHandler{
+public class Dictionary extends AppCompatActivity implements DictionaryEntryHandler {
 
     PagerAdapter dictionaryPagerAdapter;
     ViewPager viewPager;
@@ -25,28 +25,33 @@ public class Dictionary extends AppCompatActivity implements DictionaryEntryHand
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setupDictionary();
         setContentView(R.layout.activity_dictionary);
         setupLayout();
     }
 
-    private void setupLayout(){
-        Toolbar toolbar = (Toolbar)findViewById(R.id.dictionary_toolbar);
+    private void setupLayout() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.dictionary_toolbar);
         setSupportActionBar(toolbar);
-        ViewPager viewPager = (ViewPager)findViewById(R.id.dictionary_viewpager);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.dictionary_viewpager);
         setupTabPager(viewPager);
         TabLayout tabs = (TabLayout) findViewById(R.id.dictionary_tabs);
         tabs.setupWithViewPager(viewPager);
     }
 
-    private void setupTabPager(ViewPager viewPager){
+    private void setupTabPager(ViewPager viewPager) {
         TabsPagerAdapter tabsPagerAdapter = new TabsPagerAdapter(getSupportFragmentManager());
         tabsPagerAdapter.addFragment(new DictionaryPageOne(), "Daily Screech");
         tabsPagerAdapter.addFragment(new DictionaryPageTwo(), "Dictionary List");
         viewPager.setAdapter(tabsPagerAdapter);
     }
 
-    private void setupDictionary(){
-        
+    private void setupDictionary() {
+        dictionaryEntries = new ArrayList<>();
+        DictionaryEntry mug = new DictionaryEntry("mug.png", "Kubek", "Mug", new String[]{"Ten kubek jest brudny", "Mój ulubiony kubek jest niebieski", "Zbiłeś mój kubek!"}, new String[]{"This mug is dirty", "My favourite mup is blue", "You broke my mug!"});
+        DictionaryEntry tea = new DictionaryEntry("tea.png", "Herbata", "Tea", new String[]{"Mam ochotę na herbatę", "Lubię zieloną herbatę"}, new String[]{"I feel like having some tea", "I like green tea"});
+        dictionaryEntries.add(mug);
+        dictionaryEntries.add(tea);
     }
 
     @Override
@@ -68,6 +73,13 @@ public class Dictionary extends AppCompatActivity implements DictionaryEntryHand
     @Override
     public boolean isEmpty() {
         return dictionaryEntries.isEmpty();
+    }
+
+    @Override
+    public int getImageID(int index) {
+        String[] fileName = dictionaryEntries.get(index).getImage().split("\\.");
+        String imageName = fileName[0];
+        return getResources().getIdentifier(imageName, "drawable", getPackageName());
     }
 }
 

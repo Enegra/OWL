@@ -21,7 +21,7 @@
         android:paddingBottom="@dimen/small_picture_padding"
         android:layout_centerInParent="true"
         android:adjustViewBounds="true"
-        android:src="@drawable/kubek" />
+        android:src="@drawable/mug" />
     <LinearLayout
         android:id="@+id/screech_linear_layout"
         android:layout_width="match_parent"
@@ -43,43 +43,6 @@
             android:gravity="center_horizontal"
             android:text="@string/dictionary_word_translation"
             style="@style/TextAppearance.AppCompat.Small"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/dictionary_word_sentence_example"
-            android:layout_marginTop="@dimen/text_margin"
-            style="@style/TextAppearance.AppCompat.Medium"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/dictionary_word_sentence_example_translation"
-            android:textStyle="italic"
-            style="@style/TextAppearance.AppCompat.Small"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/dictionary_word_sentence_example"
-            android:layout_marginTop="@dimen/text_margin"
-            style="@style/TextAppearance.AppCompat.Medium"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/dictionary_word_sentence_example_translation"
-            android:textStyle="italic"
-            style="@style/TextAppearance.AppCompat.Small"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/dictionary_word_sentence_example"
-            android:layout_marginTop="@dimen/text_margin"
-            style="@style/TextAppearance.AppCompat.Medium"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/dictionary_word_sentence_example_translation"
-            android:textStyle="italic"
-            style="@style/TextAppearance.AppCompat.Small"/>
-
     </LinearLayout>
     </RelativeLayout>
 </android.support.v4.widget.NestedScrollView>
