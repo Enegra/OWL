@@ -4,13 +4,13 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context="com.app.agnie.owl.Fragments.DictionaryPageTwo">
-
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/dictionary_list_header" />
     <GridView
+        android:layout_marginTop="@dimen/small_picture_padding"
+        android:layout_marginStart="@dimen/small_picture_padding"
+        android:layout_marginEnd="@dimen/small_picture_padding"
+        android:horizontalSpacing="@dimen/small_text_margin"
+        android:verticalSpacing="@dimen/small_text_margin"
         android:id="@+id/dictionary_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,5 +18,4 @@
         android:scrollbars="none">
 
     </GridView>
-
 </LinearLayout>

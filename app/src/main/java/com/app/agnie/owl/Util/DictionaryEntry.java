@@ -40,5 +40,4 @@ public class DictionaryEntry {
         return exampleSentenceTranslations;
     }
 
-
 }

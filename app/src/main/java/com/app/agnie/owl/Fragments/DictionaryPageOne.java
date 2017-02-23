@@ -46,7 +46,8 @@ public class DictionaryPageOne extends Fragment {
             throw new ClassCastException(context.toString() + " must implement DictionaryEntryHandler");
         }
     }
-    
+
+
     private void setupLayout(){
         if (!handler.isEmpty()){
             Random random = new Random();

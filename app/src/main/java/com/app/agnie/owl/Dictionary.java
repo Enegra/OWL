@@ -48,7 +48,7 @@ public class Dictionary extends AppCompatActivity implements DictionaryEntryHand
 
     private void setupDictionary() {
         dictionaryEntries = new ArrayList<>();
-        DictionaryEntry mug = new DictionaryEntry("mug.png", "Kubek", "Mug", new String[]{"Ten kubek jest brudny", "Mój ulubiony kubek jest niebieski", "Zbiłeś mój kubek!"}, new String[]{"This mug is dirty", "My favourite mup is blue", "You broke my mug!"});
+        DictionaryEntry mug = new DictionaryEntry("mug.png", "Kubek", "Mug", new String[]{"Ten kubek jest brudny", "Mój ulubiony kubek jest niebieski", "Zbiłeś mój kubek!"}, new String[]{"This mug is dirty", "My favourite mug is blue", "You broke my mug!"});
         DictionaryEntry tea = new DictionaryEntry("tea.png", "Herbata", "Tea", new String[]{"Mam ochotę na herbatę", "Lubię zieloną herbatę"}, new String[]{"I feel like having some tea", "I like green tea"});
         dictionaryEntries.add(mug);
         dictionaryEntries.add(tea);
@@ -80,6 +80,11 @@ public class Dictionary extends AppCompatActivity implements DictionaryEntryHand
         String[] fileName = dictionaryEntries.get(index).getImage().split("\\.");
         String imageName = fileName[0];
         return getResources().getIdentifier(imageName, "drawable", getPackageName());
+    }
+
+    @Override
+    public ArrayList<DictionaryEntry> getDictionaryEntries() {
+        return dictionaryEntries;
     }
 }
 
