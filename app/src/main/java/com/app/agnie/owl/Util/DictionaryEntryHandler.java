@@ -1,6 +1,4 @@
-package com.app.agnie.owl;
-
-import com.app.agnie.owl.Util.DictionaryEntry;
+package com.app.agnie.owl.Util;
 
 import java.util.ArrayList;
 

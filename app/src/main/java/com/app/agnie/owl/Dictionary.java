@@ -12,6 +12,7 @@ import com.app.agnie.owl.Adapters.TabsPagerAdapter;
 import com.app.agnie.owl.Fragments.DictionaryPageOne;
 import com.app.agnie.owl.Fragments.DictionaryPageTwo;
 import com.app.agnie.owl.Util.DictionaryEntry;
+import com.app.agnie.owl.Util.DictionaryEntryHandler;
 
 import java.util.ArrayList;
 

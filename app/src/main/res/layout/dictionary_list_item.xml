@@ -18,7 +18,8 @@
         android:layout_alignBottom="@id/dictionary_list_image"
         android:background="@color/transparentDarkBrown"
         android:gravity="center_horizontal"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:textColor="@color/secondaryTextColour"/>
 
     <TextView
         android:id="@+id/dictionary_list_caption"

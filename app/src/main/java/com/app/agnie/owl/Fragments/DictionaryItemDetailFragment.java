@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,62 +13,64 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.app.agnie.owl.Util.DictionaryEntryHandler;
 import com.app.agnie.owl.R;
 import com.app.agnie.owl.Util.DictionaryEntry;
 
-import java.util.Random;
+import java.util.ArrayList;
 
-public class DictionaryPageOne extends Fragment {
 
-    DictionaryEntryHandler handler;
+public class DictionaryItemDetailFragment extends Fragment {
 
-    public DictionaryPageOne() {
+    ArrayList<DictionaryEntry> dictionaryEntries;
+    int entryIndex;
+
+    public DictionaryItemDetailFragment() {
         // Required empty public constructor
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_dictionary_page_one, container, false);
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState){
-        setupLayout();
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        try {
-            handler = (DictionaryEntryHandler) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement DictionaryEntryHandler");
-        }
+        setupDictionary();
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_dictionary_item_detail, container, false);
+    }
 
-    private void setupLayout(){
-        if (!handler.isEmpty()){
-            Random random = new Random();
-            int chosenIndex = random.nextInt(handler.getEntriesCount());
-            DictionaryEntry dictionaryEntry = handler.getDictionaryEntry(chosenIndex);
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        entryIndex = getArguments().getInt("entryIndex");
+        setupLayout(entryIndex);
+    }
+
+    private void setupDictionary() {
+        dictionaryEntries = new ArrayList<>();
+        DictionaryEntry mug = new DictionaryEntry("mug.png", "Kubek", "Mug", new String[]{"Ten kubek jest brudny", "Mój ulubiony kubek jest niebieski", "Zbiłeś mój kubek!"}, new String[]{"This mug is dirty", "My favourite mug is blue", "You broke my mug!"});
+        DictionaryEntry tea = new DictionaryEntry("tea.png", "Herbata", "Tea", new String[]{"Mam ochotę na herbatę", "Lubię zieloną herbatę"}, new String[]{"I feel like having some tea", "I like green tea"});
+        dictionaryEntries.add(mug);
+        dictionaryEntries.add(tea);
+    }
+
+    private void setupLayout(int index){
+            DictionaryEntry dictionaryEntry = dictionaryEntries.get(index);
             View parent = getView();
-            setupImage(parent, handler.getImageID(chosenIndex));
+            setupImage(parent, getImageID(index));
             setupCaption(parent,dictionaryEntry);
             setupSentences(parent, dictionaryEntry);
-        }
     }
 
     private void setupImage(View view, int id){
-        ImageView imageView =(ImageView)view.findViewById(R.id.dictionary_screech_image);
+        ImageView imageView =(ImageView)view.findViewById(R.id.dictionary_item_detail_image);
         imageView.setImageResource(id);
     }
 
     private void setupCaption(View view, DictionaryEntry dictionaryEntry){
-        TextView caption = (TextView)view.findViewById(R.id.screech_title);
-        TextView captionTranslation = (TextView)view.findViewById(R.id.screech_title_translation);
+        TextView caption = (TextView)view.findViewById(R.id.dictionary_item_detail_title);
+        TextView captionTranslation = (TextView)view.findViewById(R.id.dictionary_item_detail_title_translation);
         caption.setText(dictionaryEntry.getCaption());
         captionTranslation.setText(dictionaryEntry.getCaptionTranslation());
     }
@@ -75,7 +78,7 @@ public class DictionaryPageOne extends Fragment {
     private void setupSentences(View view, DictionaryEntry dictionaryEntry){
         String[] sentences = dictionaryEntry.getExampleSentences();
         String[] translations = dictionaryEntry.getExampleSentenceTranslations();
-        LinearLayout linearLayout = (LinearLayout)view.findViewById(R.id.screech_linear_layout);
+        LinearLayout linearLayout = (LinearLayout)view.findViewById(R.id.dictionary_item_detail_linear_layout);
         for (int i=0; i<sentences.length; i++){
             setSentence(sentences[i], linearLayout);
             setTranslation(translations[i], linearLayout);
@@ -108,5 +111,12 @@ public class DictionaryPageOne extends Fragment {
         sentence.setTypeface(null, Typeface.ITALIC);
         parent.addView(sentence);
     }
+
+    private int getImageID(int index) {
+        String[] fileName = dictionaryEntries.get(index).getImage().split("\\.");
+        String imageName = fileName[0];
+        return getResources().getIdentifier(imageName, "drawable", getContext().getPackageName());
+    }
+
 
 }

@@ -13,4 +13,7 @@
     <string name="dictionary_list_header">Dictionary list</string>
     <string name="menu_dictionary_item_settings">Settings</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

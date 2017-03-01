@@ -7,6 +7,7 @@
     <color name="blueAccent">#80e2e5</color>
     <color name="backgroundColour">#68594e</color>
     <color name="primaryTextColour">#f9e1cf</color>
+    <color name="secondaryTextColour">#baa393</color>
     <color name="transparentBeige">#40f9e1cf</color>
     <color name="navigationBarColour">#30261f</color>
 </resources>
