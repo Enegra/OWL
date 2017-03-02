@@ -6,6 +6,7 @@
     <string name="main_favourites_button_text">Favourites</string>
 
     <!-- dictionary -->
+    <string name="dictionary_title">Dictionary</string>
     <string name="dictionary_word_header">Word of the day</string>
     <string name="dictionary_word_translation">Word translation</string>
     <string name="dictionary_word_sentence_example">Example sentence with the word</string>
@@ -13,7 +14,7 @@
     <string name="dictionary_list_header">Dictionary list</string>
     <string name="menu_dictionary_item_settings">Settings</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- dictionary detail -->
+    <string name="dictionary_detail_title">Dictionary Item</string>
 
 </resources>
