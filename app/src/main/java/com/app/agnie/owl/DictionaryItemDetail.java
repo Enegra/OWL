@@ -20,7 +20,7 @@ public class DictionaryItemDetail extends AppCompatActivity {
     }
 
 
-    private void setupLayout(){
+    private void setupLayout() {
         setupToolbar();
         DictionaryItemDetailFragment detailFragment = new DictionaryItemDetailFragment();
         Bundle arguments = new Bundle();
@@ -31,8 +31,13 @@ public class DictionaryItemDetail extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    private void setupToolbar(){
+    private void setupToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.dictionary_item_detail_toolbar);
         setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
     }
 }

@@ -34,6 +34,11 @@ public class Dictionary extends AppCompatActivity implements DictionaryEntryHand
     private void setupLayout() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.dictionary_toolbar);
         setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
         ViewPager viewPager = (ViewPager) findViewById(R.id.dictionary_viewpager);
         setupTabPager(viewPager);
         TabLayout tabs = (TabLayout) findViewById(R.id.dictionary_tabs);
