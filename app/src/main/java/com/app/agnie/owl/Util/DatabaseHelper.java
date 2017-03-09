@@ -10,6 +10,20 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
+    public static final String TABLE_WORD = "word";
+    public static final String COLUMN_ID = "id";
+    public static final String COLUMN_PICTURE = "picture_name";
+
+    public static final String TABLE_LANGUAGE = "language";
+    public static final String COLUMN_LANGUAGE = "language_name";
+
+    public static final String TABLE_WORD_DESCRIPTION = "word_description";
+    public static final String COLUMN_WORD = "word";
+
+    public static final String TABLE_SENTENCE = "sentence";
+    public static final String COLUMN_SENTENCE = "sentence";
+
+
     private static final String DATABASE_NAME = "owl_content.db";
     private static final int DATABASE_VERSION = 1;
 
@@ -18,6 +32,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //// TODO: 3/6/2017 Decide about the entities in the database and make strings for creating them
+
+    public String createWord(){
+        return "";
+    }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
