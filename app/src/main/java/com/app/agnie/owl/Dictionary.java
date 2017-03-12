@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import com.app.agnie.owl.Adapters.TabsPagerAdapter;
 import com.app.agnie.owl.Fragments.DictionaryPageOne;
 import com.app.agnie.owl.Fragments.DictionaryPageTwo;
+import com.app.agnie.owl.Util.DictionaryDataSource;
 import com.app.agnie.owl.Util.DictionaryEntry;
 import com.app.agnie.owl.Util.DictionaryEntryHandler;
 
@@ -23,6 +24,7 @@ public class Dictionary extends AppCompatActivity implements DictionaryEntryHand
     PagerAdapter dictionaryPagerAdapter;
     ViewPager viewPager;
     ArrayList<DictionaryEntry> dictionaryEntries;
+    DictionaryDataSource dataSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,20 @@ public class Dictionary extends AppCompatActivity implements DictionaryEntryHand
         setupDictionary();
         setContentView(R.layout.activity_dictionary);
         setupLayout();
+        dataSource = new DictionaryDataSource(this);
+        dataSource.open();
+    }
+
+    @Override
+    protected void onResume(){
+        dataSource.open();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause(){
+        dataSource.close();
+        super.onPause();
     }
 
     private void setupLayout() {
