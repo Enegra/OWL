@@ -34,6 +34,7 @@ public class Dictionary extends AppCompatActivity implements DictionaryEntryHand
         setupLayout();
         dataSource = new DictionaryDataSource(this);
         dataSource.open();
+        dataSource.createInitialValues();
     }
 
     @Override
