@@ -2,7 +2,6 @@ package com.app.agnie.owl;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -21,7 +20,6 @@ import java.util.ArrayList;
 
 public class Dictionary extends AppCompatActivity implements DictionaryEntryHandler {
 
-    PagerAdapter dictionaryPagerAdapter;
     ViewPager viewPager;
     ArrayList<DictionaryEntry> dictionaryEntries;
     DictionaryDataSource dataSource;
@@ -34,7 +32,8 @@ public class Dictionary extends AppCompatActivity implements DictionaryEntryHand
         setupLayout();
         dataSource = new DictionaryDataSource(this);
         dataSource.open();
-        dataSource.createInitialValues();
+        dataSource.createInitialValues(this);
+        dataSource.getDictionaryEntries("polish", "english");
     }
 
     @Override

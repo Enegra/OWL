@@ -37,8 +37,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    //// TODO: 3/6/2017 Decide about the entities in the database and make strings for creating them
-
     @Override
     public void onCreate(SQLiteDatabase database) {
         createCategory(database);

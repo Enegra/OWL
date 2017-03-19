@@ -2,8 +2,12 @@ package com.app.agnie.owl.Util;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+
+import java.util.ArrayList;
 
 /**
  * Created by agnie on 3/12/2017.
@@ -65,27 +69,74 @@ public class DictionaryDataSource {
         System.out.println(insertID);
     }
 
-    public void createInitialValues(){
-        addWord("mug.png");
-        addLanguage("polish");
-        addLanguage("english");
-        addLanguage("german");
-        addWordDescription("kubek", 0, "polish");
-        addWordDescription("mug", 0, "english");
-        addSentence("Ten kubek jest brudny", 0, "polish");
-        addSentence("Mój ulubiony kubek jest niebieski", 0, "polish");
-        addSentence("Zbiłeś mój kubek!", 0, "polish");
-        addSentence("This mug is dirty", 0, "english");
-        addSentence("My favourite mug is blue", 0, "english");
-        addSentence("You broke my mug!", 0, "english");
-        addWord("tea.png");
-        addWordDescription("herbata", 1, "polish");
-        addWordDescription("tea", 1, "english");
-        addSentence("Mam ochotę na herbatę", 1, "polish");
-        addSentence("I feel like having some tea", 1, "english");
-        addSentence("Lubię zieloną herbatę", 1, "polish");
-        addSentence("I like green tea", 1, "english");
+    public void createInitialValues(Context context){
+        SharedPreferences preferences = context.getSharedPreferences("OWLData", 0);
+        if (!preferences.getBoolean("database_fetched", false)){
+            addWord("mug.png");
+            addLanguage("polish");
+            addLanguage("english");
+            addLanguage("german");
+            addWordDescription("kubek", 0, "polish");
+            addWordDescription("mug", 0, "english");
+            addSentence("Ten kubek jest brudny", 0, "polish");
+            addSentence("Mój ulubiony kubek jest niebieski", 0, "polish");
+            addSentence("Zbiłeś mój kubek!", 0, "polish");
+            addSentence("This mug is dirty", 0, "english");
+            addSentence("My favourite mug is blue", 0, "english");
+            addSentence("You broke my mug!", 0, "english");
+            addWord("tea.png");
+            addWordDescription("herbata", 1, "polish");
+            addWordDescription("tea", 1, "english");
+            addSentence("Mam ochotę na herbatę", 1, "polish");
+            addSentence("I feel like having some tea", 1, "english");
+            addSentence("Lubię zieloną herbatę", 1, "polish");
+            addSentence("I like green tea", 1, "english");
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("database_fetched", true);
+            editor.apply();
+        }
+
     }
 
+    public ArrayList<DictionaryEntry> getDictionaryEntries(String language, String interfaceLanguage){
+        ArrayList<DictionaryEntry> dictionaryEntries = new ArrayList<>();
+//        Cursor cursor = database.query(DatabaseHelper.TABLE_WORD, null, null, null, null, null, null);
+        Cursor cursor = database.rawQuery("select word_id, picture_name, word_description, language_name from word join word_description on word.id=word_description.word_id", null);
+        Cursor sentenceCursor = database.rawQuery("select * from sentence order by word_id, id asc", null);
+        sentenceCursor.moveToFirst();
+        cursor.moveToFirst();
+        int last = -1;
+        while (!cursor.isAfterLast()){
+            int id = cursor.getInt(cursor.getColumnIndex("word_id"));
+            if (id!=last){
+                String picture = cursor.getString(cursor.getColumnIndex("picture_name"));
+                DictionaryEntry newEntry = new DictionaryEntry(id, picture);
+//                int wordId = sentenceCursor.getInt(sentenceCursor.getColumnIndex("word_id"));
+//                while (id==wordId){ //also to fix this or it won't end
+//                    String sentenceLanguage = sentenceCursor.getString(sentenceCursor.getColumnIndex("language_name"));
+//                    if (sentenceLanguage.equals(language)){
+//                        //todo
+//                    }
+//                }
+                dictionaryEntries.add(newEntry);
+            }
+            else {
+                String wordLanguage = cursor.getString(cursor.getColumnIndex("language_name"));
+                if (wordLanguage.equals(language)){
+                    String caption = cursor.getString(cursor.getColumnIndex("word_description"));
+                    dictionaryEntries.get(dictionaryEntries.size()-1).setCaption(caption);
+                }
+                else if (wordLanguage.equals(interfaceLanguage)){
+                    String captionTranslation = cursor.getString(cursor.getColumnIndex("word_description"));
+                    dictionaryEntries.get(dictionaryEntries.size()-1).setCaptionTranslation(captionTranslation);
+                }
+            }
+            last = id;
+            cursor.moveToNext();
+        }
+        cursor.close();
+        sentenceCursor.close();
+        return dictionaryEntries;
+    }
 
 }
