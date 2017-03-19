@@ -18,6 +18,8 @@ import com.app.agnie.owl.Util.DictionaryEntry;
 
 import java.util.ArrayList;
 
+import static java.util.Arrays.asList;
+
 
 public class DictionaryItemDetailFragment extends Fragment {
 
@@ -49,8 +51,12 @@ public class DictionaryItemDetailFragment extends Fragment {
 
     private void setupDictionary() {
         dictionaryEntries = new ArrayList<>();
-        DictionaryEntry mug = new DictionaryEntry("mug.png", "Kubek", "Mug", new String[]{"Ten kubek jest brudny", "Mój ulubiony kubek jest niebieski", "Zbiłeś mój kubek!"}, new String[]{"This mug is dirty", "My favourite mug is blue", "You broke my mug!"});
-        DictionaryEntry tea = new DictionaryEntry("tea.png", "Herbata", "Tea", new String[]{"Mam ochotę na herbatę", "Lubię zieloną herbatę"}, new String[]{"I feel like having some tea", "I like green tea"});
+        ArrayList<String> mugSentences = new ArrayList<>(asList("Ten kubek jest brudny", "Mój ulubiony kubek jest niebieski", "Zbiłeś mój kubek!"));
+        ArrayList<String> mugTranslations = new ArrayList<>(asList("This mug is dirty", "My favourite mug is blue", "You broke my mug!"));
+        ArrayList<String> teaSentences = new ArrayList<>(asList("Mam ochotę na herbatę", "Lubię zieloną herbatę"));
+        ArrayList<String> teaTranslations = new ArrayList<>(asList("I feel like having some tea", "I like green tea"));
+        DictionaryEntry mug = new DictionaryEntry("mug.png", "Kubek", "Mug", mugSentences, mugTranslations);
+        DictionaryEntry tea = new DictionaryEntry("tea.png", "Herbata", "Tea", teaSentences, teaTranslations);
         dictionaryEntries.add(mug);
         dictionaryEntries.add(tea);
     }
@@ -76,12 +82,12 @@ public class DictionaryItemDetailFragment extends Fragment {
     }
 
     private void setupSentences(View view, DictionaryEntry dictionaryEntry){
-        String[] sentences = dictionaryEntry.getExampleSentences();
-        String[] translations = dictionaryEntry.getExampleSentenceTranslations();
+        ArrayList<String> sentences = dictionaryEntry.getExampleSentences();
+        ArrayList<String> translations = dictionaryEntry.getExampleSentenceTranslations();
         LinearLayout linearLayout = (LinearLayout)view.findViewById(R.id.dictionary_item_detail_linear_layout);
-        for (int i=0; i<sentences.length; i++){
-            setSentence(sentences[i], linearLayout);
-            setTranslation(translations[i], linearLayout);
+        for (int i=0; i<sentences.size(); i++){
+            setSentence(sentences.get(i), linearLayout);
+            setTranslation(translations.get(i), linearLayout);
         }
     }
 

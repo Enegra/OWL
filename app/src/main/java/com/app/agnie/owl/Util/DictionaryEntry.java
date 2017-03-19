@@ -1,5 +1,7 @@
 package com.app.agnie.owl.Util;
 
+import java.util.ArrayList;
+
 /**
  * Created by agnie on 2/21/2017.
  */
@@ -10,10 +12,10 @@ public class DictionaryEntry {
     private String image;
     private String caption;
     private String captionTranslation;
-    private String[] exampleSentences;
-    private String[] exampleSentenceTranslations;
+    private ArrayList<String> exampleSentences;
+    private ArrayList<String> exampleSentenceTranslations;
 
-    public DictionaryEntry(String image, String caption, String captionTranslation, String[] exampleSentences, String[] exampleSentenceTranslations){
+    public DictionaryEntry(String image, String caption, String captionTranslation, ArrayList<String> exampleSentences, ArrayList<String> exampleSentenceTranslations){
         this.image = image;
         this.caption = caption;
         this.captionTranslation = captionTranslation;
@@ -21,7 +23,7 @@ public class DictionaryEntry {
         this.exampleSentenceTranslations = exampleSentenceTranslations;
     }
 
-    public DictionaryEntry(int id, String image, String caption, String captionTranslation, String[] exampleSentences, String[] exampleSentenceTranslations){
+    public DictionaryEntry(int id, String image, String caption, String captionTranslation, ArrayList<String> exampleSentences, ArrayList<String> exampleSentenceTranslations){
         this.id = id;
         this.image = image;
         this.caption = caption;
@@ -33,6 +35,8 @@ public class DictionaryEntry {
     public DictionaryEntry(int id, String image){
         this.id = id;
         this.image = image;
+        this.exampleSentences = new ArrayList<>();
+        this.exampleSentenceTranslations = new ArrayList<>();
     }
 
     public String getImage() {
@@ -55,20 +59,20 @@ public class DictionaryEntry {
         this.captionTranslation=captionTranslation;
     }
 
-    public String[] getExampleSentences() {
+    public ArrayList<String> getExampleSentences() {
         return exampleSentences;
     }
 
     public void setSentence(String sentence){
-        //todo
+        exampleSentences.add(sentence);
     }
 
-    public String[] getExampleSentenceTranslations() {
+    public ArrayList<String> getExampleSentenceTranslations() {
         return exampleSentenceTranslations;
     }
 
     public void setSentenceTranslation(String sentenceTranslation){
-        //todo
+        exampleSentenceTranslations.add(sentenceTranslation);
     }
 
 }

@@ -16,6 +16,7 @@ import com.app.agnie.owl.Util.DictionaryEntryHandler;
 import com.app.agnie.owl.R;
 import com.app.agnie.owl.Util.DictionaryEntry;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class DictionaryPageOne extends Fragment {
@@ -73,12 +74,12 @@ public class DictionaryPageOne extends Fragment {
     }
 
     private void setupSentences(View view, DictionaryEntry dictionaryEntry){
-        String[] sentences = dictionaryEntry.getExampleSentences();
-        String[] translations = dictionaryEntry.getExampleSentenceTranslations();
+        ArrayList<String> sentences = dictionaryEntry.getExampleSentences();
+        ArrayList<String> translations = dictionaryEntry.getExampleSentenceTranslations();
         LinearLayout linearLayout = (LinearLayout)view.findViewById(R.id.screech_linear_layout);
-        for (int i=0; i<sentences.length; i++){
-            setSentence(sentences[i], linearLayout);
-            setTranslation(translations[i], linearLayout);
+        for (int i=0; i<sentences.size(); i++){
+            setSentence(sentences.get(i), linearLayout);
+            setTranslation(translations.get(i), linearLayout);
         }
     }
 

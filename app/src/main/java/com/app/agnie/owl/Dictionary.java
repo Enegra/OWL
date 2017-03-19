@@ -17,6 +17,8 @@ import com.app.agnie.owl.Util.DictionaryEntryHandler;
 
 import java.util.ArrayList;
 
+import static java.util.Arrays.asList;
+
 
 public class Dictionary extends AppCompatActivity implements DictionaryEntryHandler {
 
@@ -71,8 +73,12 @@ public class Dictionary extends AppCompatActivity implements DictionaryEntryHand
 
     private void setupDictionary() {
         dictionaryEntries = new ArrayList<>();
-        DictionaryEntry mug = new DictionaryEntry("mug.png", "Kubek", "Mug", new String[]{"Ten kubek jest brudny", "Mój ulubiony kubek jest niebieski", "Zbiłeś mój kubek!"}, new String[]{"This mug is dirty", "My favourite mug is blue", "You broke my mug!"});
-        DictionaryEntry tea = new DictionaryEntry("tea.png", "Herbata", "Tea", new String[]{"Mam ochotę na herbatę", "Lubię zieloną herbatę"}, new String[]{"I feel like having some tea", "I like green tea"});
+        ArrayList<String> mugSentences = new ArrayList<>(asList("Ten kubek jest brudny", "Mój ulubiony kubek jest niebieski", "Zbiłeś mój kubek!"));
+        ArrayList<String> mugTranslations = new ArrayList<>(asList("This mug is dirty", "My favourite mug is blue", "You broke my mug!"));
+        ArrayList<String> teaSentences = new ArrayList<>(asList("Mam ochotę na herbatę", "Lubię zieloną herbatę"));
+        ArrayList<String> teaTranslations = new ArrayList<>(asList("I feel like having some tea", "I like green tea"));
+        DictionaryEntry mug = new DictionaryEntry("mug.png", "Kubek", "Mug", mugSentences, mugTranslations);
+        DictionaryEntry tea = new DictionaryEntry("tea.png", "Herbata", "Tea", teaSentences, teaTranslations);
         dictionaryEntries.add(mug);
         dictionaryEntries.add(tea);
     }
