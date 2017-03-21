@@ -16,7 +16,9 @@ import com.app.agnie.owl.DictionaryItemDetail;
 import com.app.agnie.owl.R;
 import com.app.agnie.owl.Util.DictionaryEntryHandler;
 
-public class DictionaryPageTwo extends Fragment {
+import java.io.Serializable;
+
+public class DictionaryPageTwo extends Fragment implements Serializable{
 
     DictionaryEntryHandler handler;
 
@@ -52,7 +54,7 @@ public class DictionaryPageTwo extends Fragment {
                                     int position, long id) {
                 Toast.makeText(DictionaryPageTwo.this.getContext(), "You Clicked at " + position, Toast.LENGTH_SHORT).show();
                 Intent detailIntent = new Intent(getContext(), DictionaryItemDetail.class);
-                detailIntent.putExtra("index", position);
+                detailIntent.putExtra("selectedEntry", handler.getDictionaryEntry(position));
                 startActivity(detailIntent);
             }
         });

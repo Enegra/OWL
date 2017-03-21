@@ -1,12 +1,15 @@
 package com.app.agnie.owl.Util;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
 /**
  * Created by agnie on 2/21/2017.
  */
 
-public class DictionaryEntry {
+public class DictionaryEntry implements Parcelable {
 
     private int id;
     private String image;
@@ -75,4 +78,39 @@ public class DictionaryEntry {
         exampleSentenceTranslations.add(sentenceTranslation);
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.image);
+        dest.writeString(this.caption);
+        dest.writeString(this.captionTranslation);
+        dest.writeStringList(this.exampleSentences);
+        dest.writeStringList(this.exampleSentenceTranslations);
+    }
+
+    protected DictionaryEntry(Parcel in) {
+        this.id = in.readInt();
+        this.image = in.readString();
+        this.caption = in.readString();
+        this.captionTranslation = in.readString();
+        this.exampleSentences = in.createStringArrayList();
+        this.exampleSentenceTranslations = in.createStringArrayList();
+    }
+
+    public static final Parcelable.Creator<DictionaryEntry> CREATOR = new Parcelable.Creator<DictionaryEntry>() {
+        @Override
+        public DictionaryEntry createFromParcel(Parcel source) {
+            return new DictionaryEntry(source);
+        }
+
+        @Override
+        public DictionaryEntry[] newArray(int size) {
+            return new DictionaryEntry[size];
+        }
+    };
 }

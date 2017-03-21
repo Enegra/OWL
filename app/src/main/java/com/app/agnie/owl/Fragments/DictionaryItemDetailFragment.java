@@ -18,13 +18,10 @@ import com.app.agnie.owl.Util.DictionaryEntry;
 
 import java.util.ArrayList;
 
-import static java.util.Arrays.asList;
-
 
 public class DictionaryItemDetailFragment extends Fragment {
-
-    ArrayList<DictionaryEntry> dictionaryEntries;
-    int entryIndex;
+    
+    DictionaryEntry selectedEntry;
 
     public DictionaryItemDetailFragment() {
         // Required empty public constructor
@@ -33,7 +30,6 @@ public class DictionaryItemDetailFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        setupDictionary();
     }
 
     @Override
@@ -45,45 +41,32 @@ public class DictionaryItemDetailFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        entryIndex = getArguments().getInt("entryIndex");
-        setupLayout(entryIndex);
+        selectedEntry = getArguments().getParcelable("selectedEntry");
+        setupLayout();
     }
 
-    private void setupDictionary() {
-        dictionaryEntries = new ArrayList<>();
-        ArrayList<String> mugSentences = new ArrayList<>(asList("Ten kubek jest brudny", "Mój ulubiony kubek jest niebieski", "Zbiłeś mój kubek!"));
-        ArrayList<String> mugTranslations = new ArrayList<>(asList("This mug is dirty", "My favourite mug is blue", "You broke my mug!"));
-        ArrayList<String> teaSentences = new ArrayList<>(asList("Mam ochotę na herbatę", "Lubię zieloną herbatę"));
-        ArrayList<String> teaTranslations = new ArrayList<>(asList("I feel like having some tea", "I like green tea"));
-        DictionaryEntry mug = new DictionaryEntry("mug.png", "Kubek", "Mug", mugSentences, mugTranslations);
-        DictionaryEntry tea = new DictionaryEntry("tea.png", "Herbata", "Tea", teaSentences, teaTranslations);
-        dictionaryEntries.add(mug);
-        dictionaryEntries.add(tea);
-    }
-
-    private void setupLayout(int index){
-            DictionaryEntry dictionaryEntry = dictionaryEntries.get(index);
+    private void setupLayout(){
             View parent = getView();
-            setupImage(parent, getImageID(index));
-            setupCaption(parent,dictionaryEntry);
-            setupSentences(parent, dictionaryEntry);
+            setupImage(parent);
+            setupCaption(parent);
+            setupSentences(parent);
     }
 
-    private void setupImage(View view, int id){
+    private void setupImage(View view){
         ImageView imageView =(ImageView)view.findViewById(R.id.dictionary_item_detail_image);
-        imageView.setImageResource(id);
+        imageView.setImageResource(getImageID());
     }
 
-    private void setupCaption(View view, DictionaryEntry dictionaryEntry){
+    private void setupCaption(View view){
         TextView caption = (TextView)view.findViewById(R.id.dictionary_item_detail_title);
         TextView captionTranslation = (TextView)view.findViewById(R.id.dictionary_item_detail_title_translation);
-        caption.setText(dictionaryEntry.getCaption());
-        captionTranslation.setText(dictionaryEntry.getCaptionTranslation());
+        caption.setText(selectedEntry.getCaption());
+        captionTranslation.setText(selectedEntry.getCaptionTranslation());
     }
 
-    private void setupSentences(View view, DictionaryEntry dictionaryEntry){
-        ArrayList<String> sentences = dictionaryEntry.getExampleSentences();
-        ArrayList<String> translations = dictionaryEntry.getExampleSentenceTranslations();
+    private void setupSentences(View view){
+        ArrayList<String> sentences = selectedEntry.getExampleSentences();
+        ArrayList<String> translations = selectedEntry.getExampleSentenceTranslations();
         LinearLayout linearLayout = (LinearLayout)view.findViewById(R.id.dictionary_item_detail_linear_layout);
         for (int i=0; i<sentences.size(); i++){
             setSentence(sentences.get(i), linearLayout);
@@ -118,8 +101,8 @@ public class DictionaryItemDetailFragment extends Fragment {
         parent.addView(sentence);
     }
 
-    private int getImageID(int index) {
-        String[] fileName = dictionaryEntries.get(index).getImage().split("\\.");
+    private int getImageID() {
+        String[] fileName = selectedEntry.getImage().split("\\.");
         String imageName = fileName[0];
         return getResources().getIdentifier(imageName, "drawable", getContext().getPackageName());
     }

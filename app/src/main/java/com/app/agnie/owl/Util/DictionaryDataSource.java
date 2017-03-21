@@ -9,10 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 
-/**
- * Created by agnie on 3/12/2017.
- */
-
 public class DictionaryDataSource {
 
     private SQLiteDatabase database;
@@ -123,7 +119,7 @@ public class DictionaryDataSource {
             }
             if (!sentenceCursor.isAfterLast()) {
                 int wordId = sentenceCursor.getInt(sentenceCursor.getColumnIndex("word_id"));
-                while (id == wordId) { //also to fix this or it won't end
+                while (id == wordId) {
                     String sentenceLanguage = sentenceCursor.getString(sentenceCursor.getColumnIndex("language_name"));
                     if (sentenceLanguage.equals(language)) {
                         String sentence = sentenceCursor.getString(sentenceCursor.getColumnIndex("sentence"));

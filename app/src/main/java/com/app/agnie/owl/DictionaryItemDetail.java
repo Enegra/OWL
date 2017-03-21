@@ -7,15 +7,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.app.agnie.owl.Fragments.DictionaryItemDetailFragment;
+import com.app.agnie.owl.Util.DictionaryEntry;
 
 public class DictionaryItemDetail extends AppCompatActivity {
 
-    int entryIndex;
+    DictionaryEntry selectedEntry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        entryIndex = getIntent().getIntExtra("index", 0);
+        selectedEntry = getIntent().getParcelableExtra("selectedEntry");
         setContentView(R.layout.activity_dictionary_item_detail);
         setupLayout();
     }
@@ -25,7 +26,7 @@ public class DictionaryItemDetail extends AppCompatActivity {
         setupToolbar();
         DictionaryItemDetailFragment detailFragment = new DictionaryItemDetailFragment();
         Bundle arguments = new Bundle();
-        arguments.putInt("entryIndex", entryIndex);
+        arguments.putParcelable("selectedEntry", selectedEntry);
         detailFragment.setArguments(arguments);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.dictionary_item_frame_placeholder, detailFragment);

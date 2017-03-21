@@ -115,7 +115,7 @@ public class Dictionary extends AppCompatActivity implements DictionaryEntryHand
         return super.onOptionsItemSelected(item);
     }
 
-    
+
 }
 
 

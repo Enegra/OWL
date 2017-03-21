@@ -5,35 +5,31 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-/**
- * Created by agnie on 3/6/2017.
- */
+class DatabaseHelper extends SQLiteOpenHelper {
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+    static final String TABLE_CATEGORY = "category";
+    static final String COLUMN_CATEGORY = "category";
 
-    public static final String TABLE_CATEGORY = "category";
-    public static final String COLUMN_CATEGORY = "category";
+    static final String TABLE_WORD = "word";
+    static final String COLUMN_ID = "id";
+    static final String COLUMN_PICTURE = "picture_name";
 
-    public static final String TABLE_WORD = "word";
-    public static final String COLUMN_ID = "id";
-    public static final String COLUMN_PICTURE = "picture_name";
+    static final String TABLE_LANGUAGE = "language";
+    static final String COLUMN_LANGUAGE = "language_name";
 
-    public static final String TABLE_LANGUAGE = "language";
-    public static final String COLUMN_LANGUAGE = "language_name";
+    static final String TABLE_WORD_DESCRIPTION = "word_description";
+    static final String COLUMN_WORD_DESCRIPTION = "word_description";
+    static final String COLUMN_WORD_ID = "word_id";
 
-    public static final String TABLE_WORD_DESCRIPTION = "word_description";
-    public static final String COLUMN_WORD_DESCRIPTION = "word_description";
-    public static final String COLUMN_WORD_ID = "word_id";
-
-    public static final String TABLE_SENTENCE = "sentence";
-    public static final String COLUMN_SENTENCE = "sentence";
+    static final String TABLE_SENTENCE = "sentence";
+    static final String COLUMN_SENTENCE = "sentence";
 
 
     private static final String DATABASE_NAME = "owl_content.db";
     private static final int DATABASE_VERSION = 1;
 
 
-    public DatabaseHelper(Context context) {
+    DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
