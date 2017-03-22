@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +49,7 @@ public class DictionaryPageTwo extends Fragment implements Serializable{
         DictionaryTileAdapter adapter = new DictionaryTileAdapter(getActivity(), handler.getDictionaryEntries());
         GridView dictionaryList = (GridView) view.findViewById(R.id.dictionary_list);
         dictionaryList.setAdapter(adapter);
+        ViewCompat.setNestedScrollingEnabled(dictionaryList,true);
         dictionaryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
