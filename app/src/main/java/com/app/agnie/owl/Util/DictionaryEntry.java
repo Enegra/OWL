@@ -11,6 +11,17 @@ import java.util.ArrayList;
 
 public class DictionaryEntry implements Parcelable {
 
+    public static final Parcelable.Creator<DictionaryEntry> CREATOR = new Parcelable.Creator<DictionaryEntry>() {
+        @Override
+        public DictionaryEntry createFromParcel(Parcel source) {
+            return new DictionaryEntry(source);
+        }
+
+        @Override
+        public DictionaryEntry[] newArray(int size) {
+            return new DictionaryEntry[size];
+        }
+    };
     private int id;
     private String image;
     private String caption;
@@ -40,6 +51,15 @@ public class DictionaryEntry implements Parcelable {
         this.image = image;
         this.exampleSentences = new ArrayList<>();
         this.exampleSentenceTranslations = new ArrayList<>();
+    }
+
+    protected DictionaryEntry(Parcel in) {
+        this.id = in.readInt();
+        this.image = in.readString();
+        this.caption = in.readString();
+        this.captionTranslation = in.readString();
+        this.exampleSentences = in.createStringArrayList();
+        this.exampleSentenceTranslations = in.createStringArrayList();
     }
 
     public String getImage() {
@@ -92,25 +112,4 @@ public class DictionaryEntry implements Parcelable {
         dest.writeStringList(this.exampleSentences);
         dest.writeStringList(this.exampleSentenceTranslations);
     }
-
-    protected DictionaryEntry(Parcel in) {
-        this.id = in.readInt();
-        this.image = in.readString();
-        this.caption = in.readString();
-        this.captionTranslation = in.readString();
-        this.exampleSentences = in.createStringArrayList();
-        this.exampleSentenceTranslations = in.createStringArrayList();
-    }
-
-    public static final Parcelable.Creator<DictionaryEntry> CREATOR = new Parcelable.Creator<DictionaryEntry>() {
-        @Override
-        public DictionaryEntry createFromParcel(Parcel source) {
-            return new DictionaryEntry(source);
-        }
-
-        @Override
-        public DictionaryEntry[] newArray(int size) {
-            return new DictionaryEntry[size];
-        }
-    };
 }

@@ -3,9 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="@dimen/less_tiny_picture_padding"
-    android:paddingStart="@dimen/tiny_picture_padding"
     android:paddingEnd="@dimen/tiny_picture_padding"
-    >
+    android:paddingStart="@dimen/tiny_picture_padding">
 
     <ImageView
         android:id="@+id/dictionary_list_image"
@@ -22,7 +21,7 @@
         android:background="@color/transparentDarkBrown"
         android:gravity="center_horizontal"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        android:textColor="@color/secondaryTextColour"/>
+        android:textColor="@color/secondaryTextColour" />
 
     <TextView
         android:id="@+id/dictionary_list_caption"

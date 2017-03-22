@@ -4,7 +4,7 @@
     tools:context=".Dictionary">
     <item
         android:id="@+id/action_settings"
-        android:title="@string/menu_dictionary_item_settings"
         android:orderInCategory="100"
+        android:title="@string/menu_dictionary_item_settings"
         app:showAsAction="never" />
 </menu>

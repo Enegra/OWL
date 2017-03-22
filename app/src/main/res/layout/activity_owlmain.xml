@@ -9,9 +9,9 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
+        style="@style/AppToolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        style="@style/AppToolbar"
         app:layout_scrollFlags="scroll|enterAlways"
         app:popupTheme="@style/ThemeOverlay.AppCompat" />
 

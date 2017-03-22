@@ -26,20 +26,6 @@ public class DictionaryTileAdapter extends RecyclerView.Adapter<DictionaryTileAd
         this.dictionaryEntries = dictionaryEntries;
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder{
-
-        ImageView dictionaryListImage;
-        TextView dictionaryListCaption;
-        TextView dictionaryListCaptionTranslation;
-
-        ViewHolder(final View itemView){
-            super(itemView);
-            dictionaryListImage = (ImageView) itemView.findViewById(R.id.dictionary_list_image);
-            dictionaryListCaption = (TextView) itemView.findViewById(R.id.dictionary_list_caption);
-            dictionaryListCaptionTranslation = (TextView) itemView.findViewById(R.id.dictionary_list_caption_translation);
-        }
-    }
-
     @Override
     public DictionaryTileAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
@@ -77,6 +63,20 @@ public class DictionaryTileAdapter extends RecyclerView.Adapter<DictionaryTileAd
     @Override
     public int getItemCount() {
         return dictionaryEntries.size();
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder{
+
+        ImageView dictionaryListImage;
+        TextView dictionaryListCaption;
+        TextView dictionaryListCaptionTranslation;
+
+        ViewHolder(final View itemView){
+            super(itemView);
+            dictionaryListImage = (ImageView) itemView.findViewById(R.id.dictionary_list_image);
+            dictionaryListCaption = (TextView) itemView.findViewById(R.id.dictionary_list_caption);
+            dictionaryListCaptionTranslation = (TextView) itemView.findViewById(R.id.dictionary_list_caption_translation);
+        }
     }
 
 }

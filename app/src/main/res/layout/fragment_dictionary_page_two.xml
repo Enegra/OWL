@@ -2,14 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.app.agnie.owl.Fragments.DictionaryPageTwo"
-    android:paddingTop="@dimen/small_text_margin"
+    android:paddingEnd="@dimen/tiny_picture_padding"
     android:paddingStart="@dimen/tiny_picture_padding"
-    android:paddingEnd="@dimen/tiny_picture_padding">
+    android:paddingTop="@dimen/small_text_margin"
+    tools:context="com.app.agnie.owl.Fragments.DictionaryPageTwo">
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/dictionary_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="none">
-    </android.support.v7.widget.RecyclerView>
+        android:scrollbars="none"></android.support.v7.widget.RecyclerView>
 </LinearLayout>

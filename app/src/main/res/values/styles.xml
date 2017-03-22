@@ -9,7 +9,9 @@
         <item name="android:windowBackground">@color/backgroundColour</item>
         <item name="android:textColorPrimary">@color/primaryTextColour</item>
         <item name="colorButtonNormal">@color/transparentBeige</item>
-        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/navigationBarColour</item>
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">
+            @color/navigationBarColour
+        </item>
     </style>
 
     <style name="AppTheme.NoActionBar">

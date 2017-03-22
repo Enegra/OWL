@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_dictionary_item_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.app.agnie.owl.DictionaryItemDetail">
+
     <android.support.design.widget.AppBarLayout
         android:id="@+id/dictionary_item_detail_appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppToolbar">
+
         <android.support.v7.widget.Toolbar
             android:id="@+id/dictionary_item_detail_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/ThemeOverlay.AppCompat"/>
+            app:popupTheme="@style/ThemeOverlay.AppCompat" />
     </android.support.design.widget.AppBarLayout>
+
     <FrameLayout
         android:id="@+id/dictionary_item_frame_placeholder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/dictionary_item_detail_appbar">
-    </FrameLayout>
+        android:layout_below="@id/dictionary_item_detail_appbar"></FrameLayout>
 </RelativeLayout>

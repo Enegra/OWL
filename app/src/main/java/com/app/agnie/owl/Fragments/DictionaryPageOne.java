@@ -12,9 +12,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.app.agnie.owl.Util.DictionaryEntryHandler;
 import com.app.agnie.owl.R;
 import com.app.agnie.owl.Util.DictionaryEntry;
+import com.app.agnie.owl.Util.DictionaryEntryHandler;
 
 import java.util.ArrayList;
 import java.util.Random;
