@@ -16,5 +16,6 @@
 
     <!-- dictionary detail -->
     <string name="dictionary_detail_title">Dictionary Item</string>
+    <string name="dictionary_item_favourite">Add to favourites</string>
 
 </resources>

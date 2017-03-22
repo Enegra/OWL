@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.app.agnie.owl.Fragments.DictionaryItemDetailFragment;
@@ -41,12 +42,20 @@ public class DictionaryItemDetail extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.item_detail_toolbar, menu);
+        return true;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
+                return true;
+            case R.id.action_favorite:
+                //// TODO: 3/22/2017
                 return true;
         }
         return super.onOptionsItemSelected(item);
