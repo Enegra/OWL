@@ -20,7 +20,6 @@ import java.util.ArrayList;
 
 public class Dictionary extends AppCompatActivity implements DictionaryEntryHandler {
 
-    ViewPager viewPager;
     ArrayList<DictionaryEntry> dictionaryEntries;
     DictionaryDataSource dataSource;
 
