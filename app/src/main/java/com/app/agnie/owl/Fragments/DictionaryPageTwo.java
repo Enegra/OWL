@@ -1,19 +1,15 @@
 package com.app.agnie.owl.Fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
-import android.widget.Toast;
 
 import com.app.agnie.owl.Adapters.DictionaryTileAdapter;
-import com.app.agnie.owl.DictionaryItemDetail;
 import com.app.agnie.owl.R;
 import com.app.agnie.owl.Util.DictionaryEntryHandler;
 
@@ -47,18 +43,10 @@ public class DictionaryPageTwo extends Fragment implements Serializable{
 
     private void setupGrid(View view) {
         DictionaryTileAdapter adapter = new DictionaryTileAdapter(getActivity(), handler.getDictionaryEntries());
-        GridView dictionaryList = (GridView) view.findViewById(R.id.dictionary_list);
+        RecyclerView dictionaryList = (RecyclerView) view.findViewById(R.id.dictionary_list);
         dictionaryList.setAdapter(adapter);
-        ViewCompat.setNestedScrollingEnabled(dictionaryList,true);
-        dictionaryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                Toast.makeText(DictionaryPageTwo.this.getContext(), "You Clicked at " + position, Toast.LENGTH_SHORT).show();
-                Intent detailIntent = new Intent(getContext(), DictionaryItemDetail.class);
-                detailIntent.putExtra("selectedEntry", handler.getDictionaryEntry(position));
-                startActivity(detailIntent);
-            }
-        });
+        dictionaryList.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
+        dictionaryList.setHasFixedSize(true);
+
     }
 }

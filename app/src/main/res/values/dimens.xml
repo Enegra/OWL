@@ -3,9 +3,11 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="text_margin">16dp</dimen>
-    <dimen name="small_text_margin">8dp</dimen>
+    <dimen name="small_text_margin">10dp</dimen>
     <dimen name="main_button_padding">16dp</dimen>
     <dimen name="large_picture_padding">32dp</dimen>
     <dimen name="medium_picture_padding">24dp</dimen>
     <dimen name="small_picture_padding">12dp</dimen>
+    <dimen name="tiny_picture_padding">4dp</dimen>
+    <dimen name="less_tiny_picture_padding">6dp</dimen>
 </resources>

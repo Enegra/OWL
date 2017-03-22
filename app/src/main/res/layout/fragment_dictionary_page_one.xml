@@ -15,10 +15,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:paddingStart="@dimen/large_picture_padding"
-        android:paddingEnd="@dimen/large_picture_padding"
-        android:paddingTop="@dimen/medium_picture_padding"
-        android:paddingBottom="@dimen/small_text_margin"
+        android:paddingStart="@dimen/medium_picture_padding"
+        android:paddingEnd="@dimen/medium_picture_padding"
+        android:paddingTop="@dimen/small_picture_padding"
         android:layout_centerInParent="true"
         android:adjustViewBounds="true"
         android:src="@drawable/mug" />
