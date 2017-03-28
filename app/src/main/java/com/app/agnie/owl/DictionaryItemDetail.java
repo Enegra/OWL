@@ -9,14 +9,17 @@ import android.view.MenuItem;
 
 import com.app.agnie.owl.Fragments.DictionaryItemDetailFragment;
 import com.app.agnie.owl.Util.DictionaryEntry;
+import com.app.agnie.owl.Util.SharedPreference;
 
 public class DictionaryItemDetail extends AppCompatActivity {
 
     DictionaryEntry selectedEntry;
+    SharedPreference sharedPreference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPreference = new SharedPreference();
         selectedEntry = getIntent().getParcelableExtra("selectedEntry");
         setContentView(R.layout.activity_dictionary_item_detail);
         setupLayout();
@@ -45,6 +48,9 @@ public class DictionaryItemDetail extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.item_detail_toolbar, menu);
+        if (sharedPreference.getFavorites(getApplicationContext()).contains(selectedEntry)){
+            System.out.println("contains");
+        }
         return true;
     }
 

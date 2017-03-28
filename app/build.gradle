@@ -29,3 +29,11 @@ dependencies {
     compile 'com.android.support:support-v4:25.0.1'
     testCompile 'junit:junit:4.12'
 }
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.google.code.gson:gson:2.4'
+}
