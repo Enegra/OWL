@@ -62,6 +62,10 @@ public class DictionaryEntry implements Parcelable {
         this.exampleSentenceTranslations = in.createStringArrayList();
     }
 
+    public int getId(){
+        return id;
+    }
+
     public String getImage() {
         return image;
     }
