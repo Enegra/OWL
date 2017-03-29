@@ -16,7 +16,7 @@ public class FavouritePreference {
     public FavouritePreference() {
         super();
     }
-    
+
     public void saveFavourites(Context context, ArrayList<DictionaryEntry> favourites) {
         SharedPreferences settings;
         SharedPreferences.Editor editor;
