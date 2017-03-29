@@ -8,16 +8,12 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-/**
- * Created by agnie on 3/23/2017.
- */
+public class FavouritePreference {
 
-public class SharedPreference {
+    private static final String PREFERENCES_NAME = "OWL";
+    private static final String FAVOURITES = "Favourite_Words";
 
-    public static final String PREFERENCES_NAME = "OWL";
-    public static final String FAVOURITES = "Favourite_Words";
-
-    public SharedPreference() {
+    public FavouritePreference() {
         super();
     }
 
@@ -34,23 +30,27 @@ public class SharedPreference {
         editor.apply();
     }
 
-    public void addFavorite(Context context, DictionaryEntry entry) {
-        ArrayList<DictionaryEntry> favourites = getFavorites(context);
-        if (favourites == null)
-            favourites = new ArrayList<>();
-        favourites.add(entry);
-        saveFavourites(context, favourites);
+    public void addFavourite(Context context, DictionaryEntry entry) {
+        ArrayList<DictionaryEntry> favorites = getFavourites(context);
+        if (favorites == null)
+            favorites = new ArrayList<>();
+        favorites.add(entry);
+        saveFavourites(context, favorites);
     }
 
-    public void removeFavorite(Context context, DictionaryEntry entry) {
-        ArrayList<DictionaryEntry> favourites = getFavorites(context);
+    public void removeFavourite(Context context, DictionaryEntry entry) {
+        ArrayList<DictionaryEntry> favourites = getFavourites(context);
         if (favourites != null) {
-            favourites.remove(entry);
+            for (DictionaryEntry favourite : favourites){
+                if (favourite.getImage().equals(entry.getImage())){
+                    favourites.remove(favourite);
+                }
+            }
             saveFavourites(context, favourites);
         }
     }
 
-    public ArrayList<DictionaryEntry> getFavorites(Context context) {
+    public ArrayList<DictionaryEntry> getFavourites(Context context) {
         SharedPreferences settings;
         ArrayList<DictionaryEntry> favourites;
 
@@ -67,6 +67,18 @@ public class SharedPreference {
             return null;
         }
         return favourites;
+    }
+
+    public boolean contains(Context context, DictionaryEntry entry){
+        ArrayList<DictionaryEntry> favourites = getFavourites(context);
+        if (favourites!=null && !favourites.isEmpty()){
+            for (DictionaryEntry favourite : favourites){
+                if (favourite.getImage().equals(entry.getImage())){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }

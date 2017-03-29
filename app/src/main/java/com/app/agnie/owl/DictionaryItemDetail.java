@@ -6,20 +6,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.app.agnie.owl.Fragments.DictionaryItemDetailFragment;
 import com.app.agnie.owl.Util.DictionaryEntry;
-import com.app.agnie.owl.Util.SharedPreference;
+import com.app.agnie.owl.Util.FavouritePreference;
 
 public class DictionaryItemDetail extends AppCompatActivity {
 
-    DictionaryEntry selectedEntry;
-    SharedPreference sharedPreference;
+    private DictionaryEntry selectedEntry;
+    private FavouritePreference favouritePreference;
+    private boolean favourite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sharedPreference = new SharedPreference();
+        favouritePreference = new FavouritePreference();
         selectedEntry = getIntent().getParcelableExtra("selectedEntry");
         setContentView(R.layout.activity_dictionary_item_detail);
         setupLayout();
@@ -48,10 +50,20 @@ public class DictionaryItemDetail extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.item_detail_toolbar, menu);
-        if (sharedPreference.getFavorites(getApplicationContext()).contains(selectedEntry)){
-            System.out.println("contains");
-        }
+        setupFavouriteIcon(menu);
         return true;
+    }
+
+    private void setupFavouriteIcon(Menu menu){
+            if (favouritePreference.contains(getApplicationContext(),selectedEntry)){
+                favourite = true;
+                menu.getItem(0).setIcon(R.drawable.ic_favorite_beige_48dp);
+                Toast.makeText(getApplicationContext(), "CONTAINS", Toast.LENGTH_LONG).show();
+
+            }
+        else {
+                Toast.makeText(getApplicationContext(), "DOESN'T CONTAIN", Toast.LENGTH_LONG).show();
+            }
     }
 
     @Override
@@ -61,7 +73,16 @@ public class DictionaryItemDetail extends AppCompatActivity {
                 onBackPressed();
                 return true;
             case R.id.action_favorite:
-                //// TODO: 3/22/2017
+                if (favourite){
+                    item.setIcon(R.drawable.ic_favorite_border_beige_48dp);
+                    favouritePreference.removeFavourite(getApplicationContext(), selectedEntry);
+                    favourite = false;
+                }
+                else {
+                    item.setIcon(R.drawable.ic_favorite_beige_48dp);
+                    favouritePreference.addFavourite(getApplicationContext(), selectedEntry);
+                    favourite = true;
+                }
                 return true;
         }
         return super.onOptionsItemSelected(item);
