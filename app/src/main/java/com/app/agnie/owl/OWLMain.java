@@ -21,4 +21,9 @@ public class OWLMain extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void enterFavourites(View view){
+        Intent intent = new Intent(this, Favourites.class);
+        startActivity(intent);
+    }
+
 }

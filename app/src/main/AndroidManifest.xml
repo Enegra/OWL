@@ -21,7 +21,9 @@
         <activity
             android:name=".DictionaryItemDetail"
             android:label="@string/dictionary_detail_title" />
-        <activity android:name=".Favourites"></activity>
+        <activity
+            android:name=".Favourites"
+            android:label="Favourites" />
     </application>
 
 </manifest>
