@@ -16,8 +16,7 @@ public class FavouritePreference {
     public FavouritePreference() {
         super();
     }
-
-    // This four methods are used for maintaining favorites.
+    
     public void saveFavourites(Context context, ArrayList<DictionaryEntry> favourites) {
         SharedPreferences settings;
         SharedPreferences.Editor editor;
@@ -42,7 +41,7 @@ public class FavouritePreference {
         ArrayList<DictionaryEntry> favourites = getFavourites(context);
         if (favourites != null) {
             for (DictionaryEntry favourite : favourites){
-                if (favourite.getImage().equals(entry.getImage())){
+                if (favourite.getId() == entry.getId()){
                     favourites.remove(favourite);
                 }
             }
@@ -73,7 +72,7 @@ public class FavouritePreference {
         ArrayList<DictionaryEntry> favourites = getFavourites(context);
         if (favourites!=null && !favourites.isEmpty()){
             for (DictionaryEntry favourite : favourites){
-                if (favourite.getImage().equals(entry.getImage())){
+                if (favourite.getId() == entry.getId()){
                     return true;
                 }
             }
