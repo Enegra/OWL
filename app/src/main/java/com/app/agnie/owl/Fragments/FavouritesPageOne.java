@@ -48,7 +48,6 @@ public class FavouritesPageOne extends Fragment {
         favourites.clear();
         favourites.addAll(favouritePreference.getFavourites(getContext()));
         adapter.notifyDataSetChanged();
-//        favouriteList.setAdapter(adapter);
         Toast.makeText(getContext(), "Welcome back", Toast.LENGTH_SHORT).show();
     }
 
