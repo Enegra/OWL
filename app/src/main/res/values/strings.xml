@@ -12,7 +12,7 @@
     <string name="dictionary_word_sentence_example">Example sentence with the word</string>
     <string name="dictionary_word_sentence_example_translation">Translation of the sentence with the word</string>
     <string name="dictionary_list_header">Dictionary list</string>
-    <string name="menu_dictionary_item_settings">Settings</string>
+    <string name="menu_dictionary_item_menu">Menu</string>
 
     <!-- dictionary detail -->
     <string name="dictionary_detail_title">Dictionary Item</string>

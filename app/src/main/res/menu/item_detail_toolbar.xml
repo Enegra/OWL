@@ -8,10 +8,11 @@
         android:title="@string/dictionary_item_favourite"
         app:showAsAction="ifRoom" />
 
-    <!-- Settings, should always be in the overflow -->
+    <!-- Menu -->
     <item
         android:id="@+id/action_settings"
-        android:title="@string/menu_dictionary_item_settings"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_menu_beige_48dp"
+        android:title="@string/menu_dictionary_item_menu"
+        app:showAsAction="ifRoom" />
 
 </menu>
