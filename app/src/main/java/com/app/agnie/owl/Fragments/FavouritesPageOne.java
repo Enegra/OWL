@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.agnie.owl.Adapters.DictionaryTileAdapter;
 import com.app.agnie.owl.R;
@@ -18,7 +19,10 @@ import java.util.ArrayList;
 
 public class FavouritesPageOne extends Fragment {
 
-    FavouritePreference favouritePreference;
+    private FavouritePreference favouritePreference;
+    private DictionaryTileAdapter adapter;
+    private ArrayList<DictionaryEntry> favourites;
+    private RecyclerView favouriteList;
 
     public FavouritesPageOne() {
         // Required empty public constructor
@@ -38,20 +42,28 @@ public class FavouritesPageOne extends Fragment {
         return view;
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        favourites.clear();
+        favourites.addAll(favouritePreference.getFavourites(getContext()));
+        adapter.notifyDataSetChanged();
+//        favouriteList.setAdapter(adapter);
+        Toast.makeText(getContext(), "Welcome back", Toast.LENGTH_SHORT).show();
+    }
 
     private void setupGrid(View view) {
-        ArrayList<DictionaryEntry> favourites = favouritePreference.getFavourites(view.getContext());
-        if (favourites!=null && !favourites.isEmpty()){
-            DictionaryTileAdapter adapter = new DictionaryTileAdapter(getActivity(), favouritePreference.getFavourites(view.getContext()));
-            RecyclerView favouriteList = (RecyclerView) view.findViewById(R.id.favourites_list);
-            favouriteList.setAdapter(adapter);
-            favouriteList.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
-            favouriteList.setHasFixedSize(true);
-        }
-        else {
+        favourites = favouritePreference.getFavourites(view.getContext());
+        adapter = new DictionaryTileAdapter(getActivity(), favourites);
+        favouriteList = (RecyclerView) view.findViewById(R.id.favourites_list);
+        favouriteList.setAdapter(adapter);
+        favouriteList.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
+        favouriteList.setHasFixedSize(true);
+        if (favourites.isEmpty()){
+            favouriteList.setVisibility(View.GONE);
             TextView textView = (TextView)view.findViewById(R.id.favourites_list_textview);
-            textView.setText("Currently you have no favourites");
+            textView.setVisibility(View.VISIBLE);
+            textView.setText(R.string.favourites_no_favourites);
         }
     }
 

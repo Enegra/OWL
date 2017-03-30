@@ -18,6 +18,9 @@
     <string name="dictionary_detail_title">Dictionary Item</string>
     <string name="dictionary_item_favourite">Add to favourites</string>
 
+    <!-- favourites -->
+    <string name="favourites_no_favourites">Currently you have no favourites</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

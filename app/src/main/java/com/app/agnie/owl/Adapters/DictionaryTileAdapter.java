@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.app.agnie.owl.DictionaryItemDetail;
 import com.app.agnie.owl.R;
@@ -35,7 +34,6 @@ public class DictionaryTileAdapter extends RecyclerView.Adapter<DictionaryTileAd
             @Override
             public void onClick(View view) {
                 int position = holder.getAdapterPosition();
-                Toast.makeText(dictionaryItem.getContext(), "You Clicked at " + position, Toast.LENGTH_SHORT).show();
                 Intent detailIntent = new Intent(dictionaryItem.getContext(), DictionaryItemDetail.class);
                 detailIntent.putExtra("selectedEntry", dictionaryEntries.get(position));
                 dictionaryItem.getContext().startActivity(detailIntent);

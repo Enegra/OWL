@@ -31,22 +31,19 @@ public class FavouritePreference {
 
     public void addFavourite(Context context, DictionaryEntry entry) {
         ArrayList<DictionaryEntry> favorites = getFavourites(context);
-        if (favorites == null)
-            favorites = new ArrayList<>();
         favorites.add(entry);
         saveFavourites(context, favorites);
     }
 
     public void removeFavourite(Context context, DictionaryEntry entry) {
         ArrayList<DictionaryEntry> favourites = getFavourites(context);
-        if (favourites != null) {
+        ArrayList<DictionaryEntry> newFavourites = new ArrayList<>();
             for (DictionaryEntry favourite : favourites){
-                if (favourite.getId() == entry.getId()){
-                    favourites.remove(favourite);
+                if (favourite.getId() != entry.getId()){
+                    newFavourites.add(favourite);
                 }
             }
-            saveFavourites(context, favourites);
-        }
+            saveFavourites(context, newFavourites);
     }
 
     public ArrayList<DictionaryEntry> getFavourites(Context context) {
@@ -63,20 +60,18 @@ public class FavouritePreference {
                     DictionaryEntry[].class);
             favourites = new ArrayList<>(Arrays.asList(favoriteItems));
         } else {
-            return null;
+            return new ArrayList<>();
         }
         return favourites;
     }
 
     public boolean contains(Context context, DictionaryEntry entry){
         ArrayList<DictionaryEntry> favourites = getFavourites(context);
-        if (favourites!=null && !favourites.isEmpty()){
             for (DictionaryEntry favourite : favourites){
                 if (favourite.getId() == entry.getId()){
                     return true;
                 }
             }
-        }
         return false;
     }
 

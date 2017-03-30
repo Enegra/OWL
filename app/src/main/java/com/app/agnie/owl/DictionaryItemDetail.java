@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.app.agnie.owl.Fragments.DictionaryItemDetailFragment;
 import com.app.agnie.owl.Util.DictionaryEntry;
@@ -58,11 +57,6 @@ public class DictionaryItemDetail extends AppCompatActivity {
             if (favouritePreference.contains(getApplicationContext(),selectedEntry)){
                 favourite = true;
                 menu.getItem(0).setIcon(R.drawable.ic_favorite_beige_48dp);
-                Toast.makeText(getApplicationContext(), "CONTAINS", Toast.LENGTH_LONG).show();
-
-            }
-        else {
-                Toast.makeText(getApplicationContext(), "DOESN'T CONTAIN", Toast.LENGTH_LONG).show();
             }
     }
 
