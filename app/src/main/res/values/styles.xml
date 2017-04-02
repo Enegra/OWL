@@ -12,6 +12,7 @@
         <item name="android:navigationBarColor" tools:targetApi="lollipop">
             @color/navigationBarColour
         </item>
+        <item name="android:popupBackground">@color/transparentBeige</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

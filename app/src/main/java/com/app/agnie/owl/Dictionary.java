@@ -73,7 +73,7 @@ public class Dictionary extends AppCompatActivity implements DictionaryEntryHand
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_dictionary, menu);
+        getMenuInflater().inflate(R.menu.menu_default, menu);
         return true;
     }
 

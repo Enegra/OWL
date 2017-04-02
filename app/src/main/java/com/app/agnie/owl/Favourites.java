@@ -5,6 +5,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.app.agnie.owl.Adapters.TabsPagerAdapter;
@@ -41,6 +42,12 @@ public class Favourites extends AppCompatActivity {
         tabsPagerAdapter.addFragment(new FavouritesPageOne(), "Words");
         tabsPagerAdapter.addFragment(new FavouritesPageTwo(), "Lessons");
         viewPager.setAdapter(tabsPagerAdapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_default, menu);
+        return true;
     }
 
     @Override
