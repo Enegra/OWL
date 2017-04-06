@@ -32,5 +32,7 @@
     <string name="nav_favourites">Favourites</string>
     <string name="nav_settings">Settings</string>
     <string name="nav_about">About us</string>
+    <string name="nav_header_title">One With Language</string>
+    <string name="nav_header_subtitle">A language learning app</string>
 
 </resources>
