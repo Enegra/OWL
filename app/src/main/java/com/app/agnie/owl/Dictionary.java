@@ -78,7 +78,7 @@ public class Dictionary extends AppCompatActivity implements DictionaryEntryHand
     }
 
     private void setupDrawer(){
-        drawerLayout = (DrawerLayout)findViewById(R.id.item_detail_drawer_layout);
+        drawerLayout = (DrawerLayout)findViewById(R.id.dictionary_drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setCheckedItem(R.id.nav_dictionary);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
