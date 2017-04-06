@@ -22,7 +22,6 @@ public class DictionaryItemDetail extends AppCompatActivity {
     private FavouritePreference favouritePreference;
     private boolean favourite;
     private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +56,7 @@ public class DictionaryItemDetail extends AppCompatActivity {
 
     private void setupDrawer(){
         drawerLayout = (DrawerLayout)findViewById(R.id.item_detail_drawer_layout);
-        navigationView = (NavigationView)findViewById(R.id.nav_view);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setCheckedItem(R.id.nav_dictionary);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override

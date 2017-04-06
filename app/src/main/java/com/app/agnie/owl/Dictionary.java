@@ -1,8 +1,13 @@
 package com.app.agnie.owl;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -20,8 +25,9 @@ import java.util.ArrayList;
 
 public class Dictionary extends AppCompatActivity implements DictionaryEntryHandler {
 
-    ArrayList<DictionaryEntry> dictionaryEntries;
-    DictionaryDataSource dataSource;
+    private ArrayList<DictionaryEntry> dictionaryEntries;
+    private DictionaryDataSource dataSource;
+    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +56,7 @@ public class Dictionary extends AppCompatActivity implements DictionaryEntryHand
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
-
+        setupDrawer();
         ViewPager viewPager = (ViewPager) findViewById(R.id.dictionary_viewpager);
         setupTabPager(viewPager);
         TabLayout tabs = (TabLayout) findViewById(R.id.dictionary_tabs);
@@ -69,6 +75,37 @@ public class Dictionary extends AppCompatActivity implements DictionaryEntryHand
         dataSource.open();
         dataSource.createInitialValues(this);
         dictionaryEntries = dataSource.getDictionaryEntries("polish", "english");
+    }
+
+    private void setupDrawer(){
+        drawerLayout = (DrawerLayout)findViewById(R.id.item_detail_drawer_layout);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setCheckedItem(R.id.nav_dictionary);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                selectDrawerItem(item);
+                return true;
+            }
+        });
+    }
+
+    private void selectDrawerItem(MenuItem item){
+        Intent intent;
+        switch (item.getItemId()){
+            case R.id.nav_home:
+                intent = new Intent(this, OWLMain.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_dictionary:
+                intent = new Intent(this, Dictionary.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_favourites:
+                intent = new Intent(this, Favourites.class);
+                startActivity(intent);
+                break;
+        }
     }
 
     @Override
@@ -109,6 +146,9 @@ public class Dictionary extends AppCompatActivity implements DictionaryEntryHand
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
+                return true;
+            case R.id.action_menu:
+                drawerLayout.openDrawer(GravityCompat.END);
                 return true;
         }
         return super.onOptionsItemSelected(item);
