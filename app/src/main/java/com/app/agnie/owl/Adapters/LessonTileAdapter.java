@@ -2,6 +2,7 @@ package com.app.agnie.owl.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,15 +14,18 @@ import com.app.agnie.owl.R;
 import com.app.agnie.owl.Util.Lesson;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class LessonTileAdapter extends RecyclerView.Adapter<LessonTileAdapter.ViewHolder> {
 
     private Context context;
     private ArrayList<Lesson> lessons;
+    private String[] colours = {"#80e2e5", "#ff9933", "#ff9999", "#aa80ff"};
 
     public LessonTileAdapter(Context context, ArrayList<Lesson> lessons) {
         this.context = context;
         this.lessons = lessons;
+
     }
 
     @Override
@@ -44,7 +48,10 @@ public class LessonTileAdapter extends RecyclerView.Adapter<LessonTileAdapter.Vi
 
     @Override
     public void onBindViewHolder(LessonTileAdapter.ViewHolder holder, int position) {
-        
+        //set background here
+        Random random = new Random();
+        LinearLayout rootLayout = holder.rootLayout;
+        rootLayout.setBackgroundColor(Color.parseColor(colours[random.nextInt(colours.length)]));
         Lesson lesson = lessons.get(position);
         TextView lessonCaption = holder.lessonCaption;
         lessonCaption.setText(lesson.getCaption());

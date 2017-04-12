@@ -12,6 +12,15 @@ public class Lesson implements Parcelable {
     private String caption;
     private String subtitle;
 
+    public Lesson(int id, String language, String translation, String content, String caption, String subtitle) {
+        this.id = id;
+        this.language = language;
+        this.translation = translation;
+        this.content = content;
+        this.caption = caption;
+        this.subtitle = subtitle;
+    }
+
     public String getLanguage() {
         return language;
     }
