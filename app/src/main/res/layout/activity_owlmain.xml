@@ -47,6 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawableTop="@drawable/dictionary_icon"
+                android:onClick="enterLessons"
                 android:padding="@dimen/main_button_padding"
                 android:text="@string/main_lessons_button_text" />
         </LinearLayout>

@@ -19,6 +19,7 @@
     <string name="dictionary_item_favourite">Add to favourites</string>
 
     <!-- favourites -->
+    <string name="favourites_title">Favourites</string>
     <string name="favourites_no_favourites">Currently you have no favourites</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -35,4 +36,6 @@
     <string name="nav_header_title">One With Language</string>
     <string name="nav_header_subtitle">A language learning app</string>
 
+    <!-- lessons -->
+    <string name="lessons_title">Lessons</string>
 </resources>

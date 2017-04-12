@@ -23,7 +23,10 @@
             android:label="@string/dictionary_detail_title" />
         <activity
             android:name=".Favourites"
-            android:label="Favourites" />
+            android:label="@string/favourites_title" />
+        <activity
+            android:name=".Lessons"
+            android:label="@string/lessons_title" />
     </application>
 
 </manifest>
