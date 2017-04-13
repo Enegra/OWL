@@ -105,6 +105,10 @@ public class Dictionary extends AppCompatActivity implements DictionaryEntryHand
                 intent = new Intent(this, Favourites.class);
                 startActivity(intent);
                 break;
+            case R.id.nav_lessons:
+                intent = new Intent(this, Lessons.class);
+                startActivity(intent);
+                break;
         }
     }
 

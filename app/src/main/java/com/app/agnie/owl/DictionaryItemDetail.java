@@ -54,8 +54,8 @@ public class DictionaryItemDetail extends AppCompatActivity {
         }
     }
 
-    private void setupDrawer(){
-        drawerLayout = (DrawerLayout)findViewById(R.id.item_detail_drawer_layout);
+    private void setupDrawer() {
+        drawerLayout = (DrawerLayout) findViewById(R.id.item_detail_drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setCheckedItem(R.id.nav_dictionary);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -67,9 +67,9 @@ public class DictionaryItemDetail extends AppCompatActivity {
         });
     }
 
-    private void selectDrawerItem(MenuItem item){
+    private void selectDrawerItem(MenuItem item) {
         Intent intent;
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.nav_home:
                 intent = new Intent(this, OWLMain.class);
                 startActivity(intent);
@@ -79,24 +79,28 @@ public class DictionaryItemDetail extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.nav_favourites:
-            intent = new Intent(this, Favourites.class);
-            startActivity(intent);
-            break;
+                intent = new Intent(this, Favourites.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_lessons:
+                intent = new Intent(this, Lessons.class);
+                startActivity(intent);
+                break;
         }
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.item_detail_toolbar, menu);
         setupFavouriteIcon(menu);
         return true;
     }
 
-    private void setupFavouriteIcon(Menu menu){
-            if (favouritePreference.contains(getApplicationContext(),selectedEntry)){
-                favourite = true;
-                menu.getItem(0).setIcon(R.drawable.ic_favorite_beige_48dp);
-            }
+    private void setupFavouriteIcon(Menu menu) {
+        if (favouritePreference.contains(getApplicationContext(), selectedEntry)) {
+            favourite = true;
+            menu.getItem(0).setIcon(R.drawable.ic_favorite_beige_48dp);
+        }
     }
 
     @Override
@@ -106,12 +110,11 @@ public class DictionaryItemDetail extends AppCompatActivity {
                 onBackPressed();
                 return true;
             case R.id.action_favorite:
-                if (favourite){
+                if (favourite) {
                     item.setIcon(R.drawable.ic_favorite_border_beige_48dp);
                     favouritePreference.removeFavourite(getApplicationContext(), selectedEntry);
                     favourite = false;
-                }
-                else {
+                } else {
                     item.setIcon(R.drawable.ic_favorite_beige_48dp);
                     favouritePreference.addFavourite(getApplicationContext(), selectedEntry);
                     favourite = true;
