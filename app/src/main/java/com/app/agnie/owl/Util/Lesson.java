@@ -11,14 +11,20 @@ public class Lesson implements Parcelable {
     private String content;
     private String caption;
     private String subtitle;
+    private int category;
 
-    public Lesson(int id, String language, String translation, String content, String caption, String subtitle) {
+    public Lesson(int id, String language, String translation, String content, String caption, String subtitle, int category) {
         this.id = id;
         this.language = language;
         this.translation = translation;
         this.content = content;
         this.caption = caption;
         this.subtitle = subtitle;
+        this.category = category;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getLanguage() {
@@ -61,6 +67,14 @@ public class Lesson implements Parcelable {
         this.subtitle = subtitle;
     }
 
+    public int getCategory() {
+        return category;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -74,6 +88,7 @@ public class Lesson implements Parcelable {
         dest.writeString(this.content);
         dest.writeString(this.caption);
         dest.writeString(this.subtitle);
+        dest.writeInt(this.category);
     }
 
     public Lesson() {
@@ -86,6 +101,7 @@ public class Lesson implements Parcelable {
         this.content = in.readString();
         this.caption = in.readString();
         this.subtitle = in.readString();
+        this.category = in.readInt();
     }
 
     public static final Parcelable.Creator<Lesson> CREATOR = new Parcelable.Creator<Lesson>() {

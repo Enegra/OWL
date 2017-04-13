@@ -7,6 +7,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -63,7 +64,7 @@ public class Lessons extends AppCompatActivity {
         LessonTileAdapter adapter = new LessonTileAdapter(getApplicationContext(), lessons);
         RecyclerView lessonList = (RecyclerView) findViewById(R.id.lessons_list);
         lessonList.setAdapter(adapter);
-        lessonList.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+        lessonList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         lessonList.setHasFixedSize(true);
     }
 
@@ -99,10 +100,10 @@ public class Lessons extends AppCompatActivity {
     }
 
     private void prepareLessons(){
-        Lesson lessonOne = new Lesson(1, "polish", "english", "", "Powitania", "Basic lesson on greetings");
-        Lesson lessonTwo = new Lesson(2, "polish", "english", "", "Pogoda", "Weather-related vocabulary");
-        Lesson lessonThree = new Lesson(3, "polish", "english", "", "Zaimki osobowe", "Personal pronouns explained");
-        Lesson lessonFour = new Lesson(3, "polish", "english", "", "Zaimki osobowe", "Personal pronouns explained");
+        Lesson lessonOne = new Lesson(1, "polish", "english", "", "Powitania", "Basic lesson on greetings", 0);
+        Lesson lessonTwo = new Lesson(2, "polish", "english", "", "Pogoda", "Weather-related vocabulary", 1);
+        Lesson lessonThree = new Lesson(3, "polish", "english", "", "Zaimki osobowe", "Personal pronouns explained", 2);
+        Lesson lessonFour = new Lesson(4, "polish", "english", "", "Jedzenie", "Food-related vocabulary", 1);
         lessons = new ArrayList<>();
         lessons.add(lessonOne);
         lessons.add(lessonTwo);
