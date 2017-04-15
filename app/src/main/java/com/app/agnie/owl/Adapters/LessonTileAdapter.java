@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.app.agnie.owl.LessonDetail;
 import com.app.agnie.owl.R;
 import com.app.agnie.owl.Util.Lesson;
 
@@ -37,9 +39,10 @@ public class LessonTileAdapter extends RecyclerView.Adapter<LessonTileAdapter.Vi
             @Override
             public void onClick(View view) {
                 int position = holder.getAdapterPosition();
-//                Intent detailIntent = new Intent(lessonItem.getContext(), DictionaryItemDetail.class);
-//                detailIntent.putExtra("selectedEntry", dictionaryEntries.get(position));
-//                lessonItem.getContext().startActivity(detailIntent);
+                Intent detailIntent = new Intent(lessonItem.getContext(), LessonDetail.class);
+                detailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                detailIntent.putExtra("selectedLesson", lessons.get(position));
+                lessonItem.getContext().startActivity(detailIntent);
                 Toast.makeText(lessonItem.getContext(), "Clicked on " + position, Toast.LENGTH_SHORT).show();
             }
         });

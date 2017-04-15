@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:fillViewport="true"
     android:scrollbars="none"
-    tools:context="com.app.agnie.owl.Fragments.DictionaryPageOne">
+    tools:context="com.app.agnie.owl.Fragments.DictionaryItemDetailFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
