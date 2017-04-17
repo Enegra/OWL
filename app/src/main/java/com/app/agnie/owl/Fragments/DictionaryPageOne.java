@@ -34,7 +34,7 @@ public class DictionaryPageOne extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState){
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         setupLayout();
     }
 
@@ -49,41 +49,41 @@ public class DictionaryPageOne extends Fragment {
     }
 
 
-    private void setupLayout(){
-        if (!handler.isEmpty()){
+    private void setupLayout() {
+        if (!handler.isEmpty()) {
             Random random = new Random();
             int chosenIndex = random.nextInt(handler.getEntriesCount());
             DictionaryEntry dictionaryEntry = handler.getDictionaryEntry(chosenIndex);
             View parent = getView();
             setupImage(parent, handler.getImageID(chosenIndex));
-            setupCaption(parent,dictionaryEntry);
+            setupCaption(parent, dictionaryEntry);
             setupSentences(parent, dictionaryEntry);
         }
     }
 
-    private void setupImage(View view, int id){
-        ImageView imageView =(ImageView)view.findViewById(R.id.dictionary_screech_image);
+    private void setupImage(View view, int id) {
+        ImageView imageView = (ImageView) view.findViewById(R.id.dictionary_screech_image);
         imageView.setImageResource(id);
     }
 
-    private void setupCaption(View view, DictionaryEntry dictionaryEntry){
-        TextView caption = (TextView)view.findViewById(R.id.screech_title);
-        TextView captionTranslation = (TextView)view.findViewById(R.id.screech_title_translation);
+    private void setupCaption(View view, DictionaryEntry dictionaryEntry) {
+        TextView caption = (TextView) view.findViewById(R.id.screech_title);
+        TextView captionTranslation = (TextView) view.findViewById(R.id.screech_title_translation);
         caption.setText(dictionaryEntry.getCaption());
         captionTranslation.setText(dictionaryEntry.getCaptionTranslation());
     }
 
-    private void setupSentences(View view, DictionaryEntry dictionaryEntry){
+    private void setupSentences(View view, DictionaryEntry dictionaryEntry) {
         ArrayList<String> sentences = dictionaryEntry.getExampleSentences();
         ArrayList<String> translations = dictionaryEntry.getExampleSentenceTranslations();
-        LinearLayout linearLayout = (LinearLayout)view.findViewById(R.id.screech_linear_layout);
-        for (int i=0; i<sentences.size(); i++){
+        LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.screech_linear_layout);
+        for (int i = 0; i < sentences.size(); i++) {
             setSentence(sentences.get(i), linearLayout);
             setTranslation(translations.get(i), linearLayout);
         }
     }
 
-    private void setSentence(String string, LinearLayout parent){
+    private void setSentence(String string, LinearLayout parent) {
         TextView sentence = new TextView(this.getContext());
         sentence.setText(string);
         sentence.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -92,19 +92,19 @@ public class DictionaryPageOne extends Fragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             sentence.setTextAppearance(android.R.style.TextAppearance_Medium);
         } else {
-            sentence.setTextAppearance(getContext(),android.R.style.TextAppearance_Medium);
+            sentence.setTextAppearance(getContext(), android.R.style.TextAppearance_Medium);
         }
         parent.addView(sentence);
     }
 
-    private void setTranslation(String string, LinearLayout parent){
+    private void setTranslation(String string, LinearLayout parent) {
         TextView sentence = new TextView(this.getContext());
         sentence.setText(string);
         sentence.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             sentence.setTextAppearance(android.R.style.TextAppearance_Small);
         } else {
-            sentence.setTextAppearance(getContext(),android.R.style.TextAppearance_Small);
+            sentence.setTextAppearance(getContext(), android.R.style.TextAppearance_Small);
         }
         sentence.setTypeface(null, Typeface.ITALIC);
         parent.addView(sentence);

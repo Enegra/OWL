@@ -12,6 +12,17 @@ import java.util.ArrayList;
 public class DictionaryEntry implements Parcelable {
 
 
+    public static final Parcelable.Creator<DictionaryEntry> CREATOR = new Parcelable.Creator<DictionaryEntry>() {
+        @Override
+        public DictionaryEntry createFromParcel(Parcel source) {
+            return new DictionaryEntry(source);
+        }
+
+        @Override
+        public DictionaryEntry[] newArray(int size) {
+            return new DictionaryEntry[size];
+        }
+    };
     private int id;
     private String image;
     private byte[] imageContent;
@@ -110,16 +121,4 @@ public class DictionaryEntry implements Parcelable {
         dest.writeStringList(this.exampleSentences);
         dest.writeStringList(this.exampleSentenceTranslations);
     }
-
-    public static final Parcelable.Creator<DictionaryEntry> CREATOR = new Parcelable.Creator<DictionaryEntry>() {
-        @Override
-        public DictionaryEntry createFromParcel(Parcel source) {
-            return new DictionaryEntry(source);
-        }
-
-        @Override
-        public DictionaryEntry[] newArray(int size) {
-            return new DictionaryEntry[size];
-        }
-    };
 }

@@ -34,14 +34,14 @@ public class LessonDetailFragment extends Fragment {
         setupLayout();
     }
 
-    private void setupLayout(){
+    private void setupLayout() {
         View parent = getView();
         setupCaption(parent);
     }
 
-    private void setupCaption(View view){
-        TextView caption = (TextView)view.findViewById(R.id.lesson_detail_title);
-        TextView captionTranslation = (TextView)view.findViewById(R.id.lesson_detail_subtitle);
+    private void setupCaption(View view) {
+        TextView caption = (TextView) view.findViewById(R.id.lesson_detail_title);
+        TextView captionTranslation = (TextView) view.findViewById(R.id.lesson_detail_subtitle);
         caption.setText(selectedLesson.getCaption());
         captionTranslation.setText(selectedLesson.getSubtitle());
     }

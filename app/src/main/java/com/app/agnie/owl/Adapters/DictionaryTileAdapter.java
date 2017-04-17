@@ -63,13 +63,13 @@ public class DictionaryTileAdapter extends RecyclerView.Adapter<DictionaryTileAd
         return dictionaryEntries.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder{
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView dictionaryListImage;
         TextView dictionaryListCaption;
         TextView dictionaryListCaptionTranslation;
 
-        ViewHolder(final View itemView){
+        ViewHolder(final View itemView) {
             super(itemView);
             dictionaryListImage = (ImageView) itemView.findViewById(R.id.dictionary_list_image);
             dictionaryListCaption = (TextView) itemView.findViewById(R.id.dictionary_list_caption);

@@ -56,48 +56,48 @@ class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(database);
     }
 
-    private void createCategory(SQLiteDatabase database){
+    private void createCategory(SQLiteDatabase database) {
         String createCategory = "create table if not exists " + TABLE_CATEGORY + "(" + COLUMN_CATEGORY + " integer primary key);";
         database.execSQL(createCategory);
     }
 
-    private void dropCategory(SQLiteDatabase database){
+    private void dropCategory(SQLiteDatabase database) {
         database.execSQL("drop table if exists " + TABLE_CATEGORY);
     }
 
-    private void createWord(SQLiteDatabase database){
+    private void createWord(SQLiteDatabase database) {
         String createWord = "create table if not exists " + TABLE_WORD + "(" + COLUMN_ID + " integer primary key autoincrement,  " + COLUMN_PICTURE + " text not null, " + COLUMN_PICTURE_CONTENT + " blob" + ");";
         database.execSQL(createWord);
     }
 
-    private void dropWord(SQLiteDatabase database){
+    private void dropWord(SQLiteDatabase database) {
         database.execSQL("drop table if exists " + TABLE_WORD);
     }
 
-    private void createLanguage(SQLiteDatabase database){
+    private void createLanguage(SQLiteDatabase database) {
         String createLanguage = "create table if not exists " + TABLE_LANGUAGE + "(" + COLUMN_LANGUAGE + " text primary key);";
         database.execSQL(createLanguage);
     }
 
-    private void dropLanguage(SQLiteDatabase database){
+    private void dropLanguage(SQLiteDatabase database) {
         database.execSQL("drop table if exists " + TABLE_LANGUAGE);
     }
 
-    private void createWordDescription(SQLiteDatabase database){
-        String createWordDescription = "create table if not exists " + TABLE_WORD_DESCRIPTION + "(" + COLUMN_ID + " integer primary key autoincrement, " + COLUMN_WORD_DESCRIPTION + " text not null, " + COLUMN_WORD_ID + " integer not null, " + COLUMN_LANGUAGE + " text not null, foreign key (" +COLUMN_WORD_ID + ") references " + TABLE_WORD + "(" + COLUMN_ID + "), foreign key (" + COLUMN_LANGUAGE +") references " + TABLE_LANGUAGE + "( " + COLUMN_LANGUAGE + ") );";
+    private void createWordDescription(SQLiteDatabase database) {
+        String createWordDescription = "create table if not exists " + TABLE_WORD_DESCRIPTION + "(" + COLUMN_ID + " integer primary key autoincrement, " + COLUMN_WORD_DESCRIPTION + " text not null, " + COLUMN_WORD_ID + " integer not null, " + COLUMN_LANGUAGE + " text not null, foreign key (" + COLUMN_WORD_ID + ") references " + TABLE_WORD + "(" + COLUMN_ID + "), foreign key (" + COLUMN_LANGUAGE + ") references " + TABLE_LANGUAGE + "( " + COLUMN_LANGUAGE + ") );";
         database.execSQL(createWordDescription);
     }
 
-    private void dropWordDescription(SQLiteDatabase database){
+    private void dropWordDescription(SQLiteDatabase database) {
         database.execSQL("drop table if exists " + TABLE_WORD_DESCRIPTION);
     }
 
-    private void createSentence(SQLiteDatabase database){
-        String createSentence = "create table if not exists " + TABLE_SENTENCE + "(" + COLUMN_ID + " integer primary key autoincrement, " + COLUMN_SENTENCE + " text not null, " + COLUMN_WORD_ID + " integer not null, " + COLUMN_LANGUAGE + " text not null, " + "foreign key (" + COLUMN_WORD_ID + ") references " + TABLE_WORD + "(" + COLUMN_ID + "), foreign key (" + COLUMN_LANGUAGE +") references " + TABLE_LANGUAGE + "( " + COLUMN_LANGUAGE + ") );";
+    private void createSentence(SQLiteDatabase database) {
+        String createSentence = "create table if not exists " + TABLE_SENTENCE + "(" + COLUMN_ID + " integer primary key autoincrement, " + COLUMN_SENTENCE + " text not null, " + COLUMN_WORD_ID + " integer not null, " + COLUMN_LANGUAGE + " text not null, " + "foreign key (" + COLUMN_WORD_ID + ") references " + TABLE_WORD + "(" + COLUMN_ID + "), foreign key (" + COLUMN_LANGUAGE + ") references " + TABLE_LANGUAGE + "( " + COLUMN_LANGUAGE + ") );";
         database.execSQL(createSentence);
     }
 
-    private void dropSentence(SQLiteDatabase database){
+    private void dropSentence(SQLiteDatabase database) {
         database.execSQL("drop table if exists " + TABLE_SENTENCE);
     }
 

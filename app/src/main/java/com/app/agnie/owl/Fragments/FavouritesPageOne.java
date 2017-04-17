@@ -58,9 +58,9 @@ public class FavouritesPageOne extends Fragment {
         favouriteList.setAdapter(adapter);
         favouriteList.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
         favouriteList.setHasFixedSize(true);
-        if (favourites.isEmpty()){
+        if (favourites.isEmpty()) {
             favouriteList.setVisibility(View.GONE);
-            TextView textView = (TextView)view.findViewById(R.id.favourites_list_textview);
+            TextView textView = (TextView) view.findViewById(R.id.favourites_list_textview);
             textView.setVisibility(View.VISIBLE);
             textView.setText(R.string.favourites_no_favourites);
         }

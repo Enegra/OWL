@@ -1,12 +1,12 @@
 package com.app.agnie.owl;
+
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -47,6 +47,7 @@ public class Lessons extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_default, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -68,8 +69,8 @@ public class Lessons extends AppCompatActivity {
         lessonList.setHasFixedSize(true);
     }
 
-    private void setupDrawer(){
-        drawerLayout = (DrawerLayout)findViewById(R.id.lessons_drawer_layout);
+    private void setupDrawer() {
+        drawerLayout = (DrawerLayout) findViewById(R.id.lessons_drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setCheckedItem(R.id.nav_lessons);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -81,9 +82,9 @@ public class Lessons extends AppCompatActivity {
         });
     }
 
-    private void selectDrawerItem(MenuItem item){
+    private void selectDrawerItem(MenuItem item) {
         Intent intent;
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.nav_home:
                 intent = new Intent(this, OWLMain.class);
                 startActivity(intent);
@@ -103,7 +104,7 @@ public class Lessons extends AppCompatActivity {
         }
     }
 
-    private void prepareLessons(){
+    private void prepareLessons() {
         Lesson lessonOne = new Lesson(1, "polish", "english", "", "Powitania", "Basic lesson on greetings", 0);
         Lesson lessonTwo = new Lesson(2, "polish", "english", "", "Pogoda", "Weather-related vocabulary", 1);
         Lesson lessonThree = new Lesson(3, "polish", "english", "", "Zaimki osobowe", "Personal pronouns explained", 2);

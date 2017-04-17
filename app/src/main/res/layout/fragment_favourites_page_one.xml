@@ -2,18 +2,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:paddingEnd="@dimen/tiny_picture_padding"
     android:paddingStart="@dimen/tiny_picture_padding"
     android:paddingTop="@dimen/small_text_margin"
-    android:orientation="vertical"
     tools:context="com.app.agnie.owl.Fragments.FavouritesPageOne">
 
     <TextView
         android:id="@+id/favourites_list_textview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/favourites_list"
         android:layout_width="match_parent"

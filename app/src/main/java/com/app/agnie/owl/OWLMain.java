@@ -12,21 +12,21 @@ public class OWLMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owlmain);
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
 
-    public void enterDictionary(View view){
+    public void enterDictionary(View view) {
         Intent intent = new Intent(this, Dictionary.class);
         startActivity(intent);
     }
 
-    public void enterFavourites(View view){
+    public void enterFavourites(View view) {
         Intent intent = new Intent(this, Favourites.class);
         startActivity(intent);
     }
 
-    public void enterLessons(View view){
+    public void enterLessons(View view) {
         Intent intent = new Intent(this, Lessons.class);
         startActivity(intent);
     }

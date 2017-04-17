@@ -15,7 +15,7 @@ import com.app.agnie.owl.Util.DictionaryEntryHandler;
 
 import java.io.Serializable;
 
-public class DictionaryPageTwo extends Fragment implements Serializable{
+public class DictionaryPageTwo extends Fragment implements Serializable {
 
     DictionaryEntryHandler handler;
 

@@ -5,6 +5,17 @@ import android.os.Parcelable;
 
 public class Lesson implements Parcelable {
 
+    public static final Parcelable.Creator<Lesson> CREATOR = new Parcelable.Creator<Lesson>() {
+        @Override
+        public Lesson createFromParcel(Parcel source) {
+            return new Lesson(source);
+        }
+
+        @Override
+        public Lesson[] newArray(int size) {
+            return new Lesson[size];
+        }
+    };
     private int id;
     private String language;
     private String translation;
@@ -21,6 +32,19 @@ public class Lesson implements Parcelable {
         this.caption = caption;
         this.subtitle = subtitle;
         this.category = category;
+    }
+
+    public Lesson() {
+    }
+
+    protected Lesson(Parcel in) {
+        this.id = in.readInt();
+        this.language = in.readString();
+        this.translation = in.readString();
+        this.content = in.readString();
+        this.caption = in.readString();
+        this.subtitle = in.readString();
+        this.category = in.readInt();
     }
 
     public int getId() {
@@ -90,29 +114,4 @@ public class Lesson implements Parcelable {
         dest.writeString(this.subtitle);
         dest.writeInt(this.category);
     }
-
-    public Lesson() {
-    }
-
-    protected Lesson(Parcel in) {
-        this.id = in.readInt();
-        this.language = in.readString();
-        this.translation = in.readString();
-        this.content = in.readString();
-        this.caption = in.readString();
-        this.subtitle = in.readString();
-        this.category = in.readInt();
-    }
-
-    public static final Parcelable.Creator<Lesson> CREATOR = new Parcelable.Creator<Lesson>() {
-        @Override
-        public Lesson createFromParcel(Parcel source) {
-            return new Lesson(source);
-        }
-
-        @Override
-        public Lesson[] newArray(int size) {
-            return new Lesson[size];
-        }
-    };
 }

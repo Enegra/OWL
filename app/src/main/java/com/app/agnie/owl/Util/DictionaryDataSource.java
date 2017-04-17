@@ -10,7 +10,6 @@ import android.database.sqlite.SQLiteDatabase;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -68,7 +67,7 @@ public class DictionaryDataSource {
         database.insert(DatabaseHelper.TABLE_SENTENCE, null, values);
     }
 
-    private byte[] retrievePictureContent(String pictureName){
+    private byte[] retrievePictureContent(String pictureName) {
         try {
             URL imageUrl = new URL("http://users.jyu.fi/~anvalton/pollo/" + pictureName);
             URLConnection connection = imageUrl.openConnection();
@@ -77,13 +76,13 @@ public class DictionaryDataSource {
             ByteArrayOutputStream buffer = new ByteArrayOutputStream();
             byte[] data = new byte[1024];
             int current = 0;
-            while ((current = bufferedInputStream.read(data, 0, data.length)) !=-1){
+            while ((current = bufferedInputStream.read(data, 0, data.length)) != -1) {
                 buffer.write(data, 0, current);
             }
             return buffer.toByteArray();
         } catch (Exception e) {
             e.printStackTrace();
-    }
+        }
         return null;
     }
 

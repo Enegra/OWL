@@ -45,36 +45,36 @@ public class DictionaryItemDetailFragment extends Fragment {
         setupLayout();
     }
 
-    private void setupLayout(){
-            View parent = getView();
-            setupImage(parent);
-            setupCaption(parent);
-            setupSentences(parent);
+    private void setupLayout() {
+        View parent = getView();
+        setupImage(parent);
+        setupCaption(parent);
+        setupSentences(parent);
     }
 
-    private void setupImage(View view){
-        ImageView imageView =(ImageView)view.findViewById(R.id.dictionary_item_detail_image);
+    private void setupImage(View view) {
+        ImageView imageView = (ImageView) view.findViewById(R.id.dictionary_item_detail_image);
         imageView.setImageResource(getImageID());
     }
 
-    private void setupCaption(View view){
-        TextView caption = (TextView)view.findViewById(R.id.dictionary_item_detail_title);
-        TextView captionTranslation = (TextView)view.findViewById(R.id.dictionary_item_detail_title_translation);
+    private void setupCaption(View view) {
+        TextView caption = (TextView) view.findViewById(R.id.dictionary_item_detail_title);
+        TextView captionTranslation = (TextView) view.findViewById(R.id.dictionary_item_detail_title_translation);
         caption.setText(selectedEntry.getCaption());
         captionTranslation.setText(selectedEntry.getCaptionTranslation());
     }
 
-    private void setupSentences(View view){
+    private void setupSentences(View view) {
         ArrayList<String> sentences = selectedEntry.getExampleSentences();
         ArrayList<String> translations = selectedEntry.getExampleSentenceTranslations();
-        LinearLayout linearLayout = (LinearLayout)view.findViewById(R.id.dictionary_item_detail_linear_layout);
-        for (int i=0; i<sentences.size(); i++){
+        LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.dictionary_item_detail_linear_layout);
+        for (int i = 0; i < sentences.size(); i++) {
             setSentence(sentences.get(i), linearLayout);
             setTranslation(translations.get(i), linearLayout);
         }
     }
 
-    private void setSentence(String string, LinearLayout parent){
+    private void setSentence(String string, LinearLayout parent) {
         TextView sentence = new TextView(this.getContext());
         sentence.setText(string);
         sentence.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -83,19 +83,19 @@ public class DictionaryItemDetailFragment extends Fragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             sentence.setTextAppearance(android.R.style.TextAppearance_Medium);
         } else {
-            sentence.setTextAppearance(getContext(),android.R.style.TextAppearance_Medium);
+            sentence.setTextAppearance(getContext(), android.R.style.TextAppearance_Medium);
         }
         parent.addView(sentence);
     }
 
-    private void setTranslation(String string, LinearLayout parent){
+    private void setTranslation(String string, LinearLayout parent) {
         TextView sentence = new TextView(this.getContext());
         sentence.setText(string);
         sentence.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             sentence.setTextAppearance(android.R.style.TextAppearance_Small);
         } else {
-            sentence.setTextAppearance(getContext(),android.R.style.TextAppearance_Small);
+            sentence.setTextAppearance(getContext(), android.R.style.TextAppearance_Small);
         }
         sentence.setTypeface(null, Typeface.ITALIC);
         parent.addView(sentence);

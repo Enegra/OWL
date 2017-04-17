@@ -1,6 +1,7 @@
 package com.app.agnie.owl;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -8,14 +9,11 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.app.agnie.owl.Adapters.TabsPagerAdapter;
-import com.app.agnie.owl.Fragments.DictionaryPageOne;
-import com.app.agnie.owl.Fragments.DictionaryPageTwo;
 import com.app.agnie.owl.Fragments.FavouritesPageOne;
 import com.app.agnie.owl.Fragments.FavouritesPageTwo;
 
@@ -51,8 +49,8 @@ public class Favourites extends AppCompatActivity {
         viewPager.setAdapter(tabsPagerAdapter);
     }
 
-    private void setupDrawer(){
-        drawerLayout = (DrawerLayout)findViewById(R.id.favourites_drawer_layout);
+    private void setupDrawer() {
+        drawerLayout = (DrawerLayout) findViewById(R.id.favourites_drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setCheckedItem(R.id.nav_favourites);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -64,9 +62,9 @@ public class Favourites extends AppCompatActivity {
         });
     }
 
-    private void selectDrawerItem(MenuItem item){
+    private void selectDrawerItem(MenuItem item) {
         Intent intent;
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.nav_home:
                 intent = new Intent(this, OWLMain.class);
                 startActivity(intent);

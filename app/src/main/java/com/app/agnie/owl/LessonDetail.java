@@ -1,18 +1,17 @@
 package com.app.agnie.owl;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.app.agnie.owl.Fragments.DictionaryItemDetailFragment;
 import com.app.agnie.owl.Fragments.LessonDetailFragment;
 import com.app.agnie.owl.Util.FavouritePreference;
 import com.app.agnie.owl.Util.Lesson;
@@ -55,8 +54,8 @@ public class LessonDetail extends AppCompatActivity {
         }
     }
 
-    private void setupDrawer(){
-        drawerLayout = (DrawerLayout)findViewById(R.id.lesson_detail_drawer_layout);
+    private void setupDrawer() {
+        drawerLayout = (DrawerLayout) findViewById(R.id.lesson_detail_drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setCheckedItem(R.id.nav_lessons);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -82,9 +81,9 @@ public class LessonDetail extends AppCompatActivity {
 //        }
 //    }
 
-    private void selectDrawerItem(MenuItem item){
+    private void selectDrawerItem(MenuItem item) {
         Intent intent;
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.nav_home:
                 intent = new Intent(this, OWLMain.class);
                 startActivity(intent);

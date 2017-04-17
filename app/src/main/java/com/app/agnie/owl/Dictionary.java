@@ -28,7 +28,6 @@ import java.util.ArrayList;
 public class Dictionary extends AppCompatActivity implements DictionaryEntryHandler {
 
     private ArrayList<DictionaryEntry> dictionaryEntries;
-//    private DictionaryDataSource dataSource;
     private DrawerLayout drawerLayout;
 
     @Override
@@ -49,7 +48,7 @@ public class Dictionary extends AppCompatActivity implements DictionaryEntryHand
         setupDrawer();
     }
 
-    private void setupTabs(){
+    private void setupTabs() {
         ViewPager viewPager = (ViewPager) findViewById(R.id.dictionary_viewpager);
         setupTabPager(viewPager);
         TabLayout tabs = (TabLayout) findViewById(R.id.dictionary_tabs);
@@ -63,41 +62,12 @@ public class Dictionary extends AppCompatActivity implements DictionaryEntryHand
         viewPager.setAdapter(tabsPagerAdapter);
     }
 
-    private void setDataSource(){
+    private void setDataSource() {
         new DictionaryRetrievalTask().execute();
     }
 
-    private class DictionaryRetrievalTask extends AsyncTask<Void, Void, Void>{
-
-        ProgressDialog progressDialog = new ProgressDialog(Dictionary.this);
-
-        @Override
-        protected void onPreExecute(){
-            super.onPreExecute();
-            progressDialog.setMessage("\tRetrieving data...");
-            progressDialog.show();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            DictionaryDataSource dataSource = new DictionaryDataSource(Dictionary.this);
-            dataSource.open();
-            dataSource.createInitialValues(Dictionary.this);
-            dictionaryEntries = dataSource.getDictionaryEntries("polish", "english");
-            dataSource.close();
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result){
-            super.onPostExecute(result);
-            setupTabs();
-            progressDialog.dismiss();
-        }
-    }
-
-    private void setupDrawer(){
-        drawerLayout = (DrawerLayout)findViewById(R.id.dictionary_drawer_layout);
+    private void setupDrawer() {
+        drawerLayout = (DrawerLayout) findViewById(R.id.dictionary_drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setCheckedItem(R.id.nav_dictionary);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -109,9 +79,9 @@ public class Dictionary extends AppCompatActivity implements DictionaryEntryHand
         });
     }
 
-    private void selectDrawerItem(MenuItem item){
+    private void selectDrawerItem(MenuItem item) {
         Intent intent;
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.nav_home:
                 intent = new Intent(this, OWLMain.class);
                 startActivity(intent);
@@ -175,6 +145,35 @@ public class Dictionary extends AppCompatActivity implements DictionaryEntryHand
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private class DictionaryRetrievalTask extends AsyncTask<Void, Void, Void> {
+
+        ProgressDialog progressDialog = new ProgressDialog(Dictionary.this);
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog.setMessage("\tRetrieving data...");
+            progressDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            DictionaryDataSource dataSource = new DictionaryDataSource(Dictionary.this);
+            dataSource.open();
+            dataSource.createInitialValues(Dictionary.this);
+            dictionaryEntries = dataSource.getDictionaryEntries("polish", "english");
+            dataSource.close();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            setupTabs();
+            progressDialog.dismiss();
+        }
     }
 
 

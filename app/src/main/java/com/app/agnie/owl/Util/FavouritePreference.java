@@ -38,12 +38,12 @@ public class FavouritePreference {
     public void removeFavourite(Context context, DictionaryEntry entry) {
         ArrayList<DictionaryEntry> favourites = getFavourites(context);
         ArrayList<DictionaryEntry> newFavourites = new ArrayList<>();
-            for (DictionaryEntry favourite : favourites){
-                if (favourite.getId() != entry.getId()){
-                    newFavourites.add(favourite);
-                }
+        for (DictionaryEntry favourite : favourites) {
+            if (favourite.getId() != entry.getId()) {
+                newFavourites.add(favourite);
             }
-            saveFavourites(context, newFavourites);
+        }
+        saveFavourites(context, newFavourites);
     }
 
     public ArrayList<DictionaryEntry> getFavourites(Context context) {
@@ -65,13 +65,13 @@ public class FavouritePreference {
         return favourites;
     }
 
-    public boolean contains(Context context, DictionaryEntry entry){
+    public boolean contains(Context context, DictionaryEntry entry) {
         ArrayList<DictionaryEntry> favourites = getFavourites(context);
-            for (DictionaryEntry favourite : favourites){
-                if (favourite.getId() == entry.getId()){
-                    return true;
-                }
+        for (DictionaryEntry favourite : favourites) {
+            if (favourite.getId() == entry.getId()) {
+                return true;
             }
+        }
         return false;
     }
 
