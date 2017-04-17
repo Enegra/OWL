@@ -1,6 +1,8 @@
 package com.app.agnie.owl;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -26,27 +28,15 @@ import java.util.ArrayList;
 public class Dictionary extends AppCompatActivity implements DictionaryEntryHandler {
 
     private ArrayList<DictionaryEntry> dictionaryEntries;
-    private DictionaryDataSource dataSource;
+//    private DictionaryDataSource dataSource;
     private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setDataSource();
         setContentView(R.layout.activity_dictionary);
         setupLayout();
-    }
-
-    @Override
-    protected void onResume(){
-        dataSource.open();
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause(){
-        dataSource.close();
-        super.onPause();
+        setDataSource();
     }
 
     private void setupLayout() {
@@ -57,6 +47,9 @@ public class Dictionary extends AppCompatActivity implements DictionaryEntryHand
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
         setupDrawer();
+    }
+
+    private void setupTabs(){
         ViewPager viewPager = (ViewPager) findViewById(R.id.dictionary_viewpager);
         setupTabPager(viewPager);
         TabLayout tabs = (TabLayout) findViewById(R.id.dictionary_tabs);
@@ -71,10 +64,36 @@ public class Dictionary extends AppCompatActivity implements DictionaryEntryHand
     }
 
     private void setDataSource(){
-        dataSource = new DictionaryDataSource(this);
-        dataSource.open();
-        dataSource.createInitialValues(this);
-        dictionaryEntries = dataSource.getDictionaryEntries("polish", "english");
+        new DictionaryRetrievalTask().execute();
+    }
+
+    private class DictionaryRetrievalTask extends AsyncTask<Void, Void, Void>{
+
+        ProgressDialog progressDialog = new ProgressDialog(Dictionary.this);
+
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+            progressDialog.setMessage("\tRetrieving data...");
+            progressDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            DictionaryDataSource dataSource = new DictionaryDataSource(Dictionary.this);
+            dataSource.open();
+            dataSource.createInitialValues(Dictionary.this);
+            dictionaryEntries = dataSource.getDictionaryEntries("polish", "english");
+            dataSource.close();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result){
+            super.onPostExecute(result);
+            setupTabs();
+            progressDialog.dismiss();
+        }
     }
 
     private void setupDrawer(){

@@ -13,6 +13,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
     static final String TABLE_WORD = "word";
     static final String COLUMN_ID = "id";
     static final String COLUMN_PICTURE = "picture_name";
+    static final String COLUMN_PICTURE_CONTENT = "picture_content";
 
     static final String TABLE_LANGUAGE = "language";
     static final String COLUMN_LANGUAGE = "language_name";
@@ -65,7 +66,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void createWord(SQLiteDatabase database){
-        String createWord = "create table if not exists " + TABLE_WORD + "(" + COLUMN_ID + " integer primary key autoincrement,  " + COLUMN_PICTURE + " text not null);";
+        String createWord = "create table if not exists " + TABLE_WORD + "(" + COLUMN_ID + " integer primary key autoincrement,  " + COLUMN_PICTURE + " text not null, " + COLUMN_PICTURE_CONTENT + " blob" + ");";
         database.execSQL(createWord);
     }
 
