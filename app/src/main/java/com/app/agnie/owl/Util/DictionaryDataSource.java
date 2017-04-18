@@ -74,7 +74,7 @@ public class DictionaryDataSource {
             InputStream inputStream = connection.getInputStream();
             BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
             ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-            byte[] data = new byte[1024];
+            byte[] data = new byte[128];
             int current = 0;
             while ((current = bufferedInputStream.read(data, 0, data.length)) != -1) {
                 buffer.write(data, 0, current);

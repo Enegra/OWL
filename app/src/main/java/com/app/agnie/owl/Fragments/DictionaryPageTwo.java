@@ -10,29 +10,26 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.app.agnie.owl.Adapters.DictionaryTileAdapter;
+import com.app.agnie.owl.Dictionary;
 import com.app.agnie.owl.R;
-import com.app.agnie.owl.Util.DictionaryEntryHandler;
+import com.app.agnie.owl.Util.DictionaryEntry;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class DictionaryPageTwo extends Fragment implements Serializable {
 
-    DictionaryEntryHandler handler;
+    ArrayList<DictionaryEntry> dictionaryEntries;
 
     public DictionaryPageTwo() {
         // Required empty public constructor
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-        setRetainInstance(true);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dictionary_page_two, container, false);
+        dictionaryEntries = ((Dictionary)getActivity()).getDictionaryEntries();
         setupGrid(view);
         return view;
     }
@@ -40,19 +37,14 @@ public class DictionaryPageTwo extends Fragment implements Serializable {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        try {
-            handler = (DictionaryEntryHandler) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement DictionaryEntryHandler");
-        }
+        setRetainInstance(true);
     }
 
     private void setupGrid(View view) {
-        DictionaryTileAdapter adapter = new DictionaryTileAdapter(getActivity(), handler.getDictionaryEntries());
+        DictionaryTileAdapter adapter = new DictionaryTileAdapter(getActivity(), dictionaryEntries);
         RecyclerView dictionaryList = (RecyclerView) view.findViewById(R.id.dictionary_list);
         dictionaryList.setAdapter(adapter);
         dictionaryList.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
         dictionaryList.setHasFixedSize(true);
-
     }
 }

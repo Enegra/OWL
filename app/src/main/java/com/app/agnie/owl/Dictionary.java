@@ -21,31 +21,34 @@ import com.app.agnie.owl.Fragments.DictionaryPageOne;
 import com.app.agnie.owl.Fragments.DictionaryPageTwo;
 import com.app.agnie.owl.Util.DictionaryDataSource;
 import com.app.agnie.owl.Util.DictionaryEntry;
-import com.app.agnie.owl.Util.DictionaryEntryHandler;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 
-public class Dictionary extends AppCompatActivity implements DictionaryEntryHandler {
+public class Dictionary extends AppCompatActivity {
 
     private ArrayList<DictionaryEntry> dictionaryEntries;
     private DrawerLayout drawerLayout;
     private static final String DICTIONARY_FRAGMENT_ONE = "Daily Screech";
     private static final String DICTIONARY_FRAGMENT_TWO = "Dictionary List";
-    private static final String DICTIONARY_DATA = "dictionary_data";
+    private static final String DICTIONARY_DATA = "DICTIONARY_DATA";
+    private static final String FEATURED_ENTRY = "FEATURED_ENTRY";
+    private int featuredEntry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dictionary);
+        setupLayout();
         if (savedInstanceState!=null){
             dictionaryEntries = savedInstanceState.getParcelableArrayList(DICTIONARY_DATA);
+            featuredEntry = savedInstanceState.getInt(FEATURED_ENTRY);
             setupTabs();
         }
         else {
             setDataSource();
         }
-        setupLayout();
     }
 
     private void setupLayout() {
@@ -68,14 +71,18 @@ public class Dictionary extends AppCompatActivity implements DictionaryEntryHand
     private void setupTabPager(ViewPager viewPager) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         TabsPagerAdapter tabsPagerAdapter = new TabsPagerAdapter(fragmentManager);
-        DictionaryPageOne dictionaryPageOne = (DictionaryPageOne)tabsPagerAdapter.findFragmentByTitle(DICTIONARY_FRAGMENT_ONE);
-        DictionaryPageTwo dictionaryPageTwo = (DictionaryPageTwo)tabsPagerAdapter.findFragmentByTitle(DICTIONARY_FRAGMENT_TWO);
-        if (dictionaryPageOne == null){
-            tabsPagerAdapter.addFragment(new DictionaryPageOne(), DICTIONARY_FRAGMENT_ONE);
-        }
-        if (dictionaryPageTwo==null){
-            tabsPagerAdapter.addFragment(new DictionaryPageTwo(), DICTIONARY_FRAGMENT_TWO);
-        }
+        Bundle bundleOne = new Bundle();
+        Random random = new Random();
+        featuredEntry = random.nextInt(dictionaryEntries.size());
+        bundleOne.putParcelable(FEATURED_ENTRY, dictionaryEntries.get(featuredEntry));
+        DictionaryPageOne dictionaryPageOne = new DictionaryPageOne();
+        dictionaryPageOne.setArguments(bundleOne);
+        tabsPagerAdapter.addFragment(dictionaryPageOne, DICTIONARY_FRAGMENT_ONE);
+        Bundle bundleTwo = new Bundle();
+        bundleTwo.putParcelableArrayList(DICTIONARY_DATA, dictionaryEntries);
+        DictionaryPageTwo dictionaryPageTwo = new DictionaryPageTwo();
+        dictionaryPageTwo.setArguments(bundleTwo);
+        tabsPagerAdapter.addFragment(dictionaryPageTwo, DICTIONARY_FRAGMENT_TWO);
         viewPager.setAdapter(tabsPagerAdapter);
     }
 
@@ -125,31 +132,6 @@ public class Dictionary extends AppCompatActivity implements DictionaryEntryHand
     }
 
     @Override
-    public DictionaryEntry getDictionaryEntry(int index) {
-        return dictionaryEntries.get(index);
-    }
-
-    @Override
-    public int getEntriesCount() {
-        return dictionaryEntries.size();
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return dictionaryEntries.isEmpty();
-    }
-
-    @Override
-    public byte[] getImageContent(int index){
-        return dictionaryEntries.get(index).getImageContent();
-    }
-
-    @Override
-    public ArrayList<DictionaryEntry> getDictionaryEntries() {
-        return dictionaryEntries;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -193,7 +175,13 @@ public class Dictionary extends AppCompatActivity implements DictionaryEntryHand
 
     @Override
     protected void onSaveInstanceState (Bundle outState) {
+        super.onSaveInstanceState(outState);
         outState.putParcelableArrayList(DICTIONARY_DATA, dictionaryEntries);
+        outState.putInt(FEATURED_ENTRY, featuredEntry);
+    }
+
+    public ArrayList<DictionaryEntry> getDictionaryEntries(){
+        return dictionaryEntries;
     }
 
 }

@@ -15,28 +15,24 @@ import android.widget.TextView;
 
 import com.app.agnie.owl.R;
 import com.app.agnie.owl.Util.DictionaryEntry;
-import com.app.agnie.owl.Util.DictionaryEntryHandler;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class DictionaryPageOne extends Fragment {
 
-    DictionaryEntryHandler handler;
+    private DictionaryEntry featuredEntry;
 
     public DictionaryPageOne() {
         // Required empty public constructor
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-        setRetainInstance(true);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Bundle bundle = this.getArguments();
+        if (bundle!=null){
+            featuredEntry = bundle.getParcelable("FEATURED_ENTRY");
+        }
         return inflater.inflate(R.layout.fragment_dictionary_page_one, container, false);
     }
 
@@ -48,24 +44,17 @@ public class DictionaryPageOne extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        try {
-            handler = (DictionaryEntryHandler) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement DictionaryEntryHandler");
-        }
+        setRetainInstance(true);
     }
 
 
     private void setupLayout() {
-        if (!handler.isEmpty()) {
-            Random random = new Random();
-            int chosenIndex = random.nextInt(handler.getEntriesCount());
-            DictionaryEntry dictionaryEntry = handler.getDictionaryEntry(chosenIndex);
             View parent = getView();
-            setupImage(parent, dictionaryEntry);
-            setupCaption(parent, dictionaryEntry);
-            setupSentences(parent, dictionaryEntry);
-        }
+            if (featuredEntry!=null){
+                setupImage(parent, featuredEntry);
+                setupCaption(parent, featuredEntry);
+                setupSentences(parent, featuredEntry);
+            }
     }
 
     private void setupImage(View view, DictionaryEntry dictionaryEntry) {
