@@ -12,17 +12,6 @@ import java.util.ArrayList;
 public class DictionaryEntry implements Parcelable {
 
 
-    public static final Parcelable.Creator<DictionaryEntry> CREATOR = new Parcelable.Creator<DictionaryEntry>() {
-        @Override
-        public DictionaryEntry createFromParcel(Parcel source) {
-            return new DictionaryEntry(source);
-        }
-
-        @Override
-        public DictionaryEntry[] newArray(int size) {
-            return new DictionaryEntry[size];
-        }
-    };
     private int id;
     private String image;
     private byte[] imageContent;
@@ -30,15 +19,6 @@ public class DictionaryEntry implements Parcelable {
     private String captionTranslation;
     private ArrayList<String> exampleSentences;
     private ArrayList<String> exampleSentenceTranslations;
-
-    public DictionaryEntry(String image, String caption, byte[] imageContent, String captionTranslation, ArrayList<String> exampleSentences, ArrayList<String> exampleSentenceTranslations) {
-        this.image = image;
-        this.imageContent = imageContent;
-        this.caption = caption;
-        this.captionTranslation = captionTranslation;
-        this.exampleSentences = exampleSentences;
-        this.exampleSentenceTranslations = exampleSentenceTranslations;
-    }
 
     public DictionaryEntry(int id, String image, byte[] imageContent, String caption, String captionTranslation, ArrayList<String> exampleSentences, ArrayList<String> exampleSentenceTranslations) {
         this.id = id;
@@ -58,21 +38,16 @@ public class DictionaryEntry implements Parcelable {
         this.exampleSentenceTranslations = new ArrayList<>();
     }
 
-    protected DictionaryEntry(Parcel in) {
-        this.id = in.readInt();
-        this.image = in.readString();
-        this.caption = in.readString();
-        this.captionTranslation = in.readString();
-        this.exampleSentences = in.createStringArrayList();
-        this.exampleSentenceTranslations = in.createStringArrayList();
-    }
-
     public int getId() {
         return id;
     }
 
     public String getImage() {
         return image;
+    }
+
+    public byte[] getImageContent() {
+        return imageContent;
     }
 
     public String getCaption() {
@@ -116,9 +91,32 @@ public class DictionaryEntry implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.id);
         dest.writeString(this.image);
+        dest.writeByteArray(this.imageContent);
         dest.writeString(this.caption);
         dest.writeString(this.captionTranslation);
         dest.writeStringList(this.exampleSentences);
         dest.writeStringList(this.exampleSentenceTranslations);
     }
+
+    protected DictionaryEntry(Parcel in) {
+        this.id = in.readInt();
+        this.image = in.readString();
+        this.imageContent = in.createByteArray();
+        this.caption = in.readString();
+        this.captionTranslation = in.readString();
+        this.exampleSentences = in.createStringArrayList();
+        this.exampleSentenceTranslations = in.createStringArrayList();
+    }
+
+    public static final Creator<DictionaryEntry> CREATOR = new Creator<DictionaryEntry>() {
+        @Override
+        public DictionaryEntry createFromParcel(Parcel source) {
+            return new DictionaryEntry(source);
+        }
+
+        @Override
+        public DictionaryEntry[] newArray(int size) {
+            return new DictionaryEntry[size];
+        }
+    };
 }

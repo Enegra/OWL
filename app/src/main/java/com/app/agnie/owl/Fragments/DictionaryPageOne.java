@@ -1,6 +1,7 @@
 package com.app.agnie.owl.Fragments;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,6 +26,12 @@ public class DictionaryPageOne extends Fragment {
 
     public DictionaryPageOne() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
     }
 
     @Override
@@ -55,15 +62,15 @@ public class DictionaryPageOne extends Fragment {
             int chosenIndex = random.nextInt(handler.getEntriesCount());
             DictionaryEntry dictionaryEntry = handler.getDictionaryEntry(chosenIndex);
             View parent = getView();
-            setupImage(parent, handler.getImageID(chosenIndex));
+            setupImage(parent, dictionaryEntry);
             setupCaption(parent, dictionaryEntry);
             setupSentences(parent, dictionaryEntry);
         }
     }
 
-    private void setupImage(View view, int id) {
+    private void setupImage(View view, DictionaryEntry dictionaryEntry) {
         ImageView imageView = (ImageView) view.findViewById(R.id.dictionary_screech_image);
-        imageView.setImageResource(id);
+        imageView.setImageBitmap(BitmapFactory.decodeByteArray(dictionaryEntry.getImageContent(), 0, dictionaryEntry.getImageContent().length));
     }
 
     private void setupCaption(View view, DictionaryEntry dictionaryEntry) {

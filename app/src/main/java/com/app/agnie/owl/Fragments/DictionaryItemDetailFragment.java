@@ -1,6 +1,7 @@
 package com.app.agnie.owl.Fragments;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -54,7 +55,7 @@ public class DictionaryItemDetailFragment extends Fragment {
 
     private void setupImage(View view) {
         ImageView imageView = (ImageView) view.findViewById(R.id.dictionary_item_detail_image);
-        imageView.setImageResource(getImageID());
+        imageView.setImageBitmap(BitmapFactory.decodeByteArray(selectedEntry.getImageContent(), 0, selectedEntry.getImageContent().length));
     }
 
     private void setupCaption(View view) {
@@ -100,12 +101,5 @@ public class DictionaryItemDetailFragment extends Fragment {
         sentence.setTypeface(null, Typeface.ITALIC);
         parent.addView(sentence);
     }
-
-    private int getImageID() {
-        String[] fileName = selectedEntry.getImage().split("\\.");
-        String imageName = fileName[0];
-        return getResources().getIdentifier(imageName, "drawable", getContext().getPackageName());
-    }
-
 
 }

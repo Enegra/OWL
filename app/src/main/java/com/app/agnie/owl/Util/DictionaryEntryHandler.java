@@ -10,7 +10,7 @@ public interface DictionaryEntryHandler {
 
     boolean isEmpty();
 
-    int getImageID(int index);
+    byte[] getImageContent(int index);
 
     ArrayList<DictionaryEntry> getDictionaryEntries();
 

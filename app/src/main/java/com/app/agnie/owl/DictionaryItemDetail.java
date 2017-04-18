@@ -32,7 +32,6 @@ public class DictionaryItemDetail extends AppCompatActivity {
         setupLayout();
     }
 
-
     private void setupLayout() {
         setupToolbar();
         setupDrawer();

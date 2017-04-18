@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -29,13 +30,22 @@ public class Dictionary extends AppCompatActivity implements DictionaryEntryHand
 
     private ArrayList<DictionaryEntry> dictionaryEntries;
     private DrawerLayout drawerLayout;
+    private static final String DICTIONARY_FRAGMENT_ONE = "Daily Screech";
+    private static final String DICTIONARY_FRAGMENT_TWO = "Dictionary List";
+    private static final String DICTIONARY_DATA = "dictionary_data";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dictionary);
+        if (savedInstanceState!=null){
+            dictionaryEntries = savedInstanceState.getParcelableArrayList(DICTIONARY_DATA);
+            setupTabs();
+        }
+        else {
+            setDataSource();
+        }
         setupLayout();
-        setDataSource();
     }
 
     private void setupLayout() {
@@ -56,9 +66,16 @@ public class Dictionary extends AppCompatActivity implements DictionaryEntryHand
     }
 
     private void setupTabPager(ViewPager viewPager) {
-        TabsPagerAdapter tabsPagerAdapter = new TabsPagerAdapter(getSupportFragmentManager());
-        tabsPagerAdapter.addFragment(new DictionaryPageOne(), "Daily Screech");
-        tabsPagerAdapter.addFragment(new DictionaryPageTwo(), "Dictionary List");
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        TabsPagerAdapter tabsPagerAdapter = new TabsPagerAdapter(fragmentManager);
+        DictionaryPageOne dictionaryPageOne = (DictionaryPageOne)tabsPagerAdapter.findFragmentByTitle(DICTIONARY_FRAGMENT_ONE);
+        DictionaryPageTwo dictionaryPageTwo = (DictionaryPageTwo)tabsPagerAdapter.findFragmentByTitle(DICTIONARY_FRAGMENT_TWO);
+        if (dictionaryPageOne == null){
+            tabsPagerAdapter.addFragment(new DictionaryPageOne(), DICTIONARY_FRAGMENT_ONE);
+        }
+        if (dictionaryPageTwo==null){
+            tabsPagerAdapter.addFragment(new DictionaryPageTwo(), DICTIONARY_FRAGMENT_TWO);
+        }
         viewPager.setAdapter(tabsPagerAdapter);
     }
 
@@ -123,10 +140,8 @@ public class Dictionary extends AppCompatActivity implements DictionaryEntryHand
     }
 
     @Override
-    public int getImageID(int index) {
-        String[] fileName = dictionaryEntries.get(index).getImage().split("\\.");
-        String imageName = fileName[0];
-        return getResources().getIdentifier(imageName, "drawable", getPackageName());
+    public byte[] getImageContent(int index){
+        return dictionaryEntries.get(index).getImageContent();
     }
 
     @Override
@@ -176,6 +191,10 @@ public class Dictionary extends AppCompatActivity implements DictionaryEntryHand
         }
     }
 
+    @Override
+    protected void onSaveInstanceState (Bundle outState) {
+        outState.putParcelableArrayList(DICTIONARY_DATA, dictionaryEntries);
+    }
 
 }
 

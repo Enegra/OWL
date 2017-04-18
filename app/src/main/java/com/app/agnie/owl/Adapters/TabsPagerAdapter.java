@@ -30,6 +30,15 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
         fragmentTitleList.add(title);
     }
 
+    public Fragment findFragmentByTitle(String title) {
+        for (int i = 0; i < fragmentTitleList.size(); i++) {
+            if (fragmentTitleList.get(i).equals(title)) {
+                return fragmentList.get(i);
+            }
+        }
+        return null;
+    }
+
     @Override
     public CharSequence getPageTitle(int position) {
         return fragmentTitleList.get(position);
