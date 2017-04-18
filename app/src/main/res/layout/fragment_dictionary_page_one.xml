@@ -19,8 +19,7 @@
             android:adjustViewBounds="true"
             android:paddingEnd="@dimen/medium_picture_padding"
             android:paddingStart="@dimen/medium_picture_padding"
-            android:paddingTop="@dimen/small_picture_padding"
-            android:src="@drawable/mug" />
+            android:paddingTop="@dimen/small_picture_padding" />
 
         <LinearLayout
             android:id="@+id/screech_linear_layout"

@@ -14,7 +14,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.app.agnie.owl.DictionaryItemDetail;
 import com.app.agnie.owl.R;
+import com.app.agnie.owl.Util.CompressionTools;
 import com.app.agnie.owl.Util.DictionaryEntry;
 
 import java.util.ArrayList;
@@ -42,7 +44,7 @@ public class DictionaryItemDetailFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        selectedEntry = getArguments().getParcelable("selectedEntry");
+        selectedEntry = ((DictionaryItemDetail)getActivity()).getSelectedEntry();
         setupLayout();
     }
 
@@ -55,7 +57,10 @@ public class DictionaryItemDetailFragment extends Fragment {
 
     private void setupImage(View view) {
         ImageView imageView = (ImageView) view.findViewById(R.id.dictionary_item_detail_image);
-        imageView.setImageBitmap(BitmapFactory.decodeByteArray(selectedEntry.getImageContent(), 0, selectedEntry.getImageContent().length));
+        byte[] decompressedPicture = CompressionTools.decompress(selectedEntry.getImageContent());
+        if (decompressedPicture != null) {
+            imageView.setImageBitmap(BitmapFactory.decodeByteArray(decompressedPicture, 0, decompressedPicture.length));
+        }
     }
 
     private void setupCaption(View view) {

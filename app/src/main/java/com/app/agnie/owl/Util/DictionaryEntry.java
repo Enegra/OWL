@@ -13,16 +13,14 @@ public class DictionaryEntry implements Parcelable {
 
 
     private int id;
-    private String image;
     private byte[] imageContent;
     private String caption;
     private String captionTranslation;
     private ArrayList<String> exampleSentences;
     private ArrayList<String> exampleSentenceTranslations;
 
-    public DictionaryEntry(int id, String image, byte[] imageContent, String caption, String captionTranslation, ArrayList<String> exampleSentences, ArrayList<String> exampleSentenceTranslations) {
+    public DictionaryEntry(int id, byte[] imageContent, String caption, String captionTranslation, ArrayList<String> exampleSentences, ArrayList<String> exampleSentenceTranslations) {
         this.id = id;
-        this.image = image;
         this.imageContent = imageContent;
         this.caption = caption;
         this.captionTranslation = captionTranslation;
@@ -30,9 +28,8 @@ public class DictionaryEntry implements Parcelable {
         this.exampleSentenceTranslations = exampleSentenceTranslations;
     }
 
-    public DictionaryEntry(int id, String image, byte[] imageContent) {
+    public DictionaryEntry(int id, byte[] imageContent) {
         this.id = id;
-        this.image = image;
         this.imageContent = imageContent;
         this.exampleSentences = new ArrayList<>();
         this.exampleSentenceTranslations = new ArrayList<>();
@@ -40,10 +37,6 @@ public class DictionaryEntry implements Parcelable {
 
     public int getId() {
         return id;
-    }
-
-    public String getImage() {
-        return image;
     }
 
     public byte[] getImageContent() {
@@ -90,7 +83,6 @@ public class DictionaryEntry implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.id);
-        dest.writeString(this.image);
         dest.writeByteArray(this.imageContent);
         dest.writeString(this.caption);
         dest.writeString(this.captionTranslation);
@@ -100,7 +92,6 @@ public class DictionaryEntry implements Parcelable {
 
     protected DictionaryEntry(Parcel in) {
         this.id = in.readInt();
-        this.image = in.readString();
         this.imageContent = in.createByteArray();
         this.caption = in.readString();
         this.captionTranslation = in.readString();

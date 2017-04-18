@@ -3,6 +3,7 @@ package com.app.agnie.owl.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.app.agnie.owl.DictionaryItemDetail;
 import com.app.agnie.owl.R;
+import com.app.agnie.owl.Util.CompressionTools;
 import com.app.agnie.owl.Util.DictionaryEntry;
 
 import java.util.ArrayList;
@@ -36,7 +38,7 @@ public class DictionaryTileAdapter extends RecyclerView.Adapter<DictionaryTileAd
             public void onClick(View view) {
                 int position = holder.getAdapterPosition();
                 Intent detailIntent = new Intent(dictionaryItem.getContext(), DictionaryItemDetail.class);
-                detailIntent.putExtra("selectedEntry", dictionaryEntries.get(position));
+                detailIntent.putExtra("selectedEntry", position);
                 dictionaryItem.getContext().startActivity(detailIntent);
             }
         });
@@ -47,7 +49,10 @@ public class DictionaryTileAdapter extends RecyclerView.Adapter<DictionaryTileAd
     public void onBindViewHolder(DictionaryTileAdapter.ViewHolder holder, int position) {
         DictionaryEntry entry = dictionaryEntries.get(position);
         ImageView dictionaryListImage = holder.dictionaryListImage;
-        dictionaryListImage.setImageBitmap(BitmapFactory.decodeByteArray(entry.getImageContent(), 0, entry.getImageContent().length));
+        byte[] decompressedPicture = CompressionTools.decompress(entry.getImageContent());
+        if (decompressedPicture != null) {
+            dictionaryListImage.setImageBitmap(BitmapFactory.decodeByteArray(decompressedPicture, 0, decompressedPicture.length));
+        }
         TextView dictionaryListCaption = holder.dictionaryListCaption;
         dictionaryListCaption.setText(entry.getCaption());
         TextView dictionaryListCaptionTranslation = holder.dictionaryListCaptionTranslation;

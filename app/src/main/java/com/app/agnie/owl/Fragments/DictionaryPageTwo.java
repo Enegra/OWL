@@ -10,14 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.app.agnie.owl.Adapters.DictionaryTileAdapter;
-import com.app.agnie.owl.Dictionary;
 import com.app.agnie.owl.R;
 import com.app.agnie.owl.Util.DictionaryEntry;
-
-import java.io.Serializable;
+import com.app.agnie.owl.Util.SingletonSession;
 import java.util.ArrayList;
 
-public class DictionaryPageTwo extends Fragment implements Serializable {
+public class DictionaryPageTwo extends Fragment{
 
     ArrayList<DictionaryEntry> dictionaryEntries;
 
@@ -29,7 +27,7 @@ public class DictionaryPageTwo extends Fragment implements Serializable {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dictionary_page_two, container, false);
-        dictionaryEntries = ((Dictionary)getActivity()).getDictionaryEntries();
+        dictionaryEntries = SingletonSession.Instance().getDictionaryData();
         setupGrid(view);
         return view;
     }

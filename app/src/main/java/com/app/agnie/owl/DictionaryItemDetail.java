@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import com.app.agnie.owl.Fragments.DictionaryItemDetailFragment;
 import com.app.agnie.owl.Util.DictionaryEntry;
 import com.app.agnie.owl.Util.FavouritePreference;
+import com.app.agnie.owl.Util.SingletonSession;
 
 public class DictionaryItemDetail extends AppCompatActivity {
 
@@ -27,7 +28,8 @@ public class DictionaryItemDetail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         favouritePreference = new FavouritePreference();
-        selectedEntry = getIntent().getParcelableExtra("selectedEntry");
+        int position = getIntent().getIntExtra("selectedEntry",0);
+        selectedEntry = SingletonSession.Instance().getDictionaryData().get(position);
         setContentView(R.layout.activity_dictionary_item_detail);
         setupLayout();
     }
@@ -36,9 +38,6 @@ public class DictionaryItemDetail extends AppCompatActivity {
         setupToolbar();
         setupDrawer();
         DictionaryItemDetailFragment detailFragment = new DictionaryItemDetailFragment();
-        Bundle arguments = new Bundle();
-        arguments.putParcelable("selectedEntry", selectedEntry);
-        detailFragment.setArguments(arguments);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.dictionary_item_frame_placeholder, detailFragment);
         fragmentTransaction.commit();
@@ -124,5 +123,9 @@ public class DictionaryItemDetail extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public DictionaryEntry getSelectedEntry(){
+        return selectedEntry;
     }
 }

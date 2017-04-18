@@ -21,6 +21,7 @@ import com.app.agnie.owl.Fragments.DictionaryPageOne;
 import com.app.agnie.owl.Fragments.DictionaryPageTwo;
 import com.app.agnie.owl.Util.DictionaryDataSource;
 import com.app.agnie.owl.Util.DictionaryEntry;
+import com.app.agnie.owl.Util.SingletonSession;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -43,6 +44,7 @@ public class Dictionary extends AppCompatActivity {
         setupLayout();
         if (savedInstanceState!=null){
             dictionaryEntries = savedInstanceState.getParcelableArrayList(DICTIONARY_DATA);
+            SingletonSession.Instance().setDictionaryData(dictionaryEntries);
             featuredEntry = savedInstanceState.getInt(FEATURED_ENTRY);
             setupTabs();
         }
@@ -71,17 +73,14 @@ public class Dictionary extends AppCompatActivity {
     private void setupTabPager(ViewPager viewPager) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         TabsPagerAdapter tabsPagerAdapter = new TabsPagerAdapter(fragmentManager);
-        Bundle bundleOne = new Bundle();
+        Bundle bundle = new Bundle();
         Random random = new Random();
         featuredEntry = random.nextInt(dictionaryEntries.size());
-        bundleOne.putParcelable(FEATURED_ENTRY, dictionaryEntries.get(featuredEntry));
+        bundle.putInt(FEATURED_ENTRY, featuredEntry);
         DictionaryPageOne dictionaryPageOne = new DictionaryPageOne();
-        dictionaryPageOne.setArguments(bundleOne);
+        dictionaryPageOne.setArguments(bundle);
         tabsPagerAdapter.addFragment(dictionaryPageOne, DICTIONARY_FRAGMENT_ONE);
-        Bundle bundleTwo = new Bundle();
-        bundleTwo.putParcelableArrayList(DICTIONARY_DATA, dictionaryEntries);
         DictionaryPageTwo dictionaryPageTwo = new DictionaryPageTwo();
-        dictionaryPageTwo.setArguments(bundleTwo);
         tabsPagerAdapter.addFragment(dictionaryPageTwo, DICTIONARY_FRAGMENT_TWO);
         viewPager.setAdapter(tabsPagerAdapter);
     }
@@ -161,6 +160,7 @@ public class Dictionary extends AppCompatActivity {
             dataSource.open();
             dataSource.createInitialValues(Dictionary.this);
             dictionaryEntries = dataSource.getDictionaryEntries("polish", "english");
+            SingletonSession.Instance().setDictionaryData(dictionaryEntries);
             dataSource.close();
             return null;
         }
@@ -178,10 +178,6 @@ public class Dictionary extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putParcelableArrayList(DICTIONARY_DATA, dictionaryEntries);
         outState.putInt(FEATURED_ENTRY, featuredEntry);
-    }
-
-    public ArrayList<DictionaryEntry> getDictionaryEntries(){
-        return dictionaryEntries;
     }
 
 }

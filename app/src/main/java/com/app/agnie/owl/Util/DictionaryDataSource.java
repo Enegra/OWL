@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
@@ -40,8 +41,8 @@ public class DictionaryDataSource {
     void addWord(String wordPicture) {
         ContentValues values = new ContentValues();
         byte[] pictureContent = retrievePictureContent(wordPicture);
-        values.put(DatabaseHelper.COLUMN_PICTURE, wordPicture);
-        values.put(DatabaseHelper.COLUMN_PICTURE_CONTENT, pictureContent);
+        byte[] compressedPicture = CompressionTools.compress(pictureContent);
+        values.put(DatabaseHelper.COLUMN_PICTURE_CONTENT, compressedPicture);
         database.insert(DatabaseHelper.TABLE_WORD, null, values);
     }
 
@@ -75,12 +76,15 @@ public class DictionaryDataSource {
             BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
             ByteArrayOutputStream buffer = new ByteArrayOutputStream();
             byte[] data = new byte[128];
-            int current = 0;
+            int current;
             while ((current = bufferedInputStream.read(data, 0, data.length)) != -1) {
                 buffer.write(data, 0, current);
             }
+            bufferedInputStream.close();
+            inputStream.close();
+            buffer.close();
             return buffer.toByteArray();
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
@@ -147,7 +151,7 @@ public class DictionaryDataSource {
     public ArrayList<DictionaryEntry> getDictionaryEntries(String language, String interfaceLanguage) {
         ArrayList<DictionaryEntry> dictionaryEntries = new ArrayList<>();
 //        Cursor cursor = database.query(DatabaseHelper.TABLE_WORD, null, null, null, null, null, null);
-        Cursor cursor = database.rawQuery("select word_id, picture_name, picture_content, word_description, language_name from word join word_description on word.id=word_description.word_id", null);
+        Cursor cursor = database.rawQuery("select word_id, picture_content, word_description, language_name from word join word_description on word.id=word_description.word_id", null);
         Cursor sentenceCursor = database.rawQuery("select * from sentence order by word_id, id asc", null);
         sentenceCursor.moveToFirst();
         cursor.moveToFirst();
@@ -155,9 +159,8 @@ public class DictionaryDataSource {
         while (!cursor.isAfterLast()) {
             int id = cursor.getInt(cursor.getColumnIndex("word_id"));
             if (id != last) {
-                String picture = cursor.getString(cursor.getColumnIndex("picture_name"));
                 byte[] pictureContent = cursor.getBlob(cursor.getColumnIndex("picture_content"));
-                DictionaryEntry newEntry = new DictionaryEntry(id, picture, pictureContent);
+                DictionaryEntry newEntry = new DictionaryEntry(id, pictureContent);
                 dictionaryEntries.add(newEntry);
             }
             String wordLanguage = cursor.getString(cursor.getColumnIndex("language_name"));

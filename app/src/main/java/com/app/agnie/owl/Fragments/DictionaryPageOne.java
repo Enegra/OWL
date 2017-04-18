@@ -14,7 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.app.agnie.owl.R;
+import com.app.agnie.owl.Util.CompressionTools;
 import com.app.agnie.owl.Util.DictionaryEntry;
+import com.app.agnie.owl.Util.SingletonSession;
 
 import java.util.ArrayList;
 
@@ -31,7 +33,8 @@ public class DictionaryPageOne extends Fragment {
                              Bundle savedInstanceState) {
         Bundle bundle = this.getArguments();
         if (bundle!=null){
-            featuredEntry = bundle.getParcelable("FEATURED_ENTRY");
+            int featuredIndex = bundle.getInt("FEATURED_ENTRY",0);
+            featuredEntry = SingletonSession.Instance().getDictionaryData().get(featuredIndex);
         }
         return inflater.inflate(R.layout.fragment_dictionary_page_one, container, false);
     }
@@ -59,7 +62,10 @@ public class DictionaryPageOne extends Fragment {
 
     private void setupImage(View view, DictionaryEntry dictionaryEntry) {
         ImageView imageView = (ImageView) view.findViewById(R.id.dictionary_screech_image);
-        imageView.setImageBitmap(BitmapFactory.decodeByteArray(dictionaryEntry.getImageContent(), 0, dictionaryEntry.getImageContent().length));
+        byte[] decompressedPicture = CompressionTools.decompress(dictionaryEntry.getImageContent());
+        if (decompressedPicture != null) {
+            imageView.setImageBitmap(BitmapFactory.decodeByteArray(decompressedPicture, 0, decompressedPicture.length));
+        }
     }
 
     private void setupCaption(View view, DictionaryEntry dictionaryEntry) {
