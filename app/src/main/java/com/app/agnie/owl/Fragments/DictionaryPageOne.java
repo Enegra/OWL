@@ -44,13 +44,6 @@ public class DictionaryPageOne extends Fragment {
         setupLayout();
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        setRetainInstance(true);
-    }
-
-
     private void setupLayout() {
             View parent = getView();
             if (featuredEntry!=null){

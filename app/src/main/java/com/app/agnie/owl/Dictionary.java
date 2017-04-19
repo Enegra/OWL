@@ -33,7 +33,6 @@ public class Dictionary extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private static final String DICTIONARY_FRAGMENT_ONE = "Daily Screech";
     private static final String DICTIONARY_FRAGMENT_TWO = "Dictionary List";
-    private static final String DICTIONARY_DATA = "DICTIONARY_DATA";
     private static final String FEATURED_ENTRY = "FEATURED_ENTRY";
     private int featuredEntry;
 
@@ -42,14 +41,15 @@ public class Dictionary extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dictionary);
         setupLayout();
-        if (savedInstanceState!=null){
-            dictionaryEntries = savedInstanceState.getParcelableArrayList(DICTIONARY_DATA);
-            SingletonSession.Instance().setDictionaryData(dictionaryEntries);
+        if (savedInstanceState != null) {
             featuredEntry = savedInstanceState.getInt(FEATURED_ENTRY);
-            setupTabs();
         }
-        else {
+        if (SingletonSession.Instance().getDictionaryData() != null) {
+            dictionaryEntries = SingletonSession.Instance().getDictionaryData();
+            setupTabs();
+        } else {
             setDataSource();
+            SingletonSession.Instance().setDictionaryData(dictionaryEntries);
         }
     }
 
@@ -174,9 +174,8 @@ public class Dictionary extends AppCompatActivity {
     }
 
     @Override
-    protected void onSaveInstanceState (Bundle outState) {
+    protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList(DICTIONARY_DATA, dictionaryEntries);
         outState.putInt(FEATURED_ENTRY, featuredEntry);
     }
 

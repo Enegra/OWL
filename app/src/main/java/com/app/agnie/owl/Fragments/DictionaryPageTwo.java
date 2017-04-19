@@ -1,6 +1,4 @@
 package com.app.agnie.owl.Fragments;
-
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -30,12 +28,6 @@ public class DictionaryPageTwo extends Fragment{
         dictionaryEntries = SingletonSession.Instance().getDictionaryData();
         setupGrid(view);
         return view;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        setRetainInstance(true);
     }
 
     private void setupGrid(View view) {

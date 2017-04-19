@@ -90,16 +90,16 @@ public class DictionaryItemDetail extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.item_detail_toolbar, menu);
-        setupFavouriteIcon(menu);
+//        setupFavouriteIcon(menu);
         return true;
     }
 
-    private void setupFavouriteIcon(Menu menu) {
-        if (favouritePreference.contains(getApplicationContext(), selectedEntry)) {
-            favourite = true;
-            menu.getItem(0).setIcon(R.drawable.ic_favorite_beige_48dp);
-        }
-    }
+//    private void setupFavouriteIcon(Menu menu) {
+//        if (favouritePreference.contains(getApplicationContext(), selectedEntry)) {
+//            favourite = true;
+//            menu.getItem(0).setIcon(R.drawable.ic_favorite_beige_48dp);
+//        }
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
