@@ -1,7 +1,7 @@
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:fillViewport="true"
     android:scrollbars="none"
     tools:context="com.app.agnie.owl.Fragments.LessonDetailFragment">
@@ -9,7 +9,7 @@
     <LinearLayout
         android:id="@+id/lesson_detail_linear_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="@dimen/text_margin">
 
@@ -28,5 +28,10 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="@string/dictionary_word_translation" />
+
+            <WebView
+                android:id="@+id/lesson_detail_webview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>
