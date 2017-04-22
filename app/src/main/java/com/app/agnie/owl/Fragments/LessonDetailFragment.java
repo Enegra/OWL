@@ -53,6 +53,7 @@ public class LessonDetailFragment extends Fragment {
     private void setupContent(){
         String htmlFromString = getString(R.string.html_test);
         WebView webView = (WebView)getActivity().findViewById(R.id.lesson_detail_webview);
+//        webView.loadUrl("file:///android_asset/index.html");
         webView.loadDataWithBaseURL("file:///android_asset/", htmlFromString, "text/html", "utf-8", null);
     }
 
