@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.app.agnie.owl.Adapters.LessonTileAdapter;
+import com.app.agnie.owl.Util.DataSource;
 import com.app.agnie.owl.Util.Lesson;
 
 import java.util.ArrayList;
@@ -105,15 +106,20 @@ public class Lessons extends AppCompatActivity {
     }
 
     private void prepareLessons() {
-        Lesson lessonOne = new Lesson(1, "polish", "english", "", "Powitania", "Basic lesson on greetings", 0);
-        Lesson lessonTwo = new Lesson(2, "polish", "english", "", "Pogoda", "Weather-related vocabulary", 1);
-        Lesson lessonThree = new Lesson(3, "polish", "english", "", "Zaimki osobowe", "Personal pronouns explained", 2);
-        Lesson lessonFour = new Lesson(4, "polish", "english", "", "Jedzenie", "Food-related vocabulary", 1);
-        lessons = new ArrayList<>();
-        lessons.add(lessonOne);
-        lessons.add(lessonTwo);
-        lessons.add(lessonThree);
-        lessons.add(lessonFour);
+        DataSource dataSource = new DataSource(getApplicationContext());
+        dataSource.open();
+        dataSource.createInitialLessonValues(getApplicationContext());
+        lessons = dataSource.getLessons("polish", "english");
+        dataSource.close();
+//        Lesson lessonOne = new Lesson(1, "polish", "english", "", "Powitania", "Basic lesson on greetings");
+//        Lesson lessonTwo = new Lesson(2, "polish", "english", "", "Pogoda", "Weather-related vocabulary");
+//        Lesson lessonThree = new Lesson(3, "polish", "english", "", "Zaimki osobowe", "Personal pronouns explained");
+//        Lesson lessonFour = new Lesson(4, "polish", "english", "", "Jedzenie", "Food-related vocabulary");
+//        lessons = new ArrayList<>();
+//        lessons.add(lessonOne);
+//        lessons.add(lessonTwo);
+//        lessons.add(lessonThree);
+//        lessons.add(lessonFour);
     }
 
 }

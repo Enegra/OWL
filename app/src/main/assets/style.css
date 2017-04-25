@@ -1,4 +1,21 @@
 body {
-background-color: #5b493b;
+background-color: #68594e;
 color: #f9e1cf;
+font-family: roboto;
+font-size: 18px;
+}
+
+h1 {
+font-size: 22px;
+font-weight: normal;
+}
+
+h2 {
+font-size: 20px;
+font-weight: normal;
+}
+
+.translation {
+font-size: 14px;
+color: #30261f;
 }

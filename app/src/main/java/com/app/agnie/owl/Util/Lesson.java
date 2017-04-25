@@ -24,14 +24,13 @@ public class Lesson implements Parcelable {
     private String subtitle;
     private int category;
 
-    public Lesson(int id, String language, String translation, String content, String caption, String subtitle, int category) {
+    public Lesson(int id, String language, String translation, String content, String caption, String subtitle) {
         this.id = id;
         this.language = language;
         this.translation = translation;
         this.content = content;
         this.caption = caption;
         this.subtitle = subtitle;
-        this.category = category;
     }
 
     public Lesson() {

@@ -19,7 +19,7 @@ import android.view.MenuItem;
 import com.app.agnie.owl.Adapters.TabsPagerAdapter;
 import com.app.agnie.owl.Fragments.DictionaryPageOne;
 import com.app.agnie.owl.Fragments.DictionaryPageTwo;
-import com.app.agnie.owl.Util.DictionaryDataSource;
+import com.app.agnie.owl.Util.DataSource;
 import com.app.agnie.owl.Util.DictionaryEntry;
 import com.app.agnie.owl.Util.SingletonSession;
 
@@ -156,10 +156,10 @@ public class Dictionary extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            DictionaryDataSource dataSource = new DictionaryDataSource(Dictionary.this);
+            DataSource dataSource = new DataSource(Dictionary.this);
             dataSource.open();
-            dataSource.createInitialValues(Dictionary.this);
-            dictionaryEntries = dataSource.getDictionaryEntries("polish", "english");
+            dataSource.createInitialDictionaryValues(Dictionary.this);
+            dictionaryEntries = dataSource.getDictionaryEntries("german", "english");
             SingletonSession.Instance().setDictionaryData(dictionaryEntries);
             dataSource.close();
             return null;

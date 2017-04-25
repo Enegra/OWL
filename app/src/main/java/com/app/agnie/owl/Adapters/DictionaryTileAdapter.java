@@ -18,6 +18,8 @@ import com.app.agnie.owl.Util.DictionaryEntry;
 
 import java.util.ArrayList;
 
+import me.grantland.widget.AutofitTextView;
+
 public class DictionaryTileAdapter extends RecyclerView.Adapter<DictionaryTileAdapter.ViewHolder> {
 
     private Context context;
@@ -53,7 +55,7 @@ public class DictionaryTileAdapter extends RecyclerView.Adapter<DictionaryTileAd
         if (decompressedPicture != null) {
             dictionaryListImage.setImageBitmap(BitmapFactory.decodeByteArray(decompressedPicture, 0, decompressedPicture.length));
         }
-        TextView dictionaryListCaption = holder.dictionaryListCaption;
+        AutofitTextView dictionaryListCaption = holder.dictionaryListCaption;
         dictionaryListCaption.setText(entry.getCaption());
         TextView dictionaryListCaptionTranslation = holder.dictionaryListCaptionTranslation;
         dictionaryListCaptionTranslation.setText(entry.getCaptionTranslation());
@@ -72,13 +74,13 @@ public class DictionaryTileAdapter extends RecyclerView.Adapter<DictionaryTileAd
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView dictionaryListImage;
-        TextView dictionaryListCaption;
+        AutofitTextView dictionaryListCaption;
         TextView dictionaryListCaptionTranslation;
 
         ViewHolder(final View itemView) {
             super(itemView);
             dictionaryListImage = (ImageView) itemView.findViewById(R.id.dictionary_list_image);
-            dictionaryListCaption = (TextView) itemView.findViewById(R.id.dictionary_list_caption);
+            dictionaryListCaption = (AutofitTextView) itemView.findViewById(R.id.dictionary_list_caption);
             dictionaryListCaptionTranslation = (TextView) itemView.findViewById(R.id.dictionary_list_caption_translation);
         }
     }

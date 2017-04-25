@@ -22,7 +22,7 @@ public class LessonTileAdapter extends RecyclerView.Adapter<LessonTileAdapter.Vi
 
     private Context context;
     private ArrayList<Lesson> lessons;
-    private String[] colours = {"#80e2e5", "#ff9933", "#ff9999", "#aa80ff"};
+    private String[] colours = {"#4080e2e5", "#40ff9933", "#40ff9999", "#40aa80ff"};
 
     public LessonTileAdapter(Context context, ArrayList<Lesson> lessons) {
         this.context = context;

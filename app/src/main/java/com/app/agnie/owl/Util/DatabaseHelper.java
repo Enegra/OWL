@@ -24,6 +24,12 @@ class DatabaseHelper extends SQLiteOpenHelper {
     static final String TABLE_SENTENCE = "sentence";
     static final String COLUMN_SENTENCE = "sentence";
 
+    static final String TABLE_LESSON = "lesson";
+    static final String COLUMN_CAPTION = "caption";
+    static final String COLUMN_SUBTITLE = "subtitle";
+    static final String COLUMN_ORIGIN_LANGUAGE = "origin_language";
+    static final String COLUMN_TRANSLATION_LANGUAGE = "translation_language";
+    static final String COLUMN_CONTENT = "content";
 
     private static final String DATABASE_NAME = "owl_content.db";
     private static final int DATABASE_VERSION = 1;
@@ -40,6 +46,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
         createLanguage(database);
         createWordDescription(database);
         createSentence(database);
+        createLesson(database);
     }
 
     @Override
@@ -47,6 +54,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
         Log.w(DatabaseHelper.class.getName(),
                 "Upgrading database from version " + oldVersion + " to "
                         + newVersion + ", which will destroy all old data");
+        dropLesson(database);
         dropSentence(database);
         dropWordDescription(database);
         dropLanguage(database);
@@ -100,5 +108,14 @@ class DatabaseHelper extends SQLiteOpenHelper {
         database.execSQL("drop table if exists " + TABLE_SENTENCE);
     }
 
+    private void createLesson(SQLiteDatabase database){
+        String createLesson = "create table if not exists " + TABLE_LESSON + "(" + COLUMN_ID + " integer primary key autoincrement, " + COLUMN_CATEGORY + " integer, " + COLUMN_CAPTION + " text not null, " + COLUMN_SUBTITLE + " text not null, " + COLUMN_CONTENT + " text not null, " + COLUMN_ORIGIN_LANGUAGE + " text not null, " + COLUMN_TRANSLATION_LANGUAGE + " text not null, " + "foreign key (" + COLUMN_ORIGIN_LANGUAGE + ") references " + TABLE_LANGUAGE + "( " + COLUMN_LANGUAGE + "), foreign key (" + COLUMN_TRANSLATION_LANGUAGE + ") references " + TABLE_LANGUAGE + "( " + COLUMN_LANGUAGE + ")) ";
+        database.execSQL(createLesson);
+    }
+
+    private void dropLesson(SQLiteDatabase database){
+        database.execSQL("drop table if exists " + TABLE_LESSON);
+    }
+    
 
 }

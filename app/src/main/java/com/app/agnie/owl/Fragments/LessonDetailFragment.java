@@ -1,15 +1,18 @@
 package com.app.agnie.owl.Fragments;
 
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.Html;
-import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.app.agnie.owl.R;
@@ -40,7 +43,7 @@ public class LessonDetailFragment extends Fragment {
     private void setupLayout() {
         View parent = getView();
         setupCaption(parent);
-        setupContent();
+        setupContent(parent);
     }
 
     private void setupCaption(View view) {
@@ -50,11 +53,29 @@ public class LessonDetailFragment extends Fragment {
         captionTranslation.setText(selectedLesson.getSubtitle());
     }
 
-    private void setupContent(){
+    private void setupContent(View view) {
         String htmlFromString = getString(R.string.html_test);
-        WebView webView = (WebView)getActivity().findViewById(R.id.lesson_detail_webview);
-//        webView.loadUrl("file:///android_asset/index.html");
-        webView.loadDataWithBaseURL("file:///android_asset/", htmlFromString, "text/html", "utf-8", null);
+        WebView webView = (WebView) view.findViewById(R.id.lesson_detail_webview);
+        LessonWebClient webClient = new LessonWebClient();
+        webView.setWebViewClient(webClient);
+//        webView.getSettings().setJavaScriptEnabled(true);
+//        webView.getSettings().setDomStorageEnabled(true);
+        webView.loadDataWithBaseURL("file:///android_asset/", htmlFromString, null, "utf-8", null);
+    }
+
+    private class LessonWebClient extends WebViewClient {
+
+        @SuppressWarnings("deprecation")
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            return false;
+        }
+
+        @TargetApi(Build.VERSION_CODES.N)
+        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request){
+            return false;
+        }
+
     }
 
 }
