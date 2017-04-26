@@ -14,7 +14,7 @@
         android:layout_centerInParent="true"
         android:adjustViewBounds="true" />
 
-    <TextView
+    <me.grantland.widget.AutofitTextView
         android:id="@+id/dictionary_list_caption_translation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,21 +24,12 @@
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:textColor="@color/secondaryTextColour" />
 
-    <!--<TextView-->
-        <!--android:id="@+id/dictionary_list_caption"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_above="@id/dictionary_list_caption_translation"-->
-        <!--android:background="@color/transparentDarkBrown"-->
-        <!--android:gravity="center_horizontal"-->
-        <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />-->
-
     <me.grantland.widget.AutofitTextView
         android:id="@+id/dictionary_list_caption"
-        android:background="@color/transparentDarkBrown"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/dictionary_list_caption_translation"
+        android:background="@color/transparentDarkBrown"
         android:maxLines="1"
         android:gravity="center_horizontal"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"

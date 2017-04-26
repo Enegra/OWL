@@ -110,11 +110,11 @@ public class DictionaryItemDetail extends AppCompatActivity {
             case R.id.action_favorite:
                 if (favourite) {
                     item.setIcon(R.drawable.ic_favorite_border_beige_48dp);
-                    favouritePreference.removeFavourite(getApplicationContext(), selectedEntry);
+                    favouritePreference.removeFavouriteWord(getApplicationContext(), selectedEntry);
                     favourite = false;
                 } else {
                     item.setIcon(R.drawable.ic_favorite_beige_48dp);
-                    favouritePreference.addFavourite(getApplicationContext(), selectedEntry);
+                    favouritePreference.addFavouriteWord(getApplicationContext(), selectedEntry);
                     favourite = true;
                 }
                 return true;

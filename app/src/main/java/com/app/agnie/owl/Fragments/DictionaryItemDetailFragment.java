@@ -45,6 +45,7 @@ public class DictionaryItemDetailFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         selectedEntry = ((DictionaryItemDetail)getActivity()).getSelectedEntry();
+        getActivity().setTitle(selectedEntry.getCaption());
         setupLayout(view);
     }
 

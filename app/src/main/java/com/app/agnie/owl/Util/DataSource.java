@@ -181,10 +181,44 @@ public class DataSource {
     public void createInitialLessonValues(Context context) {
         SharedPreferences preferences = context.getSharedPreferences("OWLData", 0);
         if (!preferences.getBoolean("lessons_fetched", false)) {
-            addLesson("Powitania", "Basic lesson on greetings", "", "polish", "english");
-            addLesson("Pogoda", "Weather-related vocabulary", "", "polish", "english");
-            addLesson("Zaimki osobowe", "Personal pronouns explained", "", "polish", "english");
-            addLesson("Jedzenie", "Food-related vocabulary", "", "polish", "english");
+            String lessonOneContent = " <![CDATA[\n" +
+                    "        <!doctype html>\n" +
+                    "        <head>\n" +
+                    "        <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"/>\n" +
+                    "        </head>\n" +
+                    "        <body>\n" +
+                    "        <section><p>Hallo, ich heiße Anna, Ich komme aus Breslau und ich wohne hier. Ich studiere nicht, ich arbeite als Lektorin.</p>\n" +
+                    "\t\t<p class=\"translation\">Hello, my name is Anna. I am from Wrocław and I live there. I am not studying, I am working as a lecturer.</p>\n" +
+                    "\t\t<p>Wie heißen Sie?</p>\n" +
+                    "\t\t<p class=\"translation\">What is your name?</p>\n" +
+                    "\t\t<p>Woher kommen Sie?</p>\n" +
+                    "\t\t<p class=\"translation\">Where are you from?</p>\n" +
+                    "\t\t<p>Wo wohnen Sie?</p>\n" +
+                    "\t\t<p class=\"translation\">Where do you live?</p>\n" +
+                    "\t\t<p>Studieren Sie oder arbeiten Sie?</p>\n" +
+                    "\t\t<p class=\"translation\">Are you studying or working?</p>\n" +
+                    "\t\t<p>Was studieren Sie? / Wo arbeiten Sie?</p>\n" +
+                    "\t\t<p class=\"translation\">What are you studying? / Where are you working?</p>\n" +
+                    "\t\t<p>Ich bin verheiratet und habe 2 Kinder. Ich habe auch 2 Hunde. Von Beruf bin ich Germanistin.</p>\n" +
+                    "\t\t<p class=\"translation\">I am married and have two children. I also have two dogs. I am a germanist by profession.</p>\n" +
+                    "\t\t<p>Sind Sie verheiratet oder ledig?</p>\n" +
+                    "\t\t<p class=\"translation\">Are you married or single?</p>\n" +
+                    "\t\t<p>Haben Sie Kinder?</p>\n" +
+                    "\t\t<p class=\"translation\">Do you have children?</p>\n" +
+                    "\t\t<p>Haben Sie ein Haustier? Eine Katze? Einen Hund?</p>\n" +
+                    "\t\t<p class=\"translation\">Do you have a pet? A cat? A dog?</p>\n" +
+                    "\t\t<p>Was sind Sie von Beruf?</p>\n" +
+                    "\t\t<p class=\"translation\">What is your profession?</p>\n" +
+                    "\t\t<p>Meine Tochter ist Studentin. Sie heißt Agnes. Sie studiert Informatik. Sie wohnt jetzt in Finnland. Sie arbeitet noch nicht.</p>\n" +
+                    "\t\t<p class=\"translation\">My daughter is a student. Her name is Agnes. She is studying computer science. She lives now in Finland. She doesn't work yet.</p>\n" +
+                    "        </section></body>\n" +
+                    "        </html>\n" +
+                    "        ]]>";
+            addLesson("Die Einführung", "The introduction; basic vocabulary used when meeting a person for the first time", lessonOneContent, "german", "english");
+//            addLesson("Powitania", "Basic lesson on greetings", "", "polish", "english");
+//            addLesson("Pogoda", "Weather-related vocabulary", "", "polish", "english");
+//            addLesson("Zaimki osobowe", "Personal pronouns explained", "", "polish", "english");
+//            addLesson("Jedzenie", "Food-related vocabulary", "", "polish", "english");
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean("lessons_fetched", true);
             editor.apply();

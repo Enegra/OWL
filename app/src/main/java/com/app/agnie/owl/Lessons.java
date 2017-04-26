@@ -109,17 +109,9 @@ public class Lessons extends AppCompatActivity {
         DataSource dataSource = new DataSource(getApplicationContext());
         dataSource.open();
         dataSource.createInitialLessonValues(getApplicationContext());
-        lessons = dataSource.getLessons("polish", "english");
+//        lessons = dataSource.getLessons("polish", "english");
+        lessons = dataSource.getLessons("german", "english");
         dataSource.close();
-//        Lesson lessonOne = new Lesson(1, "polish", "english", "", "Powitania", "Basic lesson on greetings");
-//        Lesson lessonTwo = new Lesson(2, "polish", "english", "", "Pogoda", "Weather-related vocabulary");
-//        Lesson lessonThree = new Lesson(3, "polish", "english", "", "Zaimki osobowe", "Personal pronouns explained");
-//        Lesson lessonFour = new Lesson(4, "polish", "english", "", "Jedzenie", "Food-related vocabulary");
-//        lessons = new ArrayList<>();
-//        lessons.add(lessonOne);
-//        lessons.add(lessonTwo);
-//        lessons.add(lessonThree);
-//        lessons.add(lessonFour);
     }
 
 }

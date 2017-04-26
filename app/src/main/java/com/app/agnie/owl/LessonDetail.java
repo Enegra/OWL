@@ -33,7 +33,6 @@ public class LessonDetail extends AppCompatActivity {
     }
 
     private void setupLayout() {
-        //// TODO: 4/13/2017 fix fragment
         setupToolbar();
         setupDrawer();
         LessonDetailFragment detailFragment = new LessonDetailFragment();
@@ -75,10 +74,10 @@ public class LessonDetail extends AppCompatActivity {
     }
 
     private void setupFavouriteIcon(Menu menu) {
-//        if (favouritePreference.contains(getApplicationContext(), selectedLesson)) {
-//            favourite = true;
-//            menu.getItem(0).setIcon(R.drawable.ic_favorite_beige_48dp);
-//        }
+        if (favouritePreference.contains(getApplicationContext(), selectedLesson)) {
+            favourite = true;
+            menu.getItem(0).setIcon(R.drawable.ic_favorite_beige_48dp);
+        }
     }
 
     private void selectDrawerItem(MenuItem item) {
@@ -109,17 +108,17 @@ public class LessonDetail extends AppCompatActivity {
             case android.R.id.home:
                 onBackPressed();
                 return true;
-//            case R.id.action_favorite:
-//                if (favourite) {
-//                    item.setIcon(R.drawable.ic_favorite_border_beige_48dp);
-//                    favouritePreference.removeFavourite(getApplicationContext(), selectedLesson);
-//                    favourite = false;
-//                } else {
-//                    item.setIcon(R.drawable.ic_favorite_beige_48dp);
-//                    favouritePreference.addFavourite(getApplicationContext(), selectedLesson);
-//                    favourite = true;
-//                }
-//                return true;
+            case R.id.action_favorite:
+                if (favourite) {
+                    item.setIcon(R.drawable.ic_favorite_border_beige_48dp);
+                    favouritePreference.removeFavouriteLesson(getApplicationContext(), selectedLesson);
+                    favourite = false;
+                } else {
+                    item.setIcon(R.drawable.ic_favorite_beige_48dp);
+                    favouritePreference.addFavouriteLesson(getApplicationContext(), selectedLesson);
+                    favourite = true;
+                }
+                return true;
             case R.id.action_menu:
                 drawerLayout.openDrawer(GravityCompat.END);
                 return true;

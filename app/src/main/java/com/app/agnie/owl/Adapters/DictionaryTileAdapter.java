@@ -57,7 +57,7 @@ public class DictionaryTileAdapter extends RecyclerView.Adapter<DictionaryTileAd
         }
         AutofitTextView dictionaryListCaption = holder.dictionaryListCaption;
         dictionaryListCaption.setText(entry.getCaption());
-        TextView dictionaryListCaptionTranslation = holder.dictionaryListCaptionTranslation;
+        AutofitTextView dictionaryListCaptionTranslation = holder.dictionaryListCaptionTranslation;
         dictionaryListCaptionTranslation.setText(entry.getCaptionTranslation());
     }
 
@@ -75,13 +75,13 @@ public class DictionaryTileAdapter extends RecyclerView.Adapter<DictionaryTileAd
 
         ImageView dictionaryListImage;
         AutofitTextView dictionaryListCaption;
-        TextView dictionaryListCaptionTranslation;
+        AutofitTextView dictionaryListCaptionTranslation;
 
         ViewHolder(final View itemView) {
             super(itemView);
             dictionaryListImage = (ImageView) itemView.findViewById(R.id.dictionary_list_image);
             dictionaryListCaption = (AutofitTextView) itemView.findViewById(R.id.dictionary_list_caption);
-            dictionaryListCaptionTranslation = (TextView) itemView.findViewById(R.id.dictionary_list_caption_translation);
+            dictionaryListCaptionTranslation = (AutofitTextView) itemView.findViewById(R.id.dictionary_list_caption_translation);
         }
     }
 

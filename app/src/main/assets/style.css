@@ -19,3 +19,7 @@ font-weight: normal;
 font-size: 14px;
 color: #30261f;
 }
+
+section::first-letter {
+font-size: 200%;
+}

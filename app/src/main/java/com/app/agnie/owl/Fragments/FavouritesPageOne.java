@@ -46,13 +46,13 @@ public class FavouritesPageOne extends Fragment {
     public void onResume() {
         super.onResume();
         favourites.clear();
-        favourites.addAll(favouritePreference.getFavourites(getContext()));
+        favourites.addAll(favouritePreference.getFavouriteWords(getContext()));
         adapter.notifyDataSetChanged();
         Toast.makeText(getContext(), "Welcome back", Toast.LENGTH_SHORT).show();
     }
 
     private void setupGrid(View view) {
-        favourites = favouritePreference.getFavourites(view.getContext());
+        favourites = favouritePreference.getFavouriteWords(view.getContext());
         adapter = new DictionaryTileAdapter(getActivity(), favourites);
         favouriteList = (RecyclerView) view.findViewById(R.id.favourites_list);
         favouriteList.setAdapter(adapter);

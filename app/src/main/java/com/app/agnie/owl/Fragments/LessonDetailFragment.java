@@ -37,24 +37,25 @@ public class LessonDetailFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         selectedLesson = getArguments().getParcelable("selectedLesson");
+        getActivity().setTitle(selectedLesson.getCaption());
         setupLayout();
     }
 
     private void setupLayout() {
         View parent = getView();
-        setupCaption(parent);
+//        setupCaption(parent);
         setupContent(parent);
     }
 
-    private void setupCaption(View view) {
-        TextView caption = (TextView) view.findViewById(R.id.lesson_detail_title);
-        TextView captionTranslation = (TextView) view.findViewById(R.id.lesson_detail_subtitle);
-        caption.setText(selectedLesson.getCaption());
-        captionTranslation.setText(selectedLesson.getSubtitle());
-    }
+//    private void setupCaption(View view) {
+//        TextView caption = (TextView) view.findViewById(R.id.lesson_detail_title);
+//        TextView captionTranslation = (TextView) view.findViewById(R.id.lesson_detail_subtitle);
+//        caption.setText(selectedLesson.getCaption());
+//        captionTranslation.setText(selectedLesson.getSubtitle());
+//    }
 
     private void setupContent(View view) {
-        String htmlFromString = getString(R.string.html_test);
+        String htmlFromString = selectedLesson.getContent();
         WebView webView = (WebView) view.findViewById(R.id.lesson_detail_webview);
         LessonWebClient webClient = new LessonWebClient();
         webView.setWebViewClient(webClient);
