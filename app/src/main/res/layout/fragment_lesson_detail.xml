@@ -1,37 +1,14 @@
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lesson_detail_linear_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:scrollbars="none"
+    android:orientation="vertical"
+    android:padding="@dimen/text_margin"
     tools:context="com.app.agnie.owl.Fragments.LessonDetailFragment">
-
-    <LinearLayout
-        android:id="@+id/lesson_detail_linear_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="@dimen/text_margin">
-
-        <!--<TextView-->
-            <!--android:id="@+id/lesson_detail_title"-->
-            <!--style="@style/TextAppearance.AppCompat.Large"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:gravity="center_horizontal"-->
-            <!--android:text="@string/dictionary_word_header" />-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/lesson_detail_subtitle"-->
-            <!--style="@style/TextAppearance.AppCompat.Small"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:gravity="center_horizontal"-->
-            <!--android:text="@string/dictionary_word_translation" />-->
-
             <WebView
                 android:id="@+id/lesson_detail_webview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
-    </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+</LinearLayout>

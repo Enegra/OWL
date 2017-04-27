@@ -181,7 +181,7 @@ public class DataSource {
     public void createInitialLessonValues(Context context) {
         SharedPreferences preferences = context.getSharedPreferences("OWLData", 0);
         if (!preferences.getBoolean("lessons_fetched", false)) {
-            String lessonOneContent = " <![CDATA[\n" +
+            String lessonOneContent =
                     "        <!doctype html>\n" +
                     "        <head>\n" +
                     "        <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"/>\n" +
@@ -212,9 +212,63 @@ public class DataSource {
                     "\t\t<p>Meine Tochter ist Studentin. Sie heißt Agnes. Sie studiert Informatik. Sie wohnt jetzt in Finnland. Sie arbeitet noch nicht.</p>\n" +
                     "\t\t<p class=\"translation\">My daughter is a student. Her name is Agnes. She is studying computer science. She lives now in Finland. She doesn't work yet.</p>\n" +
                     "        </section></body>\n" +
-                    "        </html>\n" +
-                    "        ]]>";
+                    "        </html>\n";
+            String lessonTwoContent =
+                    "        <!doctype html>\n" +
+                    "        <head>\n" +
+                    "        <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"/>\n" +
+                    "        </head>\n" +
+                    "        <body>\n" +
+                    "        <p>Das Einfamilienhaus</p>\n" +
+                    "\t\t<p class=\"translation\">Detached house</p>\n" +
+                    "\t\t<p>Das Doppelhaus</p>\n" +
+                    "\t\t<p class=\"translation\">Semi-detached house</p>\n" +
+                    "\t\t<p>Das Reihenhaus</p>\n" +
+                    "\t\t<p class=\"translation\">Terraced house</p>\n" +
+                    "\t\t<p>Der Altbau</p>\n" +
+                    "\t\t<p class=\"translation\">Old building</p>\n" +
+                    "\t\t<p>Der Garten</p>\n" +
+                    "\t\t<p class=\"translation\">Garden</p>\n" +
+                    "\t\t<p>Der Hof</p>\n" +
+                    "\t\t<p class=\"translation\">Yard</p>\n" +
+                    "\t\t<p>Die Garage</p>\n" +
+                    "\t\t<p class=\"translation\">Garage</p>\n" +
+                    "\t\t<p>Der Balkon</p>\n" +
+                    "\t\t<p class=\"translation\">Balcony</p>\n" +
+                    "\t\t<p>Das Dach</p>\n" +
+                    "\t\t<p class=\"translation\">Roof</p>\n" +
+                    "\t\t<p>Die Wand</p>\n" +
+                    "\t\t<p class=\"translation\">Wall</p>\n" +
+                    "\t\t<p>Die Decke</p>\n" +
+                    "\t\t<p class=\"translation\">Ceiling</p>\n" +
+                    "\t\t<p>Der Boden</p>\n" +
+                    "\t\t<p class=\"translation\">Floor</p>\n" +
+                    "\t\t<p>Das Erdgeschoss</p>\n" +
+                    "\t\t<p class=\"translation\">Ground floor</p>\n" +
+                    "\t\t<p>Der erste Stock</p>\n" +
+                    "\t\t<p class=\"translation\">First floor</p>\n" +
+                    "\t\t<p>Die Treppe</p>\n" +
+                    "\t\t<p class=\"translation\">Stairs</p>\n" +
+                    "\t\t<p>Die Küche</p>\n" +
+                    "\t\t<p class=\"translation\">Kitchen</p>\n" +
+                    "\t\t<p>Der Flur</p>\n" +
+                    "\t\t<p class=\"translation\">Corridor</p>\n" +
+                    "\t\t<p>Das Wohnzimmer</p>\n" +
+                    "\t\t<p class=\"translation\">Living Room</p>\n" +
+                    "\t\t<p>Das Schlafzimmer</p>\n" +
+                    "\t\t<p class=\"translation\">Sleeping Room</p>\n" +
+                    "\t\t<p>Die Miete</p>\n" +
+                    "\t\t<p class=\"translation\">Rent</p>\n" +
+                    "\t\t<p>Eine Wohnung mieten</p>\n" +
+                    "\t\t<p class=\"translation\">To rent an apartment</p>\n" +
+                    "\t\t<p>Umziehen</p>\n" +
+                    "\t\t<p class=\"translation\">To move</p>\n" +
+                    "\t\t<p>Der Umzug</p>\n" +
+                    "\t\t<p class=\"translation\">Move</p>\n" +
+                    "        </body>\n" +
+                    "        </html>\n";
             addLesson("Die Einführung", "The introduction; basic vocabulary used when meeting a person for the first time", lessonOneContent, "german", "english");
+            addLesson("Die Wohnung", "Home. Vocabulary related to houses and apartments", lessonTwoContent, "german", "english");
 //            addLesson("Powitania", "Basic lesson on greetings", "", "polish", "english");
 //            addLesson("Pogoda", "Weather-related vocabulary", "", "polish", "english");
 //            addLesson("Zaimki osobowe", "Personal pronouns explained", "", "polish", "english");
