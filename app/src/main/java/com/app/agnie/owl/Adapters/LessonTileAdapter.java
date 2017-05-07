@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.agnie.owl.LessonDetail;
@@ -17,6 +16,8 @@ import com.app.agnie.owl.Util.Lesson;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+import me.grantland.widget.AutofitTextView;
 
 public class LessonTileAdapter extends RecyclerView.Adapter<LessonTileAdapter.ViewHolder> {
 
@@ -56,9 +57,9 @@ public class LessonTileAdapter extends RecyclerView.Adapter<LessonTileAdapter.Vi
         LinearLayout rootLayout = holder.rootLayout;
         rootLayout.setBackgroundColor(Color.parseColor(colours[random.nextInt(colours.length)]));
         Lesson lesson = lessons.get(position);
-        TextView lessonCaption = holder.lessonCaption;
+        AutofitTextView lessonCaption = holder.lessonCaption;
         lessonCaption.setText(lesson.getCaption());
-        TextView lessonSubtitle = holder.lessonSubtitle;
+        AutofitTextView lessonSubtitle = holder.lessonSubtitle;
         lessonSubtitle.setText(lesson.getSubtitle());
     }
 
@@ -75,14 +76,14 @@ public class LessonTileAdapter extends RecyclerView.Adapter<LessonTileAdapter.Vi
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         LinearLayout rootLayout;
-        TextView lessonCaption;
-        TextView lessonSubtitle;
+        AutofitTextView lessonCaption;
+        AutofitTextView lessonSubtitle;
 
         ViewHolder(final View itemView) {
             super(itemView);
             rootLayout = (LinearLayout) itemView.findViewById(R.id.lessons_list_item_linear_layout);
-            lessonCaption = (TextView) itemView.findViewById(R.id.lessons_list_caption);
-            lessonSubtitle = (TextView) itemView.findViewById(R.id.lessons_list_subtitle);
+            lessonCaption = (AutofitTextView) itemView.findViewById(R.id.lessons_list_caption);
+            lessonSubtitle = (AutofitTextView) itemView.findViewById(R.id.lessons_list_subtitle);
         }
     }
 }

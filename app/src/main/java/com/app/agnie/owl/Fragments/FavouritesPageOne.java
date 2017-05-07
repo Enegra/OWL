@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.app.agnie.owl.Adapters.DictionaryTileAdapter;
 import com.app.agnie.owl.R;
@@ -48,7 +47,6 @@ public class FavouritesPageOne extends Fragment {
         favourites.clear();
         favourites.addAll(favouritePreference.getFavouriteWords(getContext()));
         adapter.notifyDataSetChanged();
-        Toast.makeText(getContext(), "Welcome back", Toast.LENGTH_SHORT).show();
     }
 
     private void setupGrid(View view) {

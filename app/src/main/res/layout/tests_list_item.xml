@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/lessons_list_item_linear_layout"
+    android:id="@+id/tests_list_item_linear_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginEnd="@dimen/text_margin"
@@ -10,14 +10,14 @@
     android:padding="@dimen/text_margin">
 
     <me.grantland.widget.AutofitTextView
-        android:id="@+id/lessons_list_caption"
+        android:id="@+id/tests_list_caption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
 
     <me.grantland.widget.AutofitTextView
-        android:id="@+id/lessons_list_subtitle"
+        android:id="@+id/tests_list_subtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
