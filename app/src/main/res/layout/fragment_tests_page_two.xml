@@ -3,21 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingEnd="@dimen/tiny_picture_padding"
-    android:paddingStart="@dimen/tiny_picture_padding"
-    android:paddingTop="@dimen/small_text_margin"
-    tools:context="com.app.agnie.owl.Fragments.FavouritesPageTwo">
-
+    tools:context="com.app.agnie.owl.Fragments.TestsPageTwo">
     <TextView
-        android:id="@+id/favourites_list_textview"
+        android:id="@+id/tests_list_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/favourites_list"
+        android:id="@+id/tests_tests_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="none" />
-
 </LinearLayout>

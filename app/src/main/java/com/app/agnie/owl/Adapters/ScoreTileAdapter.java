@@ -7,34 +7,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.agnie.owl.R;
-import com.app.agnie.owl.Util.Test;
+import com.app.agnie.owl.Util.Score;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 import me.grantland.widget.AutofitTextView;
 
-public class TestTileAdapter extends RecyclerView.Adapter<TestTileAdapter.ViewHolder>{
-
+public class ScoreTileAdapter extends RecyclerView.Adapter<ScoreTileAdapter.ViewHolder>{
 
     private Context context;
-    private ArrayList<Test> tests;
+    private ArrayList<Score> scores;
     private String[] colours = {"#4080e2e5", "#40ff9933", "#40ff9999", "#40aa80ff"};
 
-    public TestTileAdapter(Context context, ArrayList<Test> tests) {
+    public ScoreTileAdapter(Context context, ArrayList<Score> scores) {
         this.context = context;
-        this.tests = tests;
-
+        this.scores = scores;
     }
 
     @Override
-    public TestTileAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
+    public ScoreTileAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         final View testsItem = layoutInflater.inflate(R.layout.tests_list_item, parent, false);
-        final TestTileAdapter.ViewHolder holder = new TestTileAdapter.ViewHolder(testsItem);
+        final ScoreTileAdapter.ViewHolder holder = new ScoreTileAdapter.ViewHolder(testsItem);
         testsItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,16 +49,18 @@ public class TestTileAdapter extends RecyclerView.Adapter<TestTileAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(TestTileAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ScoreTileAdapter.ViewHolder holder, int position) {
         //set background here
         Random random = new Random();
         LinearLayout rootLayout = holder.rootLayout;
         rootLayout.setBackgroundColor(Color.parseColor(colours[random.nextInt(colours.length)]));
-        Test test = tests.get(position);
-        AutofitTextView testCaption = holder.testListCaption;
-        testCaption.setText(test.getCaption());
-        AutofitTextView testSubtitle = holder.testListSubtitle;
-        testSubtitle.setText(test.getDescription());
+        Score score = scores.get(position);
+        AutofitTextView scoreCaption = holder.scoreCaption;
+        scoreCaption.setText(score.getCaption());
+        TextView achievedScore = holder.achievedScore;
+        achievedScore.setText(score.getAchievedScore());
+        TextView scoreDate = holder.scoreDate;
+        scoreDate.setText(score.getScoreDate());
     }
 
     @Override
@@ -69,21 +70,24 @@ public class TestTileAdapter extends RecyclerView.Adapter<TestTileAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return tests.size();
+        return scores.size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         LinearLayout rootLayout;
-        AutofitTextView testListCaption;
-        AutofitTextView testListSubtitle;
+        AutofitTextView scoreCaption;
+        TextView achievedScore;
+        TextView scoreDate;
 
         ViewHolder(final View itemView) {
             super(itemView);
-            rootLayout = (LinearLayout) itemView.findViewById(R.id.lessons_list_item_linear_layout);
-            testListCaption = (AutofitTextView) itemView.findViewById(R.id.tests_list_caption);
-            testListSubtitle = (AutofitTextView) itemView.findViewById(R.id.tests_list_subtitle);
+            rootLayout = (LinearLayout) itemView.findViewById(R.id.scores_list_item_linear_layout);
+            scoreCaption = (AutofitTextView) itemView.findViewById(R.id.scores_item_caption);
+            achievedScore = (TextView) itemView.findViewById(R.id.scores_item_attained_score);
+            scoreDate = (TextView) itemView.findViewById(R.id.scores_item_date);
         }
     }
+
 
 }

@@ -67,4 +67,8 @@
         </html>
         ]]>
     </string>
+
+    <!-- tests -->
+    <string name="tests_no_scores">Currently you have no saved scores</string>
+    <string name="tests_no_tests">Currently there are no tests</string>
 </resources>

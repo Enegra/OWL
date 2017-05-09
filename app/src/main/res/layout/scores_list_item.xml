@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scores_list_item_linear_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/text_margin"
+    android:layout_marginStart="@dimen/text_margin"
+    android:layout_marginTop="@dimen/small_text_margin"
+    android:orientation="vertical"
+    android:padding="@dimen/text_margin">
+
+    <me.grantland.widget.AutofitTextView
+        android:id="@+id/scores_item_caption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+    <TextView
+        android:id="@+id/scores_item_attained_score"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:textColor="@color/secondaryTextColour" />
+    <TextView
+        android:id="@+id/scores_item_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/secondaryTextColour"/>
+</LinearLayout>

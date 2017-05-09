@@ -41,6 +41,7 @@ public class DictionaryItemDetail extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.dictionary_item_frame_placeholder, detailFragment);
         fragmentTransaction.commit();
+        setTitle(selectedEntry.getCaption());
     }
 
     private void setupToolbar() {

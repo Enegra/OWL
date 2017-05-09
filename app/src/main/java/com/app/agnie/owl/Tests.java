@@ -14,8 +14,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.app.agnie.owl.Adapters.TabsPagerAdapter;
-import com.app.agnie.owl.Fragments.FavouritesPageOne;
-import com.app.agnie.owl.Fragments.FavouritesPageTwo;
+import com.app.agnie.owl.Fragments.TestsPageOne;
+import com.app.agnie.owl.Fragments.TestsPageTwo;
 
 public class Tests extends AppCompatActivity {
 
@@ -44,8 +44,8 @@ public class Tests extends AppCompatActivity {
 
     private void setupTabPager(ViewPager viewPager) {
         TabsPagerAdapter tabsPagerAdapter = new TabsPagerAdapter(getSupportFragmentManager());
-        tabsPagerAdapter.addFragment(new FavouritesPageOne(), "Words");
-        tabsPagerAdapter.addFragment(new FavouritesPageTwo(), "Lessons");
+        tabsPagerAdapter.addFragment(new TestsPageOne(), "Scores");
+        tabsPagerAdapter.addFragment(new TestsPageTwo(), "Tests");
         viewPager.setAdapter(tabsPagerAdapter);
     }
 

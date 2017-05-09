@@ -30,7 +30,9 @@
             android:name=".Lessons"
             android:label="@string/lessons_title" />
         <activity android:name=".LessonDetail" />
-        <activity android:name=".Tests"></activity>
+        <activity
+            android:name=".Tests"
+            android:label="Tests" />
     </application>
 
 </manifest>
