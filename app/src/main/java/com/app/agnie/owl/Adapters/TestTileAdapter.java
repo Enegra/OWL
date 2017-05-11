@@ -1,6 +1,7 @@
 package com.app.agnie.owl.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.app.agnie.owl.R;
+import com.app.agnie.owl.TestDetail;
 import com.app.agnie.owl.Util.Test;
 
 import java.util.ArrayList;
@@ -39,10 +41,10 @@ public class TestTileAdapter extends RecyclerView.Adapter<TestTileAdapter.ViewHo
             @Override
             public void onClick(View view) {
                 int position = holder.getAdapterPosition();
-//                Intent detailIntent = new Intent(testsItem.getContext(), TestDetail.class);
-//                detailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                detailIntent.putExtra("selectedLesson", lessons.get(position));
-//                testsItem.getContext().startActivity(detailIntent);
+                Intent detailIntent = new Intent(testsItem.getContext(), TestDetail.class);
+                detailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                detailIntent.putExtra("selectedTest", tests.get(position));
+                testsItem.getContext().startActivity(detailIntent);
                 Toast.makeText(testsItem.getContext(), "Clicked on " + position, Toast.LENGTH_SHORT).show();
             }
         });
@@ -80,7 +82,7 @@ public class TestTileAdapter extends RecyclerView.Adapter<TestTileAdapter.ViewHo
 
         ViewHolder(final View itemView) {
             super(itemView);
-            rootLayout = (LinearLayout) itemView.findViewById(R.id.lessons_list_item_linear_layout);
+            rootLayout = (LinearLayout) itemView.findViewById(R.id.tests_list_item_linear_layout);
             testListCaption = (AutofitTextView) itemView.findViewById(R.id.tests_list_caption);
             testListSubtitle = (AutofitTextView) itemView.findViewById(R.id.tests_list_subtitle);
         }

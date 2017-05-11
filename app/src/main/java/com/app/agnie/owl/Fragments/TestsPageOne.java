@@ -35,7 +35,7 @@ public class TestsPageOne extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tests_page_one, container, false);
-        scores = new ArrayList<>();
+        setupDummies();
         setupGrid(view);
         return view;
     }
@@ -52,6 +52,14 @@ public class TestsPageOne extends Fragment {
             textView.setVisibility(View.VISIBLE);
             textView.setText(R.string.tests_no_scores);
         }
+    }
+
+    private void setupDummies(){
+        scores = new ArrayList<>();
+        Score dummy = new Score("Top Score", 150, 140, 0, "1.5.2017");
+        Score newDummy = new Score("Second Score", 150, 145, 0, "3.5.2017");
+        scores.add(dummy);
+        scores.add(newDummy);
     }
 
 }

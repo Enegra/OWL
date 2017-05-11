@@ -32,7 +32,7 @@ public class ScoreTileAdapter extends RecyclerView.Adapter<ScoreTileAdapter.View
     @Override
     public ScoreTileAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        final View testsItem = layoutInflater.inflate(R.layout.tests_list_item, parent, false);
+        final View testsItem = layoutInflater.inflate(R.layout.scores_list_item, parent, false);
         final ScoreTileAdapter.ViewHolder holder = new ScoreTileAdapter.ViewHolder(testsItem);
         testsItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +58,8 @@ public class ScoreTileAdapter extends RecyclerView.Adapter<ScoreTileAdapter.View
         AutofitTextView scoreCaption = holder.scoreCaption;
         scoreCaption.setText(score.getCaption());
         TextView achievedScore = holder.achievedScore;
-        achievedScore.setText(score.getAchievedScore());
+        String scoreSummary = "Achieved score " + score.getAchievedScore() + " out of " + score.getMaxScore() + "!";
+        achievedScore.setText(scoreSummary);
         TextView scoreDate = holder.scoreDate;
         scoreDate.setText(score.getScoreDate());
     }
@@ -84,7 +85,7 @@ public class ScoreTileAdapter extends RecyclerView.Adapter<ScoreTileAdapter.View
             super(itemView);
             rootLayout = (LinearLayout) itemView.findViewById(R.id.scores_list_item_linear_layout);
             scoreCaption = (AutofitTextView) itemView.findViewById(R.id.scores_item_caption);
-            achievedScore = (TextView) itemView.findViewById(R.id.scores_item_attained_score);
+            achievedScore = (TextView) itemView.findViewById(R.id.scores_item_achieved_score);
             scoreDate = (TextView) itemView.findViewById(R.id.scores_item_date);
         }
     }

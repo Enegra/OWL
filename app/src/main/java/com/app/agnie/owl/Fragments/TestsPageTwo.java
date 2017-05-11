@@ -35,7 +35,7 @@ public class TestsPageTwo extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tests_page_two, container, false);
-        tests = new ArrayList<>();
+        createDummyTests();
         setupGrid(view);
         return view;
     }
@@ -50,8 +50,17 @@ public class TestsPageTwo extends Fragment {
             testList.setVisibility(View.GONE);
             TextView textView = (TextView) view.findViewById(R.id.tests_list_textview);
             textView.setVisibility(View.VISIBLE);
-            textView.setText(R.string.tests_no_scores);
+            textView.setText(R.string.tests_no_tests);
         }
+    }
+    
+    private void createDummyTests(){
+        //// TODO: 5/9/2017
+        tests = new ArrayList<>();
+        Test dummyTest = new Test("german", "Leseverstehen", "A test for reading with comprehension, basic level");
+        Test anotherDummyTest = new Test("german", "Leseverstehen 2", "Another reading test");
+        tests.add(dummyTest);
+        tests.add(anotherDummyTest);
     }
 
 
