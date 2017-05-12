@@ -10,13 +10,15 @@ public class Test implements Parcelable {
     private String language;
     private String caption;
     private String description;
+    private String textContent;
     private ArrayList<Question> questions;
     private ArrayList<Answer> answers;
 
-    public Test(String language, String title, String description) {
+    public Test(String language, String title, String description, String textContent) {
         this.language = language;
         this.caption = title;
         this.description = description;
+        this.textContent = textContent;
         questions = new ArrayList<>();
         answers = new ArrayList<>();
     }
@@ -41,6 +43,10 @@ public class Test implements Parcelable {
         return description;
     }
 
+    public String getTextContent(){
+        return textContent;
+    }
+
     public ArrayList<Question> getQuestions() {
         return questions;
     }
@@ -59,6 +65,7 @@ public class Test implements Parcelable {
         dest.writeString(this.language);
         dest.writeString(this.caption);
         dest.writeString(this.description);
+        dest.writeString(this.textContent);
         dest.writeList(this.questions);
         dest.writeList(this.answers);
     }
@@ -67,6 +74,7 @@ public class Test implements Parcelable {
         this.language = in.readString();
         this.caption = in.readString();
         this.description = in.readString();
+        this.textContent = in.readString();
         this.questions = new ArrayList<Question>();
         in.readList(this.questions, Question.class.getClassLoader());
         this.answers = new ArrayList<Answer>();

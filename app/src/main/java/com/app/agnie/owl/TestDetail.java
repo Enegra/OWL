@@ -13,10 +13,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.app.agnie.owl.Fragments.LessonDetailFragment;
+import com.app.agnie.owl.Fragments.TestIntroductionFragment;
+import com.app.agnie.owl.Util.Test;
 
 public class TestDetail extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
+    private Test selectedTest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +50,13 @@ public class TestDetail extends AppCompatActivity {
     private void setupLayout() {
         setupToolbar();
         setupDrawer();
-//        LessonDetailFragment detailFragment = new LessonDetailFragment();
-//        Bundle arguments = new Bundle();
-//        arguments.putParcelable("selectedTest", selectedTest);
-//        detailFragment.setArguments(arguments);
-//        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//        fragmentTransaction.replace(R.id.lesson_frame_placeholder, detailFragment);
-//        fragmentTransaction.commit();
+        TestIntroductionFragment testIntroductionFragment = new TestIntroductionFragment();
+        Bundle arguments = new Bundle();
+        arguments.putParcelable("selectedTest", selectedTest);
+        testIntroductionFragment.setArguments(arguments);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.lesson_frame_placeholder, testIntroductionFragment);
+        fragmentTransaction.commit();
     }
 
     private void setupToolbar() {

@@ -57,8 +57,8 @@ public class TestsPageTwo extends Fragment {
     private void createDummyTests(){
         //// TODO: 5/9/2017
         tests = new ArrayList<>();
-        Test dummyTest = new Test("german", "Leseverstehen", "A test for reading with comprehension, basic level");
-        Test anotherDummyTest = new Test("german", "Leseverstehen 2", "Another reading test");
+        Test dummyTest = new Test("german", "Leseverstehen", "", "A test for reading with comprehension, basic level");
+        Test anotherDummyTest = new Test("german", "Leseverstehen 2", "", "Another reading test");
         tests.add(dummyTest);
         tests.add(anotherDummyTest);
     }
