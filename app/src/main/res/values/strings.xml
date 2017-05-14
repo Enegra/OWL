@@ -71,4 +71,5 @@
     <!-- tests -->
     <string name="tests_no_scores">Currently you have no saved scores</string>
     <string name="tests_no_tests">Currently there are no tests</string>
+    <string name="button_next">Next</string>
 </resources>

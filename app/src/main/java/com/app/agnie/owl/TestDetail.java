@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,17 +15,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.app.agnie.owl.Fragments.TestIntroductionFragment;
-import com.app.agnie.owl.Util.Test;
+import com.app.agnie.owl.Util.FragmentChangeListener;
 
-public class TestDetail extends AppCompatActivity {
+public class TestDetail extends AppCompatActivity implements FragmentChangeListener {
 
     private DrawerLayout drawerLayout;
-    private Test selectedTest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        selectedTest = getIntent().getParcelableExtra("selectedTest");
         setContentView(R.layout.activity_test_detail);
         setupLayout();
     }
@@ -51,12 +51,7 @@ public class TestDetail extends AppCompatActivity {
         setupToolbar();
         setupDrawer();
         TestIntroductionFragment testIntroductionFragment = new TestIntroductionFragment();
-        Bundle arguments = new Bundle();
-        arguments.putParcelable("selectedTest", selectedTest);
-        testIntroductionFragment.setArguments(arguments);
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.test_frame_placeholder, testIntroductionFragment);
-        fragmentTransaction.commit();
+        replaceFragment(testIntroductionFragment);
     }
 
     private void setupToolbar() {
@@ -105,6 +100,15 @@ public class TestDetail extends AppCompatActivity {
                 startActivity(intent);
                 break;
         }
+    }
+
+    @Override
+    public void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();;
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.test_frame_placeholder, fragment, fragment.toString());
+//        fragmentTransaction.addToBackStack(fragment.toString());
+        fragmentTransaction.commit();
     }
 
 }

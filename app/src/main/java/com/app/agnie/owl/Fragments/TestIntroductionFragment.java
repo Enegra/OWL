@@ -6,9 +6,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.app.agnie.owl.R;
+import com.app.agnie.owl.Util.FragmentChangeListener;
+import com.app.agnie.owl.Util.SingletonSession;
 import com.app.agnie.owl.Util.Test;
 
 public class TestIntroductionFragment extends Fragment {
@@ -34,15 +37,28 @@ public class TestIntroductionFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        selectedTest = getArguments().getParcelable("selectedTest");
+        selectedTest = SingletonSession.Instance().getSelectedTest();
         getActivity().setTitle(selectedTest.getCaption());
         setupLayout(view);
     }
 
     private void setupLayout(View view){
-        //// TODO: 5/13/2017
         TextView introductionContent = (TextView)view.findViewById(R.id.test_introduction_content);
         introductionContent.setText(selectedTest.getTextContent());
+        setupNextButton(view);
+    }
+
+    private void setupNextButton(View view){
+        Button nextButton = (Button)view.findViewById(R.id.test_button_next);
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TestQuestionFragment testQuestionFragment = new TestQuestionFragment();
+                FragmentChangeListener fragmentChangeListener = (FragmentChangeListener)getActivity();
+                fragmentChangeListener.replaceFragment(testQuestionFragment);
+            }
+        });
+
     }
 
 }

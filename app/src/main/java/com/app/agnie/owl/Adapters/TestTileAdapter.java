@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.app.agnie.owl.R;
 import com.app.agnie.owl.TestDetail;
+import com.app.agnie.owl.Util.SingletonSession;
 import com.app.agnie.owl.Util.Test;
 
 import java.util.ArrayList;
@@ -42,8 +43,8 @@ public class TestTileAdapter extends RecyclerView.Adapter<TestTileAdapter.ViewHo
             public void onClick(View view) {
                 int position = holder.getAdapterPosition();
                 Intent detailIntent = new Intent(testsItem.getContext(), TestDetail.class);
+                SingletonSession.Instance().setSelectedTest(tests.get(position));
                 detailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                detailIntent.putExtra("selectedTest", tests.get(position));
                 testsItem.getContext().startActivity(detailIntent);
                 Toast.makeText(testsItem.getContext(), "Clicked on " + position, Toast.LENGTH_SHORT).show();
             }

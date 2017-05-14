@@ -2,22 +2,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.app.agnie.owl.Fragments.TestIntroductionFragment">
 
     <TextView
         android:id="@+id/test_introduction_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/primaryTextColour" />
     <Button
+        android:id="@+id/test_button_next"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/text_margin"
         android:gravity="center"
         android:layout_alignParentBottom="true"
-        android:text="Next"/>
+        android:text="@string/button_next" />
 
 </RelativeLayout>

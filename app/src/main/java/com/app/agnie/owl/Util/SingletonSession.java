@@ -10,6 +10,7 @@ public class SingletonSession {
 
     private static SingletonSession instance;
     private ArrayList<DictionaryEntry> dictionaryData;
+    private Test selectedTest;
 
     private SingletonSession() {}
 
@@ -30,6 +31,14 @@ public class SingletonSession {
 
     public void setDictionaryData(ArrayList<DictionaryEntry> dictionaryData){
         this.dictionaryData = dictionaryData;
+    }
+
+    public Test getSelectedTest(){
+        return selectedTest;
+    }
+
+    public void setSelectedTest(Test test){
+        selectedTest = test;
     }
 
 }
