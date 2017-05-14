@@ -6,14 +6,16 @@
     tools:context="com.app.agnie.owl.Fragments.TestIntroductionFragment">
 
     <TextView
+        android:id="@+id/test_introduction_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_margin="@dimen/text_margin"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/primaryTextColour" />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/small_text_margin"
+        android:padding="@dimen/text_margin"
         android:gravity="center"
         android:layout_alignParentBottom="true"
         android:text="Next"/>

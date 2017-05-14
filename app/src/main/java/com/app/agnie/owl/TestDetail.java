@@ -1,18 +1,17 @@
 package com.app.agnie.owl;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.app.agnie.owl.Fragments.LessonDetailFragment;
 import com.app.agnie.owl.Fragments.TestIntroductionFragment;
 import com.app.agnie.owl.Util.Test;
 
@@ -24,6 +23,7 @@ public class TestDetail extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        selectedTest = getIntent().getParcelableExtra("selectedTest");
         setContentView(R.layout.activity_test_detail);
         setupLayout();
     }
@@ -55,7 +55,7 @@ public class TestDetail extends AppCompatActivity {
         arguments.putParcelable("selectedTest", selectedTest);
         testIntroductionFragment.setArguments(arguments);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.lesson_frame_placeholder, testIntroductionFragment);
+        fragmentTransaction.replace(R.id.test_frame_placeholder, testIntroductionFragment);
         fragmentTransaction.commit();
     }
 

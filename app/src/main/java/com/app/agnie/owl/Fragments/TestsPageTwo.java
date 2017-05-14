@@ -57,8 +57,9 @@ public class TestsPageTwo extends Fragment {
     private void createDummyTests(){
         //// TODO: 5/9/2017
         tests = new ArrayList<>();
-        Test dummyTest = new Test("german", "Leseverstehen", "", "A test for reading with comprehension, basic level");
-        Test anotherDummyTest = new Test("german", "Leseverstehen 2", "", "Another reading test");
+        Test dummyTest = new Test("german", "Leseverstehen", "A test for reading with comprehension, basic level", "Seit zwei Jahren wohne ich in einer Wohngemeinschaft. Wir sind vier zusammen – Sandra, Torsten, Markus und ich. Die Jungs studieren an der Technischen Universität. Ich bin Medizinstudentin, und Sandra ist  Journalistin bei einer Stadtzeitung. \n" +
+                "Die Wohnung ist nicht schlecht, sie liegt zentral und doch ruhig, hinter dem Haus ist ein Park, Wir haben vier Zimmer im dritten Stock. Die Miete ist ziemlich hoch, deshalb wohnen wir ja zu viert. Dafür haben wir eine große Küche mit einem Fenster, ein richtiges Bad und sogar eine Gästetoilette. Das Haus hat zwar eine Tiefgarage, die muss man aber extra bezahlen. Sonst aber finde ich meine Wohnung ganz toll. Es ist immer jemand und ich muss auch nicht die ganze Hausarbeit allein machen. Wir räumen jeden Freitag am Abend auf, mal die Männer, mal ich und Sandra.\n");
+        Test anotherDummyTest = new Test("german", "Leseverstehen 2", "Another reading test", "Dummy");
         tests.add(dummyTest);
         tests.add(anotherDummyTest);
     }
