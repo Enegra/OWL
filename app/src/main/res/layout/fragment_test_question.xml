@@ -9,9 +9,18 @@
         android:id="@+id/test_question_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
+        android:layout_marginStart="@dimen/text_margin"
+        android:layout_marginEnd="@dimen/text_margin"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/primaryTextColour"/>
+    <LinearLayout
+        android:id="@+id/answer_root_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/test_question_header"
+        android:layout_margin="@dimen/text_margin">
+    </LinearLayout>
     <Button
         android:id="@+id/test_button_next"
         android:layout_width="match_parent"

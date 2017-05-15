@@ -1,19 +1,18 @@
 package com.app.agnie.owl.Util;
 
-/**
- * Created by agnie on 5/7/2017.
- */
+import java.util.ArrayList;
+
+import static android.R.attr.id;
 
 public class Question {
 
-    private int id;
     private String content;
-    private int testId;
+    private ArrayList<Answer> answers;
+    private int correctAnswerCount;
 
-    public Question(int id, String content, int testId) {
-        this.id = id;
+    public Question(String content) {
         this.content = content;
-        this.testId = testId;
+        answers = new ArrayList<>();
     }
 
     public int getId() {
@@ -24,8 +23,29 @@ public class Question {
         return content;
     }
 
-    public int getTestId() {
-        return testId;
+    public void addAnswer(Answer answer){
+        if (answer.isCorrect()){
+            correctAnswerCount++;
+        }
+        answers.add(answer);
+
+    }
+
+    public void addAnswers(ArrayList<Answer> answers){
+        for (Answer answer : answers){
+            if (answer.isCorrect()){
+                correctAnswerCount++;
+            }
+            this.answers.add(answer);
+        }
+    }
+
+    public int getCorrectAnswerCount(){
+        return correctAnswerCount;
+    }
+
+    public ArrayList<Answer> getAnswers() {
+        return answers;
     }
 
 }

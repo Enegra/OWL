@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.app.agnie.owl.Adapters.TestTileAdapter;
 import com.app.agnie.owl.R;
+import com.app.agnie.owl.Util.Answer;
+import com.app.agnie.owl.Util.Question;
 import com.app.agnie.owl.Util.Test;
 
 import java.util.ArrayList;
@@ -59,6 +61,17 @@ public class TestsPageTwo extends Fragment {
         tests = new ArrayList<>();
         Test dummyTest = new Test("german", "Leseverstehen", "A test for reading with comprehension, basic level", "Seit zwei Jahren wohne ich in einer Wohngemeinschaft. Wir sind vier zusammen – Sandra, Torsten, Markus und ich. Die Jungs studieren an der Technischen Universität. Ich bin Medizinstudentin, und Sandra ist  Journalistin bei einer Stadtzeitung. \n" +
                 "Die Wohnung ist nicht schlecht, sie liegt zentral und doch ruhig, hinter dem Haus ist ein Park, Wir haben vier Zimmer im dritten Stock. Die Miete ist ziemlich hoch, deshalb wohnen wir ja zu viert. Dafür haben wir eine große Küche mit einem Fenster, ein richtiges Bad und sogar eine Gästetoilette. Das Haus hat zwar eine Tiefgarage, die muss man aber extra bezahlen. Sonst aber finde ich meine Wohnung ganz toll. Es ist immer jemand und ich muss auch nicht die ganze Hausarbeit allein machen. Wir räumen jeden Freitag am Abend auf, mal die Männer, mal ich und Sandra.\n");
+        Question firstQuestion = new Question("Wo wohnt die Autorin?");
+        Answer firstAnswer = new Answer("in einer Wohngemeinschaft", true);
+        Answer secondAnswer = new Answer("im Wohnheim", false);
+        Answer thirdAnswer = new Answer("im Einfamilienhaus", false);
+        Answer fourthAnswer = new Answer("im Einzelzimmer", false);
+        firstQuestion.addAnswer(firstAnswer);
+        firstQuestion.addAnswer(secondAnswer);
+        firstQuestion.addAnswer(thirdAnswer);
+        firstQuestion.addAnswer(fourthAnswer);
+        dummyTest.addQuestion(firstQuestion);
+        Question secondQuestion = new Question("Was studiert sie?");
         Test anotherDummyTest = new Test("german", "Leseverstehen 2", "Another reading test", "Dummy");
         tests.add(dummyTest);
         tests.add(anotherDummyTest);

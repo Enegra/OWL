@@ -12,7 +12,6 @@ public class Test implements Parcelable {
     private String description;
     private String textContent;
     private ArrayList<Question> questions;
-    private ArrayList<Answer> answers;
 
     public Test(String language, String title, String description, String textContent) {
         this.language = language;
@@ -20,15 +19,10 @@ public class Test implements Parcelable {
         this.description = description;
         this.textContent = textContent;
         questions = new ArrayList<>();
-        answers = new ArrayList<>();
     }
 
     public void addQuestion(Question question){
         questions.add(question);
-    }
-
-    public void addAnswer(Answer answer){
-        answers.add(answer);
     }
 
     public String getLanguage() {
@@ -51,10 +45,6 @@ public class Test implements Parcelable {
         return questions;
     }
 
-    public ArrayList<Answer> getAnswers() {
-        return answers;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -67,7 +57,6 @@ public class Test implements Parcelable {
         dest.writeString(this.description);
         dest.writeString(this.textContent);
         dest.writeList(this.questions);
-        dest.writeList(this.answers);
     }
 
     protected Test(Parcel in) {
@@ -77,8 +66,6 @@ public class Test implements Parcelable {
         this.textContent = in.readString();
         this.questions = new ArrayList<Question>();
         in.readList(this.questions, Question.class.getClassLoader());
-        this.answers = new ArrayList<Answer>();
-        in.readList(this.answers, Answer.class.getClassLoader());
     }
 
     public static final Parcelable.Creator<Test> CREATOR = new Parcelable.Creator<Test>() {

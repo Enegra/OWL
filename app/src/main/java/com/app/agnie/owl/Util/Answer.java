@@ -1,23 +1,16 @@
 package com.app.agnie.owl.Util;
 
-/**
- * Created by agnie on 5/7/2017.
- */
+import static android.R.attr.id;
 
 public class Answer {
 
-    private int id;
     private String content;
     private boolean isCorrect;
-    private int questionId;
-    private int testId;
 
-    public Answer(int id, String content, boolean isCorrect, int questionId, int testId) {
-        this.id = id;
+
+    public Answer(String content, boolean isCorrect) {
         this.content = content;
         this.isCorrect = isCorrect;
-        this.questionId = questionId;
-        this.testId = testId;
     }
 
     public int getId() {
@@ -32,11 +25,4 @@ public class Answer {
         return isCorrect;
     }
 
-    public int getQuestionId() {
-        return questionId;
-    }
-
-    public int getTestId() {
-        return testId;
-    }
 }
