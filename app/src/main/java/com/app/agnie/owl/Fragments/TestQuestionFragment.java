@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.app.agnie.owl.R;
 import com.app.agnie.owl.Util.Answer;
+import com.app.agnie.owl.Util.FragmentChangeListener;
 import com.app.agnie.owl.Util.Question;
 import com.app.agnie.owl.Util.SingletonSession;
 import com.app.agnie.owl.Util.Test;
@@ -30,6 +31,10 @@ public class TestQuestionFragment extends Fragment {
     private int maxScore;
     private int currentScore;
     private LinearLayout answerRootLayout;
+    private ArrayList<Integer> selectedAnswer;
+    private ArrayList<CheckBox> multipleChoiceAnswers;
+    private RadioGroup singleChoiceAnswers;
+
 
     public TestQuestionFragment() {
         // Required empty public constructor
@@ -58,6 +63,7 @@ public class TestQuestionFragment extends Fragment {
     private void setupLayout(View view){
         //// TODO: 5/14/2017
         answerRootLayout = (LinearLayout)view.findViewById(R.id.answer_root_layout);
+        selectedAnswer = new ArrayList();
         setupNextButton(view);
         setupQuestion(view);
     }
@@ -84,7 +90,7 @@ public class TestQuestionFragment extends Fragment {
     }
 
     private void setCheckbox(String string, LinearLayout parent) {
-        CheckBox answer = new CheckBox(this.getContext());
+        final CheckBox answer = new CheckBox(this.getContext());
         answer.setText(string);
         answer.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         LinearLayout.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) answer.getLayoutParams();
@@ -94,6 +100,7 @@ public class TestQuestionFragment extends Fragment {
         } else {
             answer.setTextAppearance(getContext(), android.R.style.TextAppearance_Medium);
         }
+        multipleChoiceAnswers.add(answer);
         parent.addView(answer);
     }
 
@@ -112,15 +119,15 @@ public class TestQuestionFragment extends Fragment {
     }
 
     private void setRadioGroup(ArrayList<Answer> answers, LinearLayout parent){
-        //// TODO: 5/15/2017
-        RadioGroup answerGroup = new RadioGroup(this.getContext());
+        singleChoiceAnswers = new RadioGroup(this.getContext());
         for (Answer answer : answers){
-            setRadioButton(answer.getContent(), answerGroup);
+            setRadioButton(answer.getContent(), singleChoiceAnswers);
         }
-        parent.addView(answerGroup);
+        parent.addView(singleChoiceAnswers);
     }
 
     private void setCheckBoxGroup(ArrayList<Answer> answers, LinearLayout parent){
+        multipleChoiceAnswers = new ArrayList<>();
         for (Answer answer : answers){
             setCheckbox(answer.getContent(), parent);
         }
@@ -131,16 +138,31 @@ public class TestQuestionFragment extends Fragment {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Question question = selectedTest.getQuestions().get(currentQuestionIndex);
+                if (question.getCorrectAnswerCount()==1){
+                    if (question.getAnswers().get(singleChoiceAnswers.getCheckedRadioButtonId()).isCorrect()){
+                        currentScore++;
+                    }
+                } else {
+                    for (int i=0; i<multipleChoiceAnswers.size(); i++){
+                        if (multipleChoiceAnswers.get(i).isChecked() && question.getAnswers().get(i).isCorrect()){
+                            currentScore++;
+                        }
+                    }
+                }
                 if (currentQuestionIndex<selectedTest.getQuestions().size()-1){
                     currentQuestionIndex++;
                     answerRootLayout.removeAllViews();
                     setupQuestion(view);
                 }
                 else {
-//                    TestQuestionFragment testQuestionFragment = new TestQuestionFragment();
-//                    FragmentChangeListener fragmentChangeListener = (FragmentChangeListener) getActivity();
-//                    fragmentChangeListener.replaceFragment(testQuestionFragment);
-                    Toast.makeText(getContext(), "Test ended", Toast.LENGTH_SHORT).show();
+                    TestScoreFragment scoreFragment = new TestScoreFragment();
+                    Bundle arguments = new Bundle();
+                    arguments.putInt("testScore", currentScore);
+                    scoreFragment.setArguments(arguments);
+                    FragmentChangeListener fragmentChangeListener = (FragmentChangeListener) getActivity();
+                    fragmentChangeListener.replaceFragment(scoreFragment);
+                    Toast.makeText(getContext(), "Test completed", Toast.LENGTH_SHORT).show();
                 }
             }
         });
