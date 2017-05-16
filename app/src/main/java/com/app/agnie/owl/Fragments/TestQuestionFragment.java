@@ -31,9 +31,8 @@ public class TestQuestionFragment extends Fragment {
     private int maxScore;
     private int currentScore;
     private LinearLayout answerRootLayout;
-    private ArrayList<Integer> selectedAnswer;
     private ArrayList<CheckBox> multipleChoiceAnswers;
-    private RadioGroup singleChoiceAnswers;
+    private ArrayList<RadioButton> singleChoiceAnswers;
 
 
     public TestQuestionFragment() {
@@ -55,15 +54,15 @@ public class TestQuestionFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         selectedTest = SingletonSession.Instance().getSelectedTest();
-        getActivity().setTitle(selectedTest.getCaption());
         setMaxScore();
         setupLayout(view);
     }
 
     private void setupLayout(View view){
         //// TODO: 5/14/2017
+        currentQuestionIndex = 0;
+        currentScore = 0;
         answerRootLayout = (LinearLayout)view.findViewById(R.id.answer_root_layout);
-        selectedAnswer = new ArrayList();
         setupNextButton(view);
         setupQuestion(view);
     }
@@ -116,14 +115,16 @@ public class TestQuestionFragment extends Fragment {
             answer.setTextAppearance(getContext(), android.R.style.TextAppearance_Medium);
         }
         parent.addView(answer);
+        singleChoiceAnswers.add(answer);
     }
 
     private void setRadioGroup(ArrayList<Answer> answers, LinearLayout parent){
-        singleChoiceAnswers = new RadioGroup(this.getContext());
+        singleChoiceAnswers = new ArrayList<>();
+        RadioGroup group = new RadioGroup(this.getContext());
         for (Answer answer : answers){
-            setRadioButton(answer.getContent(), singleChoiceAnswers);
+            setRadioButton(answer.getContent(), group);
         }
-        parent.addView(singleChoiceAnswers);
+        parent.addView(group);
     }
 
     private void setCheckBoxGroup(ArrayList<Answer> answers, LinearLayout parent){
@@ -140,8 +141,11 @@ public class TestQuestionFragment extends Fragment {
             public void onClick(View view) {
                 Question question = selectedTest.getQuestions().get(currentQuestionIndex);
                 if (question.getCorrectAnswerCount()==1){
-                    if (question.getAnswers().get(singleChoiceAnswers.getCheckedRadioButtonId()).isCorrect()){
-                        currentScore++;
+                    for (int i=0; i<singleChoiceAnswers.size(); i++){
+                        if (singleChoiceAnswers.get(i).isChecked() && question.getAnswers().get(i).isCorrect()){
+                            currentScore++;
+                            break;
+                        }
                     }
                 } else {
                     for (int i=0; i<multipleChoiceAnswers.size(); i++){
@@ -159,6 +163,7 @@ public class TestQuestionFragment extends Fragment {
                     TestScoreFragment scoreFragment = new TestScoreFragment();
                     Bundle arguments = new Bundle();
                     arguments.putInt("testScore", currentScore);
+                    arguments.putInt("maxScore", maxScore);
                     scoreFragment.setArguments(arguments);
                     FragmentChangeListener fragmentChangeListener = (FragmentChangeListener) getActivity();
                     fragmentChangeListener.replaceFragment(scoreFragment);

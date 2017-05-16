@@ -72,4 +72,11 @@
     <string name="tests_no_scores">Currently you have no saved scores</string>
     <string name="tests_no_tests">Currently there are no tests</string>
     <string name="button_next">Next</string>
+    <string name="score_page_subheader">"You achieved score:"</string>
+    <string name="score_comment_excellent">Excellent!</string>
+    <string name="score_comment_very_good">Very good job!</string>
+    <string name="score_comment_good">Well done!</string>
+    <string name="score_comment_fair">Could\'ve been worse!</string>
+    <string name="score_comment_bad">You have yet things to learn!</string>
+    <string name="score_comment_terrible">You should consider checking lessons first!</string>
 </resources>
