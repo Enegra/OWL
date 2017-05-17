@@ -33,6 +33,7 @@ public class TestQuestionFragment extends Fragment {
     private LinearLayout answerRootLayout;
     private ArrayList<CheckBox> multipleChoiceAnswers;
     private ArrayList<RadioButton> singleChoiceAnswers;
+    private TextView questionHeader;
 
 
     public TestQuestionFragment() {
@@ -59,12 +60,12 @@ public class TestQuestionFragment extends Fragment {
     }
 
     private void setupLayout(View view){
-        //// TODO: 5/14/2017
         currentQuestionIndex = 0;
         currentScore = 0;
         answerRootLayout = (LinearLayout)view.findViewById(R.id.answer_root_layout);
-        setupNextButton(view);
+        questionHeader = (TextView)view.findViewById(R.id.test_question_header);
         setupQuestion(view);
+        setupNextButton(view);
     }
 
     private void setMaxScore(){
@@ -75,15 +76,12 @@ public class TestQuestionFragment extends Fragment {
 
     private void setupQuestion(View view){
         //// TODO: 5/15/2017
-        TextView question_header = (TextView)view.findViewById(R.id.test_question_header);
         Question question = selectedTest.getQuestions().get(currentQuestionIndex);
         String questionContent = question.getContent();
-        question_header.setText(questionContent);
+        questionHeader.setText(questionContent);
         if (question.getCorrectAnswerCount()==1){
-            //// TODO: 5/15/2017 prepare radios
             setRadioGroup(question.getAnswers(), answerRootLayout);
         } else {
-            ///// TODO: 5/15/2017 prepare checkboxes
             setCheckBoxGroup(question.getAnswers(), answerRootLayout);
         }
     }
@@ -140,20 +138,7 @@ public class TestQuestionFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Question question = selectedTest.getQuestions().get(currentQuestionIndex);
-                if (question.getCorrectAnswerCount()==1){
-                    for (int i=0; i<singleChoiceAnswers.size(); i++){
-                        if (singleChoiceAnswers.get(i).isChecked() && question.getAnswers().get(i).isCorrect()){
-                            currentScore++;
-                            break;
-                        }
-                    }
-                } else {
-                    for (int i=0; i<multipleChoiceAnswers.size(); i++){
-                        if (multipleChoiceAnswers.get(i).isChecked() && question.getAnswers().get(i).isCorrect()){
-                            currentScore++;
-                        }
-                    }
-                }
+                saveScores(question);
                 if (currentQuestionIndex<selectedTest.getQuestions().size()-1){
                     currentQuestionIndex++;
                     answerRootLayout.removeAllViews();
@@ -173,4 +158,20 @@ public class TestQuestionFragment extends Fragment {
         });
     }
 
+    private void saveScores(Question question){
+        if (question.getCorrectAnswerCount()==1){
+            for (int i=0; i<singleChoiceAnswers.size(); i++){
+                if (singleChoiceAnswers.get(i).isChecked() && question.getAnswers().get(i).isCorrect()){
+                    currentScore++;
+                    break;
+                }
+            }
+        } else {
+            for (int i=0; i<multipleChoiceAnswers.size(); i++){
+                if (multipleChoiceAnswers.get(i).isChecked() && question.getAnswers().get(i).isCorrect()){
+                    currentScore++;
+                }
+            }
+        }
+    }
 }

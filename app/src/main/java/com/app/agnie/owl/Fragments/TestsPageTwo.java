@@ -72,6 +72,15 @@ public class TestsPageTwo extends Fragment {
         firstQuestion.addAnswer(fourthAnswer);
         dummyTest.addQuestion(firstQuestion);
         Question secondQuestion = new Question("Was studiert sie?");
+        Answer secondFirstAnswer = new Answer("Wirtschaftskunde", false);
+        Answer secondSecondAnswer = new Answer("Medizin", true);
+        Answer secondThirdAnswer = new Answer("Informatik", false);
+        Answer secondFourthAnswer = new Answer("Architektur", false);
+        secondQuestion.addAnswer(secondFirstAnswer);
+        secondQuestion.addAnswer(secondSecondAnswer);
+        secondQuestion.addAnswer(secondThirdAnswer);
+        secondQuestion.addAnswer(secondFourthAnswer);
+        dummyTest.addQuestion(secondQuestion);
         Test anotherDummyTest = new Test("german", "Leseverstehen 2", "Another reading test", "Dummy");
         tests.add(dummyTest);
         tests.add(anotherDummyTest);
