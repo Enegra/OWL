@@ -19,13 +19,18 @@ import com.app.agnie.owl.R;
 import com.app.agnie.owl.Util.Answer;
 import com.app.agnie.owl.Util.FragmentChangeListener;
 import com.app.agnie.owl.Util.Question;
+import com.app.agnie.owl.Util.Score;
+import com.app.agnie.owl.Util.ScorePreference;
 import com.app.agnie.owl.Util.SingletonSession;
 import com.app.agnie.owl.Util.Test;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class TestQuestionFragment extends Fragment {
 
+    private ScorePreference scorePreference;
     private Test selectedTest;
     private int currentQuestionIndex;
     private int maxScore;
@@ -54,6 +59,7 @@ public class TestQuestionFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        scorePreference = new ScorePreference();
         selectedTest = SingletonSession.Instance().getSelectedTest();
         setMaxScore();
         setupLayout(view);
@@ -149,6 +155,7 @@ public class TestQuestionFragment extends Fragment {
                     Bundle arguments = new Bundle();
                     arguments.putInt("testScore", currentScore);
                     arguments.putInt("maxScore", maxScore);
+                    saveScoreInPreferences();
                     scoreFragment.setArguments(arguments);
                     FragmentChangeListener fragmentChangeListener = (FragmentChangeListener) getActivity();
                     fragmentChangeListener.replaceFragment(scoreFragment);
@@ -173,5 +180,11 @@ public class TestQuestionFragment extends Fragment {
                 }
             }
         }
+    }
+
+    private void saveScoreInPreferences(){
+        String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+        Score score = new Score(selectedTest.getCaption(), maxScore, currentScore, selectedTest.getLanguage(), currentDateTimeString);
+        scorePreference.addScore(getContext(),score);
     }
 }

@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.app.agnie.owl.R;
 import com.app.agnie.owl.TestDetail;
@@ -46,7 +45,6 @@ public class TestTileAdapter extends RecyclerView.Adapter<TestTileAdapter.ViewHo
                 SingletonSession.Instance().setSelectedTest(tests.get(position));
                 detailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 testsItem.getContext().startActivity(detailIntent);
-                Toast.makeText(testsItem.getContext(), "Clicked on " + position, Toast.LENGTH_SHORT).show();
             }
         });
         return holder;

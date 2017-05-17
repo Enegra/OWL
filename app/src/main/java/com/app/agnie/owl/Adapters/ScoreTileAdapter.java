@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.app.agnie.owl.R;
 import com.app.agnie.owl.Util.Score;
@@ -33,19 +32,7 @@ public class ScoreTileAdapter extends RecyclerView.Adapter<ScoreTileAdapter.View
     public ScoreTileAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         final View testsItem = layoutInflater.inflate(R.layout.scores_list_item, parent, false);
-        final ScoreTileAdapter.ViewHolder holder = new ScoreTileAdapter.ViewHolder(testsItem);
-        testsItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int position = holder.getAdapterPosition();
-//                Intent detailIntent = new Intent(testsItem.getContext(), TestDetail.class);
-//                detailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                detailIntent.putExtra("selectedLesson", lessons.get(position));
-//                testsItem.getContext().startActivity(detailIntent);
-                Toast.makeText(testsItem.getContext(), "Clicked on " + position, Toast.LENGTH_SHORT).show();
-            }
-        });
-        return holder;
+        return new ViewHolder(testsItem);
     }
 
     @Override

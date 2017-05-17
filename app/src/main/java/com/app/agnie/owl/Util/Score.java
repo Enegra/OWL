@@ -5,14 +5,14 @@ public class Score {
     private String caption;
     private int maxScore;
     private int achievedScore;
-    private int testId;
+    private String testLanguage;
     private String scoreDate;
 
-    public Score(String title, int maxScore, int achievedScore, int testId, String scoreDate) {
+    public Score(String title, int maxScore, int achievedScore, String testLanguage, String scoreDate) {
         this.caption = title;
         this.maxScore = maxScore;
         this.achievedScore = achievedScore;
-        this.testId = testId;
+        this.testLanguage = testLanguage;
         this.scoreDate = scoreDate;
     }
 
@@ -28,11 +28,30 @@ public class Score {
         return achievedScore;
     }
 
-    public int getTestId() {
-        return testId;
+    public String getTestLanguage(){
+        return testLanguage;
     }
 
     public String getScoreDate() {
         return scoreDate;
+    }
+
+    public boolean equals(Score score){
+        if (!this.caption.equals(score.caption)){
+            return false;
+        }
+        if (!(this.maxScore == score.maxScore)){
+            return false;
+        }
+        if (!(this.achievedScore == score.achievedScore)){
+            return false;
+        }
+        if (!this.testLanguage.equals(score.testLanguage)){
+            return false;
+        }
+        if (!this.scoreDate.equals(score.scoreDate)){
+            return false;
+        }
+        return true;
     }
 }

@@ -12,11 +12,13 @@ import android.widget.TextView;
 import com.app.agnie.owl.Adapters.ScoreTileAdapter;
 import com.app.agnie.owl.R;
 import com.app.agnie.owl.Util.Score;
+import com.app.agnie.owl.Util.ScorePreference;
 
 import java.util.ArrayList;
 
 public class TestsPageOne extends Fragment {
 
+    private ScorePreference scorePreference;
     private ArrayList<Score> scores;
     private ScoreTileAdapter adapter;
     private RecyclerView scoreList;
@@ -35,12 +37,21 @@ public class TestsPageOne extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tests_page_one, container, false);
-        setupDummies();
+        scorePreference = new ScorePreference();
         setupGrid(view);
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        scores.clear();
+        scores.addAll(scorePreference.getScores(getContext()));
+        adapter.notifyDataSetChanged();
+    }
+
     private void setupGrid(View view) {
+        scores = scorePreference.getScores(view.getContext());
         adapter = new ScoreTileAdapter(getActivity(), scores);
         scoreList = (RecyclerView) view.findViewById(R.id.tests_scores_list);
         scoreList.setAdapter(adapter);
@@ -52,14 +63,6 @@ public class TestsPageOne extends Fragment {
             textView.setVisibility(View.VISIBLE);
             textView.setText(R.string.tests_no_scores);
         }
-    }
-
-    private void setupDummies(){
-        scores = new ArrayList<>();
-        Score dummy = new Score("Top Score", 150, 140, 0, "1.5.2017");
-        Score newDummy = new Score("Second Score", 150, 145, 0, "3.5.2017");
-        scores.add(dummy);
-        scores.add(newDummy);
     }
 
 }
