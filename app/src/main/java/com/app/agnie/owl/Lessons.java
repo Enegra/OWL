@@ -14,7 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.app.agnie.owl.Adapters.LessonTileAdapter;
-import com.app.agnie.owl.Util.DataSource;
+import com.app.agnie.owl.Util.DBUtil.DataSource;
 import com.app.agnie.owl.Util.Lesson;
 
 import java.util.ArrayList;

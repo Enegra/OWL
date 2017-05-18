@@ -1,4 +1,4 @@
-package com.app.agnie.owl.Util;
+package com.app.agnie.owl.Util.DBUtil;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

@@ -1,4 +1,4 @@
-package com.app.agnie.owl.Util;
+package com.app.agnie.owl.Util.DBUtil;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,6 +6,14 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.app.agnie.owl.Util.CompressionTools;
+import com.app.agnie.owl.Util.DictionaryEntry;
+import com.app.agnie.owl.Util.Lesson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -19,6 +27,12 @@ public class DataSource {
 
     private SQLiteDatabase database;
     private DatabaseHelper databaseHelper;
+
+    private String JsonLanguageString;
+    private String JsonWordString;
+    private String JsonDescriptionString;
+    private String JsonSentenceString;
+
 
     public DataSource(Context context) {
         databaseHelper = new DatabaseHelper(context);
@@ -100,81 +114,97 @@ public class DataSource {
         return null;
     }
 
-    public void createInitialDictionaryValues(Context context) {
+    public void createInitialDictionaryValues(Context context, ArrayList<String> databasestring) {
         SharedPreferences preferences = context.getSharedPreferences("OWLData", 0);
         if (!preferences.getBoolean("dictionary_fetched", false)) {
-            addWord("mug.png");
-            addLanguage("polish");
-            addLanguage("english");
-            addLanguage("german");
-            addWordDescription("kubek", 1, "polish");
-            addWordDescription("mug", 1, "english");
-            addWordDescription("der Becher", 1, "german");
-            addSentence("Ten kubek jest brudny", 1, "polish");
-            addSentence("Mój ulubiony kubek jest niebieski", 1, "polish");
-            addSentence("Zbiłeś mój kubek!", 1, "polish");
-            addSentence("This mug is dirty", 1, "english");
-            addSentence("My favourite mug is blue", 1, "english");
-            addSentence("You broke my mug!", 1, "english");
-            addSentence("Dieser Becher ist schmutzig", 1, "german");
-            addSentence("Mein Lieblingsbecher ist blau", 1, "german");
-            addSentence("Du hast meinen Becher gebrochen!", 1, "german");
-            addWord("tea.png");
-            addWordDescription("herbata", 2, "polish");
-            addWordDescription("tea", 2, "english");
-            addWordDescription("der Tee", 2, "german");
-            addSentence("Mam ochotę na herbatę", 2, "polish");
-            addSentence("I feel like having some tea", 2, "english");
-            addSentence("Ich habe Lust Tee zu trinken", 2, "german");
-            addSentence("Lubię zieloną herbatę", 2, "polish");
-            addSentence("I like green tea", 2, "english");
-            addSentence("Ich mag grünen Tee", 2, "german");
-            addWord("snowdrops.png");
-            addWordDescription("przebiśnieg", 3, "polish");
-            addWordDescription("snowdrop", 3, "english");
-            addWordDescription("das Schneeglöckchen", 3, "german");
-            addSentence("Przebiśniegi są jednym z pierwszych znaków wiosny", 3, "polish");
-            addSentence("Snowdrops are one of the first signs of spring", 3, "english");
-            addSentence("Schneeglöckchen sind eines der ersten Anzeichen des Frühlings", 3, "german");
-            addSentence("Mam przebiśniegi w ogrodzie", 3, "polish");
-            addSentence("I have snowdrops in the garden", 3, "english");
-            addSentence("Ich habe Schneeglöckchen im Garten", 3, "german");
-            addWord("coffee.png");
-            addWordDescription("kawa", 4, "polish");
-            addWordDescription("coffee", 4, "english");
-            addWordDescription("der Kaffee", 4, "german");
-            addSentence("Mam ochotę na kawę", 4, "polish");
-            addSentence("I feel like having some coffee", 4, "english");
-            addSentence("Ich habe Lust Kaffee zu trinken", 4, "german");
-            addSentence("Lubię zapach świeżo mielonej kawy", 4, "polish");
-            addSentence("I like the smell of freshly ground coffee", 4, "english");
-            addSentence("Ich mag den Duft von frisch gemahlenem Kaffee", 4, "german");
-            addSentence("Czy mógłbyś mi zrobić kawę?", 4, "polish");
-            addSentence("Could you make me coffee?", 4, "english");
-            addSentence("Könntest du mir einen Kaffee machen?", 4, "german");
-            addWord("dog.png");
-            addWordDescription("pies", 5, "polish");
-            addWordDescription("dog", 5, "english");
-            addWordDescription("der Hund", 5, "german");
-            addSentence("Lubię psy", 5, "polish");
-            addSentence("I like dogs", 5, "english");
-            addSentence("Ich mag Hunde", 5, "german");
-            addSentence("Chciałbym mieć psa", 5, "polish");
-            addSentence("I would like to have a dog", 5, "english");
-            addSentence("Ich möchte einen Hund haben", 5, "german");
-            addWord("fries.png");
-            addWordDescription("frytki", 6, "polish");
-            addWordDescription("french fries", 6, "english");
-            addWordDescription("die Pommes", 6, "german");
-            addSentence("A może frytki do tego", 6, "polish");
-            addSentence("Would you like fries with that?", 6, "english");
-            addSentence("Möchten Sie noch Pommes damit?", 6, "german");
-            addSentence("Na obiad będzie kotlet schabowy z frytkami", 6, "polish");
-            addSentence("For the dinner there will be a pork chop with fries", 6, "english");
-            addSentence("Zum Mittagessen gibt es Schweinekotelett mit Pommes", 6, "german");
+
+            JsonLanguageString = databasestring.get(0);
+            JsonWordString = databasestring.get(1);
+            JsonDescriptionString = databasestring.get(2);
+            JsonSentenceString = databasestring.get(3);
+
+            getAndAddLanguages();
+            getAndAddWords();
+            getAndAddWordDescriptions();
+            getAndAddSentences();
+
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean("dictionary_fetched", true);
             editor.apply();
+        }
+    }
+
+    private void getAndAddLanguages() {
+        JSONObject jsonObject;
+        try {
+            jsonObject = new JSONObject(JsonLanguageString);
+            JSONArray result = jsonObject.getJSONArray(DBConfig.TAG_JSON_ARRAY);
+
+            for (int i = 0; i < result.length(); i++) {
+                JSONObject jo = result.getJSONObject(i);
+                String id = jo.getString(DBConfig.TAG_LANGUAGE_NAME);
+                addLanguage(id);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getAndAddWords() {
+        JSONObject jsonObject;
+        try {
+            jsonObject = new JSONObject(JsonWordString);
+            JSONArray result = jsonObject.getJSONArray(DBConfig.TAG_JSON_ARRAY);
+
+            for (int i = 0; i < result.length(); i++) {
+                JSONObject jo = result.getJSONObject(i);
+                String picture_content = jo.getString(DBConfig.TAG_WORD_PICTURECONTENT);
+                addWord(picture_content);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void getAndAddSentences() {
+        JSONObject jsonObject;
+        try {
+            jsonObject = new JSONObject(JsonSentenceString);
+            JSONArray result = jsonObject.getJSONArray(DBConfig.TAG_JSON_ARRAY);
+
+            for (int i = 0; i < result.length(); i++) {
+                JSONObject jo = result.getJSONObject(i);
+                String name = jo.getString(DBConfig.TAG_SENTECE_LANGUAGENAME);
+                String sentence = jo.getString(DBConfig.TAG_SENTENCE_SENTENCE);
+                String word_id = jo.getString(DBConfig.TAG_SENTENCE_WORDID);
+                int wId = Integer.parseInt(word_id);
+                addSentence(sentence, wId, name);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getAndAddWordDescriptions() {
+        JSONObject jsonObject;
+        try {
+            jsonObject = new JSONObject(JsonDescriptionString);
+            JSONArray result = jsonObject.getJSONArray(DBConfig.TAG_JSON_ARRAY);
+
+            for (int i = 0; i < result.length(); i++) {
+                JSONObject jo = result.getJSONObject(i);
+                String language_name = jo.getString(DBConfig.TAG_WORDDES_LANGUAGENAME);
+                String word_description = jo.getString(DBConfig.TAG_WORDDES_WORDDESCRIPTION);
+                String word_id = jo.getString(DBConfig.TAG_WORDDES_WORDID);
+                int wId = Integer.parseInt(word_id);
+                addWordDescription(word_description, wId, language_name);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
