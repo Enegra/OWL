@@ -106,6 +106,10 @@ public class Lessons extends AppCompatActivity {
                 intent = new Intent(this, Tests.class);
                 startActivity(intent);
                 break;
+            case R.id.nav_settings:
+                intent = new Intent(this, Settings.class);
+                startActivity(intent);
+                break;
         }
     }
 

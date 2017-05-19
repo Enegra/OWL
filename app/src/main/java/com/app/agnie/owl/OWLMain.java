@@ -36,4 +36,9 @@ public class OWLMain extends AppCompatActivity {
         startActivity(intent);
     }
 
+//    public void enterSettings(View view){
+//        Intent intent = new Intent(this, Settings.class);
+//        startActivity(intent);
+//    }
+
 }
