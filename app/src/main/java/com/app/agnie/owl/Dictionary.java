@@ -91,7 +91,7 @@ public class Dictionary extends AppCompatActivity {
     }
 
     private void setDataSource() {
-        new DictionaryJsonRetrievalTask().execute();
+        new DictionaryRetrievalTask().execute();
     }
 
     private void setupDrawer() {
@@ -162,26 +162,7 @@ public class Dictionary extends AppCompatActivity {
         outState.putInt(FEATURED_ENTRY, featuredEntry);
     }
 
-
     private class DictionaryRetrievalTask extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected Void doInBackground(Void... params) {
-            dataSource.open();
-            dictionaryEntries = dataSource.getDictionaryEntries("german", "english");
-            SingletonSession.Instance().setDictionaryData(dictionaryEntries);
-            dataSource.close();
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            setupTabs();
-        }
-    }
-
-
-    private class DictionaryJsonRetrievalTask extends AsyncTask<Void, Void, Void> {
 
         ProgressDialog progressDialog = new ProgressDialog(Dictionary.this);
         SharedPreferences preferences = getApplicationContext().getSharedPreferences("OWLData", 0);
@@ -196,7 +177,7 @@ public class Dictionary extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            new DictionaryRetrievalTask().execute();
+            setupTabs();
             progressDialog.dismiss();
         }
 
@@ -216,12 +197,14 @@ public class Dictionary extends AppCompatActivity {
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putBoolean("dictionary_fetched", true);
                 editor.apply();
-                if (!list.isEmpty()){
-                    dataSource.open();
-                    dataSource.createInitialDictionaryValues(Dictionary.this, list);
-                    dataSource.close();
-                }
+                dataSource.open();
+                dataSource.createInitialDictionaryValues(Dictionary.this, list);
+                dataSource.close();
             }
+            dataSource.open();
+            dictionaryEntries = dataSource.getDictionaryEntries("german", "english");
+            SingletonSession.Instance().setDictionaryData(dictionaryEntries);
+            dataSource.close();
             return null;
         }
     }
