@@ -24,4 +24,13 @@ public class DBConfig {
     public static final String TAG_WORDDES_LANGUAGENAME = "language_name";
     public static final String TAG_WORDDES_WORDDESCRIPTION = "word_description";
     public static final String TAG_WORDDES_WORDID = "word_id";
+
+    public static final String URL_GET_LESSON = "http://stasis.eu/Android/db/dbGetLesson.php";
+    public static final String TAG_LESSON_CAPTION = "caption";
+    public static final String TAG_LESSON_CATEGORY = "category";
+    public static final String TAG_LESSON_CONTENT = "content";
+    public static final String TAG_LESSON_MODIFICATIONDATE = "modification_date";
+    public static final String TAG_LESSON_ORIGINLANGUAGE = "origin_language";
+    public static final String TAG_LESSON_SUBTITLE = "subtitle";
+    public static final String TAG_LESSON_TRANSLATIONLANGUAGE = "translation_language";
 }

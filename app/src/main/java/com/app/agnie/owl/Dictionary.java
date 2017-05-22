@@ -37,14 +37,13 @@ public class Dictionary extends AppCompatActivity {
     private static final String DICTIONARY_FRAGMENT_TWO = "Dictionary List";
     private static final String FEATURED_ENTRY = "FEATURED_ENTRY";
     private int featuredEntry;
-    private ArrayList<String> databasestring;
+    private ArrayList<String> databaseString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dictionary);
         setupLayout();
-        getJSON();
         if (savedInstanceState != null) {
             featuredEntry = savedInstanceState.getInt(FEATURED_ENTRY);
         }
@@ -90,6 +89,15 @@ public class Dictionary extends AppCompatActivity {
     }
 
     private void setDataSource() {
+//        SharedPreferences preferences = getApplicationContext().getSharedPreferences("OWLData", 0);
+//        if (!preferences.getBoolean("dictionary_fetched", false)) {
+            new DictionaryJsonRetrievalTask().execute();
+//            SharedPreferences.Editor editor = preferences.edit();
+//            editor.putBoolean("dictionary_fetched", true);
+//            editor.apply();
+//        }
+
+
         new DictionaryRetrievalTask().execute();
     }
 
@@ -170,7 +178,7 @@ public class Dictionary extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             DataSource dataSource = new DataSource(Dictionary.this);
             dataSource.open();
-            dataSource.createInitialDictionaryValues(Dictionary.this, databasestring);
+            dataSource.createInitialDictionaryValues(Dictionary.this, databaseString);
             dictionaryEntries = dataSource.getDictionaryEntries("german", "english");
             SingletonSession.Instance().setDictionaryData(dictionaryEntries);
             dataSource.close();
@@ -191,40 +199,29 @@ public class Dictionary extends AppCompatActivity {
         outState.putInt(FEATURED_ENTRY, featuredEntry);
     }
 
-    private void getJSON() {
-        class GetJSON extends AsyncTask<String, Void, ArrayList<String>> {
-            private ProgressDialog loading;
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                loading = ProgressDialog.show(Dictionary.this,"Fetching Data","Wait...",false,false);
-            }
-
-            @Override
-            protected void onPostExecute(ArrayList list) {
-                super.onPostExecute(list);
-                loading.dismiss();
-                databasestring = list;
-            }
-
-            @Override
-            protected ArrayList<String> doInBackground(String... strings) {
-                RequestHandler requestHandler = new RequestHandler();
-                String languages = requestHandler.sendGetRequest(DBConfig.URL_GET_LANGUAGE);
-                String words = requestHandler.sendGetRequest(DBConfig.URL_GET_WORD);
-                String sentences = requestHandler.sendGetRequest(DBConfig.URL_GET_SENTENCE);
-                String descriptions = requestHandler.sendGetRequest(DBConfig.URL_GET_WORDDESCRIPTION);
-                ArrayList<String> list = new ArrayList<>();
-                list.add(languages);
-                list.add(words);
-                list.add(descriptions);
-                list.add(sentences);
-                return list;
-            }
-
+    class DictionaryJsonRetrievalTask extends AsyncTask<String, Void, ArrayList<String>> {
+        @Override
+        protected void onPostExecute(ArrayList<String> list) {
+            super.onPostExecute(list);
+            databaseString = list;
         }
-        GetJSON gj = new GetJSON();
-        gj.execute();
+
+        @Override
+        protected ArrayList<String> doInBackground(String... strings) {
+            RequestHandler requestHandler = new RequestHandler();
+            String languages = requestHandler.sendGetRequest(DBConfig.URL_GET_LANGUAGE);
+            String words = requestHandler.sendGetRequest(DBConfig.URL_GET_WORD);
+            String sentences = requestHandler.sendGetRequest(DBConfig.URL_GET_SENTENCE);
+            String descriptions = requestHandler.sendGetRequest(DBConfig.URL_GET_WORDDESCRIPTION);
+            ArrayList<String> list = new ArrayList<>();
+            list.add(languages);
+            list.add(words);
+            list.add(descriptions);
+            list.add(sentences);
+            return list;
+        }
+
+
     }
 
 }

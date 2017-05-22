@@ -27,12 +27,8 @@ public class DataSource {
 
     private SQLiteDatabase database;
     private DatabaseHelper databaseHelper;
-
-    private String JsonLanguageString;
-    private String JsonWordString;
-    private String JsonDescriptionString;
-    private String JsonSentenceString;
-
+    ;
+    private String lessonsString;
 
     public DataSource(Context context) {
         databaseHelper = new DatabaseHelper(context);
@@ -91,6 +87,30 @@ public class DataSource {
         values.put(DatabaseHelper.COLUMN_TRANSLATION_LANGUAGE, translationLanguage);
         database.insert(DatabaseHelper.TABLE_LESSON, null, values);
     }
+    
+    void addTest(String language, String caption, String description, String textContent){
+        ContentValues values = new ContentValues();
+        values.put(DatabaseHelper.COLUMN_LANGUAGE, language);
+        values.put(DatabaseHelper.COLUMN_CAPTION, caption);
+        values.put(DatabaseHelper.COLUMN_DESCRIPTION, description);
+        values.put(DatabaseHelper.COLUMN_TEXT_CONTENT, textContent);
+        database.insert(DatabaseHelper.TABLE_TEST, null, values);
+    }
+
+    void addQuestion(String content, int testId){
+        ContentValues values = new ContentValues();
+        values.put(DatabaseHelper.COLUMN_CONTENT, content);
+        values.put(DatabaseHelper.COLUMN_TEST, testId);
+        database.insert(DatabaseHelper.TABLE_QUESTION, null, values);
+    }
+
+    void addAnswer(String content, int isCorrect, int questionId){
+        ContentValues values = new ContentValues();
+        values.put(DatabaseHelper.COLUMN_CONTENT, content);
+        values.put(DatabaseHelper.COLUMN_CORRECT, isCorrect);
+        values.put(DatabaseHelper.COLUMN_QUESTION, questionId);
+        database.insert(DatabaseHelper.TABLE_ANSWER, null, values);
+    }
 
     private byte[] retrievePictureContent(String pictureName) {
         try {
@@ -114,19 +134,19 @@ public class DataSource {
         return null;
     }
 
-    public void createInitialDictionaryValues(Context context, ArrayList<String> databasestring) {
+    public void createInitialDictionaryValues(Context context, ArrayList<String> databaseString) {
         SharedPreferences preferences = context.getSharedPreferences("OWLData", 0);
         if (!preferences.getBoolean("dictionary_fetched", false)) {
 
-            JsonLanguageString = databasestring.get(0);
-            JsonWordString = databasestring.get(1);
-            JsonDescriptionString = databasestring.get(2);
-            JsonSentenceString = databasestring.get(3);
+            String jsonLanguageString = databaseString.get(0);
+            String jsonWordString = databaseString.get(1);
+            String jsonDescriptionString = databaseString.get(2);
+            String jsonSentenceString = databaseString.get(3);
 
-            getAndAddLanguages();
-            getAndAddWords();
-            getAndAddWordDescriptions();
-            getAndAddSentences();
+            getAndAddLanguages(jsonLanguageString);
+            getAndAddWords(jsonWordString);
+            getAndAddWordDescriptions(jsonDescriptionString);
+            getAndAddSentences(jsonSentenceString);
 
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean("dictionary_fetched", true);
@@ -134,26 +154,41 @@ public class DataSource {
         }
     }
 
-    private void getAndAddLanguages() {
+    public void createInitialLessonValues(Context context, String databaseString) {
+        SharedPreferences preferences = context.getSharedPreferences("OWLData", 0);
+        if (!preferences.getBoolean("lessons_fetched", false)) {
+            getAndAddLessons(databaseString);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("lessons_fetched", true);
+            editor.apply();
+        }
+    }
+
+    
+    public void createInitialTestValues(){
+        //// TODO: 5/21/2017 
+    }
+
+    private void getAndAddLanguages(String jsonLanguageString) {
         JSONObject jsonObject;
         try {
-            jsonObject = new JSONObject(JsonLanguageString);
+            jsonObject = new JSONObject(jsonLanguageString);
             JSONArray result = jsonObject.getJSONArray(DBConfig.TAG_JSON_ARRAY);
 
             for (int i = 0; i < result.length(); i++) {
-                JSONObject jo = result.getJSONObject(i);
-                String id = jo.getString(DBConfig.TAG_LANGUAGE_NAME);
-                addLanguage(id);
+                JSONObject languageEntity = result.getJSONObject(i);
+                String languageName = languageEntity.getString(DBConfig.TAG_LANGUAGE_NAME);
+                addLanguage(languageName);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    private void getAndAddWords() {
+    private void getAndAddWords(String jsonWordString) {
         JSONObject jsonObject;
         try {
-            jsonObject = new JSONObject(JsonWordString);
+            jsonObject = new JSONObject(jsonWordString);
             JSONArray result = jsonObject.getJSONArray(DBConfig.TAG_JSON_ARRAY);
 
             for (int i = 0; i < result.length(); i++) {
@@ -168,10 +203,10 @@ public class DataSource {
     }
 
 
-    private void getAndAddSentences() {
+    private void getAndAddSentences(String jsonSentenceString) {
         JSONObject jsonObject;
         try {
-            jsonObject = new JSONObject(JsonSentenceString);
+            jsonObject = new JSONObject(jsonSentenceString);
             JSONArray result = jsonObject.getJSONArray(DBConfig.TAG_JSON_ARRAY);
 
             for (int i = 0; i < result.length(); i++) {
@@ -188,10 +223,10 @@ public class DataSource {
         }
     }
 
-    private void getAndAddWordDescriptions() {
+    private void getAndAddWordDescriptions(String jsonDescriptionString) {
         JSONObject jsonObject;
         try {
-            jsonObject = new JSONObject(JsonDescriptionString);
+            jsonObject = new JSONObject(jsonDescriptionString);
             JSONArray result = jsonObject.getJSONArray(DBConfig.TAG_JSON_ARRAY);
 
             for (int i = 0; i < result.length(); i++) {
@@ -208,104 +243,25 @@ public class DataSource {
         }
     }
 
-    public void createInitialLessonValues(Context context) {
-        SharedPreferences preferences = context.getSharedPreferences("OWLData", 0);
-        if (!preferences.getBoolean("lessons_fetched", false)) {
-            String lessonOneContent =
-                    "        <!doctype html>\n" +
-                    "        <head>\n" +
-                    "        <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"/>\n" +
-                    "        </head>\n" +
-                    "        <body>\n" +
-                    "        <section><p>Hallo, ich heiße Anna, Ich komme aus Breslau und ich wohne hier. Ich studiere nicht, ich arbeite als Lektorin.</p>\n" +
-                    "\t\t<p class=\"translation\">Hello, my name is Anna. I am from Wrocław and I live there. I am not studying, I am working as a lecturer.</p>\n" +
-                    "\t\t<p>Wie heißen Sie?</p>\n" +
-                    "\t\t<p class=\"translation\">What is your name?</p>\n" +
-                    "\t\t<p>Woher kommen Sie?</p>\n" +
-                    "\t\t<p class=\"translation\">Where are you from?</p>\n" +
-                    "\t\t<p>Wo wohnen Sie?</p>\n" +
-                    "\t\t<p class=\"translation\">Where do you live?</p>\n" +
-                    "\t\t<p>Studieren Sie oder arbeiten Sie?</p>\n" +
-                    "\t\t<p class=\"translation\">Are you studying or working?</p>\n" +
-                    "\t\t<p>Was studieren Sie? / Wo arbeiten Sie?</p>\n" +
-                    "\t\t<p class=\"translation\">What are you studying? / Where are you working?</p>\n" +
-                    "\t\t<p>Ich bin verheiratet und habe 2 Kinder. Ich habe auch 2 Hunde. Von Beruf bin ich Germanistin.</p>\n" +
-                    "\t\t<p class=\"translation\">I am married and have two children. I also have two dogs. I am a germanist by profession.</p>\n" +
-                    "\t\t<p>Sind Sie verheiratet oder ledig?</p>\n" +
-                    "\t\t<p class=\"translation\">Are you married or single?</p>\n" +
-                    "\t\t<p>Haben Sie Kinder?</p>\n" +
-                    "\t\t<p class=\"translation\">Do you have children?</p>\n" +
-                    "\t\t<p>Haben Sie ein Haustier? Eine Katze? Einen Hund?</p>\n" +
-                    "\t\t<p class=\"translation\">Do you have a pet? A cat? A dog?</p>\n" +
-                    "\t\t<p>Was sind Sie von Beruf?</p>\n" +
-                    "\t\t<p class=\"translation\">What is your profession?</p>\n" +
-                    "\t\t<p>Meine Tochter ist Studentin. Sie heißt Agnes. Sie studiert Informatik. Sie wohnt jetzt in Finnland. Sie arbeitet noch nicht.</p>\n" +
-                    "\t\t<p class=\"translation\">My daughter is a student. Her name is Agnes. She is studying computer science. She lives now in Finland. She doesn't work yet.</p>\n" +
-                    "        </section></body>\n" +
-                    "        </html>\n";
-            String lessonTwoContent =
-                    "        <!doctype html>\n" +
-                    "        <head>\n" +
-                    "        <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"/>\n" +
-                    "        </head>\n" +
-                    "        <body>\n" +
-                    "        <p>Das Einfamilienhaus</p>\n" +
-                    "\t\t<p class=\"translation\">Detached house</p>\n" +
-                    "\t\t<p>Das Doppelhaus</p>\n" +
-                    "\t\t<p class=\"translation\">Semi-detached house</p>\n" +
-                    "\t\t<p>Das Reihenhaus</p>\n" +
-                    "\t\t<p class=\"translation\">Terraced house</p>\n" +
-                    "\t\t<p>Der Altbau</p>\n" +
-                    "\t\t<p class=\"translation\">Old building</p>\n" +
-                    "\t\t<p>Der Garten</p>\n" +
-                    "\t\t<p class=\"translation\">Garden</p>\n" +
-                    "\t\t<p>Der Hof</p>\n" +
-                    "\t\t<p class=\"translation\">Yard</p>\n" +
-                    "\t\t<p>Die Garage</p>\n" +
-                    "\t\t<p class=\"translation\">Garage</p>\n" +
-                    "\t\t<p>Der Balkon</p>\n" +
-                    "\t\t<p class=\"translation\">Balcony</p>\n" +
-                    "\t\t<p>Das Dach</p>\n" +
-                    "\t\t<p class=\"translation\">Roof</p>\n" +
-                    "\t\t<p>Die Wand</p>\n" +
-                    "\t\t<p class=\"translation\">Wall</p>\n" +
-                    "\t\t<p>Die Decke</p>\n" +
-                    "\t\t<p class=\"translation\">Ceiling</p>\n" +
-                    "\t\t<p>Der Boden</p>\n" +
-                    "\t\t<p class=\"translation\">Floor</p>\n" +
-                    "\t\t<p>Das Erdgeschoss</p>\n" +
-                    "\t\t<p class=\"translation\">Ground floor</p>\n" +
-                    "\t\t<p>Der erste Stock</p>\n" +
-                    "\t\t<p class=\"translation\">First floor</p>\n" +
-                    "\t\t<p>Die Treppe</p>\n" +
-                    "\t\t<p class=\"translation\">Stairs</p>\n" +
-                    "\t\t<p>Die Küche</p>\n" +
-                    "\t\t<p class=\"translation\">Kitchen</p>\n" +
-                    "\t\t<p>Der Flur</p>\n" +
-                    "\t\t<p class=\"translation\">Corridor</p>\n" +
-                    "\t\t<p>Das Wohnzimmer</p>\n" +
-                    "\t\t<p class=\"translation\">Living Room</p>\n" +
-                    "\t\t<p>Das Schlafzimmer</p>\n" +
-                    "\t\t<p class=\"translation\">Sleeping Room</p>\n" +
-                    "\t\t<p>Die Miete</p>\n" +
-                    "\t\t<p class=\"translation\">Rent</p>\n" +
-                    "\t\t<p>Eine Wohnung mieten</p>\n" +
-                    "\t\t<p class=\"translation\">To rent an apartment</p>\n" +
-                    "\t\t<p>Umziehen</p>\n" +
-                    "\t\t<p class=\"translation\">To move</p>\n" +
-                    "\t\t<p>Der Umzug</p>\n" +
-                    "\t\t<p class=\"translation\">Move</p>\n" +
-                    "        </body>\n" +
-                    "        </html>\n";
-            addLesson("Die Einführung", "The introduction; basic vocabulary used when meeting a person for the first time", lessonOneContent, "german", "english");
-            addLesson("Die Wohnung", "Home. Vocabulary related to houses and apartments", lessonTwoContent, "german", "english");
-//            addLesson("Powitania", "Basic lesson on greetings", "", "polish", "english");
-//            addLesson("Pogoda", "Weather-related vocabulary", "", "polish", "english");
-//            addLesson("Zaimki osobowe", "Personal pronouns explained", "", "polish", "english");
-//            addLesson("Jedzenie", "Food-related vocabulary", "", "polish", "english");
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean("lessons_fetched", true);
-            editor.apply();
+    private void getAndAddLessons(String jsonLessonString) {
+        JSONObject jsonObject;
+        try {
+            jsonObject = new JSONObject(jsonLessonString);
+            JSONArray result = jsonObject.getJSONArray(DBConfig.TAG_JSON_ARRAY);
+
+            for (int i = 0; i < result.length(); i++) {
+                JSONObject jo = result.getJSONObject(i);
+                String caption = jo.getString(DBConfig.TAG_LESSON_CAPTION);
+                //     String category = jo.getString(DBConfig.TAG_LESSON_CATEGORY);
+                String content = jo.getString(DBConfig.TAG_LESSON_CONTENT);
+                String originLanguage = jo.getString(DBConfig.TAG_LESSON_ORIGINLANGUAGE);
+                String subtitle = jo.getString(DBConfig.TAG_LESSON_SUBTITLE);
+                String translationLanguage = jo.getString(DBConfig.TAG_LESSON_TRANSLATIONLANGUAGE);
+                addLesson(caption, subtitle, content, originLanguage, translationLanguage);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 

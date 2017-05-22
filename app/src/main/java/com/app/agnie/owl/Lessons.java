@@ -1,6 +1,8 @@
 package com.app.agnie.owl;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -14,7 +16,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.app.agnie.owl.Adapters.LessonTileAdapter;
+import com.app.agnie.owl.Util.DBUtil.DBConfig;
 import com.app.agnie.owl.Util.DBUtil.DataSource;
+import com.app.agnie.owl.Util.DBUtil.RequestHandler;
 import com.app.agnie.owl.Util.Lesson;
 
 import java.util.ArrayList;
@@ -23,6 +27,7 @@ public class Lessons extends AppCompatActivity {
 
     private ArrayList<Lesson> lessons;
     private DrawerLayout drawerLayout;
+    private String lessonString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,12 +119,38 @@ public class Lessons extends AppCompatActivity {
     }
 
     private void prepareLessons() {
+        LessonJsonRetrievalTask task = new LessonJsonRetrievalTask();
+        task.execute();
         DataSource dataSource = new DataSource(getApplicationContext());
         dataSource.open();
-        dataSource.createInitialLessonValues(getApplicationContext());
+        dataSource.createInitialLessonValues(getApplicationContext(), lessonString);
 //        lessons = dataSource.getLessons("polish", "english");
         lessons = dataSource.getLessons("german", "english");
         dataSource.close();
     }
+
+        private class LessonJsonRetrievalTask extends AsyncTask<String, Void, String> {
+            private ProgressDialog loading;
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                loading = ProgressDialog.show(Lessons.this,"Fetching Data","Wait...",false,false);
+            }
+
+            @Override
+            protected void onPostExecute(String lessons) {
+                super.onPostExecute(lessons);
+                loading.dismiss();
+                lessonString = lessons;
+            }
+
+            @Override
+            protected String doInBackground(String... strings) {
+                RequestHandler requestHandler = new RequestHandler();
+                return requestHandler.sendGetRequest(DBConfig.URL_GET_LESSON);
+            }
+
+        }
+
 
 }

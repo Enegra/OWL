@@ -36,6 +36,11 @@ class DatabaseHelper extends SQLiteOpenHelper {
     static final String COLUMN_TEXT_CONTENT = "text_content";
 
     static final String TABLE_QUESTION = "question";
+    static final String COLUMN_TEST = "test";
+
+    static final String TABLE_ANSWER = "answer";
+    static final String COLUMN_CORRECT = "is_correct";
+    static final String COLUMN_QUESTION = "question";
 
     private static final String DATABASE_NAME = "owl_content.db";
     private static final int DATABASE_VERSION = 1;
@@ -47,6 +52,8 @@ class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase database) {
+        createAnswer(database);
+        createQuestion(database);
         createCategory(database);
         createWord(database);
         createLanguage(database);
@@ -61,6 +68,8 @@ class DatabaseHelper extends SQLiteOpenHelper {
         Log.w(DatabaseHelper.class.getName(),
                 "Upgrading database from version " + oldVersion + " to "
                         + newVersion + ", which will destroy all old data");
+        dropAnswer(database);
+        dropQuestion(database);
         dropTest(database);
         dropLesson(database);
         dropSentence(database);
@@ -126,16 +135,30 @@ class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void createTest(SQLiteDatabase database){
-        String createTest = "create table if not exists " + TABLE_TEST + "(" + COLUMN_ID + " integer primary key autoincrement, " + COLUMN_LANGUAGE + " text not null, " + COLUMN_CAPTION + " text not null, " + COLUMN_DESCRIPTION + " text not null, " + COLUMN_TEXT_CONTENT + " text not null, foreign key (" + COLUMN_LANGUAGE +") references " + TABLE_LANGUAGE + "( " + COLUMN_LANGUAGE + ");";
+        String createTest = "create table if not exists " + TABLE_TEST + "(" + COLUMN_ID + " integer primary key autoincrement, " + COLUMN_LANGUAGE + " text not null, " + COLUMN_CAPTION + " text not null, " + COLUMN_DESCRIPTION + " text not null, " + COLUMN_TEXT_CONTENT + " text not null, foreign key (" + COLUMN_LANGUAGE +") references " + TABLE_LANGUAGE + "( " + COLUMN_LANGUAGE + "));";
         database.execSQL(createTest);
     }
 
     private void dropTest(SQLiteDatabase database){
         database.execSQL("drop table if exists " + TABLE_TEST);
     }
-    
+
+    private void createQuestion(SQLiteDatabase database){
+        String createQuestion = "create table if not exists " + TABLE_QUESTION + "(" + COLUMN_ID + " integer primary key autoincrement, " + COLUMN_CONTENT + " text not null, " + COLUMN_TEST + " integer not null, foreign key (" + COLUMN_TEST + ") references " + TABLE_TEST + "(" + COLUMN_ID + "));";
+        database.execSQL(createQuestion);
+    }
+
+    private void dropQuestion(SQLiteDatabase database){
+        database.execSQL("drop table if exists " + TABLE_QUESTION);
+    }
+
     private void createAnswer(SQLiteDatabase database){
-        //// TODO: 5/19/2017  
+        String createAnswer = "create table if not exists " + TABLE_ANSWER + "(" + COLUMN_ID + " integer primary key autoincrement, " + COLUMN_CONTENT + " text not null, " + COLUMN_CORRECT + " integer not null, " + COLUMN_QUESTION + " integer not null, foreign key (" + COLUMN_QUESTION + ") references " + TABLE_QUESTION + "(" + COLUMN_ID + "));";
+        database.execSQL(createAnswer);
+    }
+
+    private void dropAnswer(SQLiteDatabase database){
+        database.execSQL("drop table if exists " + TABLE_ANSWER);
     }
 
 }
