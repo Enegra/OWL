@@ -181,7 +181,7 @@ public class Dictionary extends AppCompatActivity {
     }
 
 
-    class DictionaryJsonRetrievalTask extends AsyncTask<Object, Object, Void> {
+    private class DictionaryJsonRetrievalTask extends AsyncTask<Void, Void, Void> {
 
         ProgressDialog progressDialog = new ProgressDialog(Dictionary.this);
         SharedPreferences preferences = getApplicationContext().getSharedPreferences("OWLData", 0);
@@ -201,7 +201,7 @@ public class Dictionary extends AppCompatActivity {
         }
 
         @Override
-        protected Void doInBackground(Object... params) {
+        protected Void doInBackground(Void... params) {
             ArrayList<String> list = new ArrayList<>();
             if (!preferences.getBoolean("dictionary_fetched", false)) {
                 RequestHandler requestHandler = new RequestHandler();

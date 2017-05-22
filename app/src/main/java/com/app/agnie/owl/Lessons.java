@@ -35,7 +35,6 @@ public class Lessons extends AppCompatActivity {
         setContentView(R.layout.activity_lessons);
         prepareLessons();
         setupLayout();
-        setupGrid();
     }
 
     private void setupLayout() {
@@ -121,33 +120,37 @@ public class Lessons extends AppCompatActivity {
     private void prepareLessons() {
         LessonJsonRetrievalTask task = new LessonJsonRetrievalTask();
         task.execute();
-        DataSource dataSource = new DataSource(getApplicationContext());
-        dataSource.open();
-        dataSource.createInitialLessonValues(getApplicationContext(), lessonString);
 //        lessons = dataSource.getLessons("polish", "english");
-        lessons = dataSource.getLessons("german", "english");
-        dataSource.close();
+
     }
 
-        private class LessonJsonRetrievalTask extends AsyncTask<String, Void, String> {
-            private ProgressDialog loading;
+        private class LessonJsonRetrievalTask extends AsyncTask<Void, Void, Void> {
+
+            private ProgressDialog progressDialog = new ProgressDialog(Lessons.this);
+            DataSource dataSource = new DataSource(getApplicationContext());
+
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                loading = ProgressDialog.show(Lessons.this,"Fetching Data","Wait...",false,false);
+                progressDialog.setMessage("\tRetrieving data...");
             }
 
             @Override
-            protected void onPostExecute(String lessons) {
-                super.onPostExecute(lessons);
-                loading.dismiss();
-                lessonString = lessons;
+            protected void onPostExecute(Void result) {
+                super.onPostExecute(result);
+                lessons = dataSource.getLessons("german", "english");
+                dataSource.close();
+                setupGrid();
+                progressDialog.dismiss();
             }
 
             @Override
-            protected String doInBackground(String... strings) {
+            protected Void doInBackground(Void... params) {
                 RequestHandler requestHandler = new RequestHandler();
-                return requestHandler.sendGetRequest(DBConfig.URL_GET_LESSON);
+                String lessonString =  requestHandler.sendGetRequest(DBConfig.URL_GET_LESSON);
+                dataSource.open();
+                dataSource.createInitialLessonValues(getApplicationContext(), lessonString);
+                return null;
             }
 
         }
