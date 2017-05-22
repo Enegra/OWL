@@ -27,8 +27,7 @@ public class DataSource {
 
     private SQLiteDatabase database;
     private DatabaseHelper databaseHelper;
-    ;
-    private String lessonsString;
+
 
     public DataSource(Context context) {
         databaseHelper = new DatabaseHelper(context);
@@ -87,7 +86,7 @@ public class DataSource {
         values.put(DatabaseHelper.COLUMN_TRANSLATION_LANGUAGE, translationLanguage);
         database.insert(DatabaseHelper.TABLE_LESSON, null, values);
     }
-    
+
     void addTest(String language, String caption, String description, String textContent){
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.COLUMN_LANGUAGE, language);
@@ -135,9 +134,6 @@ public class DataSource {
     }
 
     public void createInitialDictionaryValues(Context context, ArrayList<String> databaseString) {
-        SharedPreferences preferences = context.getSharedPreferences("OWLData", 0);
-        if (!preferences.getBoolean("dictionary_fetched", false)) {
-
             String jsonLanguageString = databaseString.get(0);
             String jsonWordString = databaseString.get(1);
             String jsonDescriptionString = databaseString.get(2);
@@ -147,11 +143,6 @@ public class DataSource {
             getAndAddWords(jsonWordString);
             getAndAddWordDescriptions(jsonDescriptionString);
             getAndAddSentences(jsonSentenceString);
-
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean("dictionary_fetched", true);
-            editor.apply();
-        }
     }
 
     public void createInitialLessonValues(Context context, String databaseString) {
@@ -164,7 +155,7 @@ public class DataSource {
         }
     }
 
-    
+
     public void createInitialTestValues(){
         //// TODO: 5/21/2017 
     }

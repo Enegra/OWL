@@ -2,6 +2,7 @@ package com.app.agnie.owl;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -37,7 +38,7 @@ public class Dictionary extends AppCompatActivity {
     private static final String DICTIONARY_FRAGMENT_TWO = "Dictionary List";
     private static final String FEATURED_ENTRY = "FEATURED_ENTRY";
     private int featuredEntry;
-    private ArrayList<String> databaseString;
+    private DataSource dataSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,7 @@ public class Dictionary extends AppCompatActivity {
     }
 
     private void setupLayout() {
+        dataSource = new DataSource(getApplicationContext());
         Toolbar toolbar = (Toolbar) findViewById(R.id.dictionary_toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -89,16 +91,7 @@ public class Dictionary extends AppCompatActivity {
     }
 
     private void setDataSource() {
-//        SharedPreferences preferences = getApplicationContext().getSharedPreferences("OWLData", 0);
-//        if (!preferences.getBoolean("dictionary_fetched", false)) {
-            new DictionaryJsonRetrievalTask().execute();
-//            SharedPreferences.Editor editor = preferences.edit();
-//            editor.putBoolean("dictionary_fetched", true);
-//            editor.apply();
-//        }
-
-
-        new DictionaryRetrievalTask().execute();
+        new DictionaryJsonRetrievalTask().execute();
     }
 
     private void setupDrawer() {
@@ -163,22 +156,17 @@ public class Dictionary extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(FEATURED_ENTRY, featuredEntry);
+    }
+
+
     private class DictionaryRetrievalTask extends AsyncTask<Void, Void, Void> {
-
-        ProgressDialog progressDialog = new ProgressDialog(Dictionary.this);
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog.setMessage("\tRetrieving data...");
-            progressDialog.show();
-        }
-
         @Override
         protected Void doInBackground(Void... params) {
-            DataSource dataSource = new DataSource(Dictionary.this);
             dataSource.open();
-            dataSource.createInitialDictionaryValues(Dictionary.this, databaseString);
             dictionaryEntries = dataSource.getDictionaryEntries("german", "english");
             SingletonSession.Instance().setDictionaryData(dictionaryEntries);
             dataSource.close();
@@ -189,41 +177,54 @@ public class Dictionary extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             setupTabs();
+        }
+    }
+
+
+    class DictionaryJsonRetrievalTask extends AsyncTask<Object, Object, Void> {
+
+        ProgressDialog progressDialog = new ProgressDialog(Dictionary.this);
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences("OWLData", 0);
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog.setMessage("\tRetrieving data...");
+            progressDialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            new DictionaryRetrievalTask().execute();
             progressDialog.dismiss();
         }
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt(FEATURED_ENTRY, featuredEntry);
-    }
-
-    class DictionaryJsonRetrievalTask extends AsyncTask<String, Void, ArrayList<String>> {
-        @Override
-        protected void onPostExecute(ArrayList<String> list) {
-            super.onPostExecute(list);
-            databaseString = list;
-        }
 
         @Override
-        protected ArrayList<String> doInBackground(String... strings) {
-            RequestHandler requestHandler = new RequestHandler();
-            String languages = requestHandler.sendGetRequest(DBConfig.URL_GET_LANGUAGE);
-            String words = requestHandler.sendGetRequest(DBConfig.URL_GET_WORD);
-            String sentences = requestHandler.sendGetRequest(DBConfig.URL_GET_SENTENCE);
-            String descriptions = requestHandler.sendGetRequest(DBConfig.URL_GET_WORDDESCRIPTION);
+        protected Void doInBackground(Object... params) {
             ArrayList<String> list = new ArrayList<>();
-            list.add(languages);
-            list.add(words);
-            list.add(descriptions);
-            list.add(sentences);
-            return list;
+            if (!preferences.getBoolean("dictionary_fetched", false)) {
+                RequestHandler requestHandler = new RequestHandler();
+                String languages = requestHandler.sendGetRequest(DBConfig.URL_GET_LANGUAGE);
+                String words = requestHandler.sendGetRequest(DBConfig.URL_GET_WORD);
+                String sentences = requestHandler.sendGetRequest(DBConfig.URL_GET_SENTENCE);
+                String descriptions = requestHandler.sendGetRequest(DBConfig.URL_GET_WORDDESCRIPTION);
+                list.add(languages);
+                list.add(words);
+                list.add(descriptions);
+                list.add(sentences);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("dictionary_fetched", true);
+                editor.apply();
+                if (!list.isEmpty()){
+                    dataSource.open();
+                    dataSource.createInitialDictionaryValues(Dictionary.this, list);
+                    dataSource.close();
+                }
+            }
+            return null;
         }
-
-
     }
-
 }
 
 
