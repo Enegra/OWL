@@ -38,7 +38,9 @@ public class Dictionary extends AppCompatActivity {
     private static final String DICTIONARY_FRAGMENT_TWO = "Dictionary List";
     private static final String FEATURED_ENTRY = "FEATURED_ENTRY";
     private int featuredEntry;
-    private DataSource dataSource;
+    private String interfaceLanguage = "english";
+    private String language = "german";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +60,6 @@ public class Dictionary extends AppCompatActivity {
     }
 
     private void setupLayout() {
-        dataSource = new DataSource(getApplicationContext());
         Toolbar toolbar = (Toolbar) findViewById(R.id.dictionary_toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -163,7 +164,7 @@ public class Dictionary extends AppCompatActivity {
     }
 
     private class DictionaryRetrievalTask extends AsyncTask<Void, Void, Void> {
-
+        DataSource dataSource = new DataSource(getApplicationContext());
         ProgressDialog progressDialog = new ProgressDialog(Dictionary.this);
         SharedPreferences preferences = getApplicationContext().getSharedPreferences("OWLData", 0);
 
@@ -202,7 +203,7 @@ public class Dictionary extends AppCompatActivity {
                 dataSource.close();
             }
             dataSource.open();
-            dictionaryEntries = dataSource.getDictionaryEntries("german", "english");
+            dictionaryEntries = dataSource.getDictionaryEntries(language, interfaceLanguage);
             SingletonSession.Instance().setDictionaryData(dictionaryEntries);
             dataSource.close();
             return null;

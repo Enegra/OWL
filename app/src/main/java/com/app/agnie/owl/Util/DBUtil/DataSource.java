@@ -7,9 +7,12 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.app.agnie.owl.Util.Answer;
 import com.app.agnie.owl.Util.CompressionTools;
 import com.app.agnie.owl.Util.DictionaryEntry;
 import com.app.agnie.owl.Util.Lesson;
+import com.app.agnie.owl.Util.Question;
+import com.app.agnie.owl.Util.Test;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -156,7 +159,38 @@ public class DataSource {
     }
 
 
-    public void createInitialTestValues(){
+    public void createInitialTestValues(Context context, String databaseString){
+        SharedPreferences preferences = context.getSharedPreferences("OWLData", 0);
+        if (!preferences.getBoolean("tests_fetched", false)) {
+            addTest("german", "Leseverstehen", "A test for reading with comprehension, basic level", "Seit zwei Jahren wohne ich in einer Wohngemeinschaft. Wir sind vier zusammen – Sandra, Torsten, Markus und ich. Die Jungs studieren an der Technischen Universität. Ich bin Medizinstudentin, und Sandra ist  Journalistin bei einer Stadtzeitung. \n" +
+                    "Die Wohnung ist nicht schlecht, sie liegt zentral und doch ruhig, hinter dem Haus ist ein Park, Wir haben vier Zimmer im dritten Stock. Die Miete ist ziemlich hoch, deshalb wohnen wir ja zu viert. Dafür haben wir eine große Küche mit einem Fenster, ein richtiges Bad und sogar eine Gästetoilette. Das Haus hat zwar eine Tiefgarage, die muss man aber extra bezahlen. Sonst aber finde ich meine Wohnung ganz toll. Es ist immer jemand und ich muss auch nicht die ganze Hausarbeit allein machen. Wir räumen jeden Freitag am Abend auf, mal die Männer, mal ich und Sandra.\n");
+            addQuestion("Wo wohnt die Autorin?",1);
+            addAnswer("in einer Wohngemeinschaft", 1, 1);
+            addAnswer("im Wohnheim", 0, 1);
+            addAnswer("im Einfamilienhaus", 0, 1);
+            addAnswer("im Einzelzimmer", 0, 1);
+            addQuestion("Was studiert sie?", 1);
+            addAnswer("Wirtschaftskunde", 0, 2);
+            addAnswer("Medizin", 1, 2);
+            addAnswer("Informatik", 0, 2);
+            addAnswer("Architektur", 0, 2);
+            addQuestion("Wohnen in der Wohngemeinschaft nur Studenten?", 1);
+            addAnswer("Ja", 1, 3);
+            addAnswer("Nein", 0, 3);
+            addQuestion("Wie viele Räume gibt es in der Wohnung?", 1);
+            addAnswer("Sieben", 0, 4);
+            addAnswer("Vier", 1, 4);
+            addQuestion("Was findet die Autorin positiv?", 1);
+            addAnswer("Die Wohnung ist super", 1, 5);
+            addAnswer("Die Wohnung ist billig", 0, 5);
+            addQuestion("Hat die Wohnung keine nachteile?", 1);
+            addAnswer("Nein, alles ist OK", 0, 6);
+            addAnswer("Doch, die Garage ist kostenpflichtig", 1, 6);
+            addTest("german", "Leseverstehen 2", "Another reading test", "Dummy");
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("tests_fetched", true);
+            editor.apply();
+        }
         //// TODO: 5/21/2017 
     }
 
@@ -259,7 +293,7 @@ public class DataSource {
     public ArrayList<DictionaryEntry> getDictionaryEntries(String language, String interfaceLanguage) {
         ArrayList<DictionaryEntry> dictionaryEntries = new ArrayList<>();
 //        Cursor cursor = database.query(DatabaseHelper.TABLE_WORD, null, null, null, null, null, null);
-        Cursor cursor = database.rawQuery("select word_id, picture_content, word_description, language_name from word join word_description on word.id=word_description.word_id", null);
+        Cursor cursor = database.rawQuery("select word_id, picture_content, word_description, language_name from word join word_description on word.id=word_description.word_id order by word_id asc", null);
         Cursor sentenceCursor = database.rawQuery("select * from sentence order by word_id, id asc", null);
         sentenceCursor.moveToFirst();
         cursor.moveToFirst();
@@ -307,24 +341,65 @@ public class DataSource {
 
     public ArrayList<Lesson> getLessons(String language, String interfaceLanguage) {
         ArrayList<Lesson> lessons = new ArrayList<>();
-//        Cursor cursor = database.query(DatabaseHelper.TABLE_LESSON, null, null, null, null, null, null);
         Cursor cursor = database.rawQuery("select id, caption, subtitle, content, origin_language, translation_language from lesson", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            int id = cursor.getInt(cursor.getColumnIndex("id"));
-            String caption = cursor.getString(cursor.getColumnIndex("caption"));
-            String subtitle = cursor.getString(cursor.getColumnIndex("subtitle"));
-            String content = cursor.getString(cursor.getColumnIndex("content"));
             String originLanguage = cursor.getString(cursor.getColumnIndex("origin_language"));
             String translationLanguage = cursor.getString(cursor.getColumnIndex("translation_language"));
-            Lesson newLesson = new Lesson(id, originLanguage, translationLanguage, content, caption, subtitle);
             if (originLanguage.equals(language) && translationLanguage.equals(interfaceLanguage)) {
+                int id = cursor.getInt(cursor.getColumnIndex("id"));
+                String caption = cursor.getString(cursor.getColumnIndex("caption"));
+                String subtitle = cursor.getString(cursor.getColumnIndex("subtitle"));
+                String content = cursor.getString(cursor.getColumnIndex("content"));
+                Lesson newLesson = new Lesson(id, originLanguage, translationLanguage, content, caption, subtitle);
                 lessons.add(newLesson);
             }
             cursor.moveToNext();
         }
         cursor.close();
         return lessons;
+    }
+
+    public ArrayList<Test> getTests(String language){
+        ArrayList<Test> tests = new ArrayList<>();
+        Cursor cursor = database.rawQuery("select question.test as test_id, question.id as question_id, question.content as question_content, test.caption as test_caption, test.description as test_description, test.text_content as test_text_content, test.language_name as test_language, answer.content as answer_content, answer.is_correct as answer_is_correct from (question join test on question.test = test.id) join answer on answer.question = question.id order by test_id, question_id asc", null);
+        cursor.moveToFirst();
+        int lastId = -1;
+        int lastQuestionId = -1;
+        while (!cursor.isAfterLast()){
+            String testLanguage = cursor.getString(cursor.getColumnIndex("test_language"));
+            if (testLanguage.equals(language)){
+                int testId = cursor.getInt(cursor.getColumnIndex("test_id"));
+                if (testId!=lastId){
+                    String caption = cursor.getString(cursor.getColumnIndex("test_caption"));
+                    String description = cursor.getString(cursor.getColumnIndex("test_description"));
+                    String textContent = cursor.getString(cursor.getColumnIndex("test_text_content"));
+                    Test newTest = new Test(testLanguage, caption, description, textContent);
+                    tests.add(newTest);
+                    lastId = testId;
+                }
+                int questionId = cursor.getInt(cursor.getColumnIndex("question_id"));
+                if (questionId!=lastQuestionId){
+                    String content = cursor.getString(cursor.getColumnIndex("question_content"));
+                    Question newQuestion = new Question(content);
+                    tests.get(tests.size()-1).addQuestion(newQuestion);
+                    lastQuestionId = questionId;
+                }
+                String answerContent = cursor.getString(cursor.getColumnIndex("answer_content"));
+                int answerIsCorrect = cursor.getInt(cursor.getColumnIndex("answer_is_correct"));
+                boolean isCorrect;
+                if (answerIsCorrect==0){
+                    isCorrect = false;
+                } else {
+                    isCorrect = true;
+                }
+                Answer newAnswer = new Answer(answerContent, isCorrect);
+                tests.get(tests.size()-1).getQuestions().get(tests.get(tests.size()-1).getQuestions().size()-1).addAnswer(newAnswer);
+            }
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return tests;
     }
 
 }

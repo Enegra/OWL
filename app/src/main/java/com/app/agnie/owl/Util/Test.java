@@ -13,9 +13,9 @@ public class Test implements Parcelable {
     private String textContent;
     private ArrayList<Question> questions;
 
-    public Test(String language, String title, String description, String textContent) {
+    public Test(String language, String caption, String description, String textContent) {
         this.language = language;
-        this.caption = title;
+        this.caption = caption;
         this.description = description;
         this.textContent = textContent;
         questions = new ArrayList<>();
