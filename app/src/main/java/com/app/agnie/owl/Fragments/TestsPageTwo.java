@@ -1,5 +1,7 @@
 package com.app.agnie.owl.Fragments;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,7 +13,9 @@ import android.widget.TextView;
 
 import com.app.agnie.owl.Adapters.TestTileAdapter;
 import com.app.agnie.owl.R;
+import com.app.agnie.owl.Util.DBUtil.DBConfig;
 import com.app.agnie.owl.Util.DBUtil.DataSource;
+import com.app.agnie.owl.Util.DBUtil.RequestHandler;
 import com.app.agnie.owl.Util.Test;
 
 import java.util.ArrayList;
@@ -36,12 +40,13 @@ public class TestsPageTwo extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tests_page_two, container, false);
-        createDummyTests();
-        setupGrid(view);
+        TestRetrievalTask task = new TestRetrievalTask();
+        task.execute();
         return view;
     }
 
-    private void setupGrid(View view) {
+    private void setupGrid() {
+        View view = getView();
         adapter = new TestTileAdapter(getActivity(), tests);
         testList = (RecyclerView) view.findViewById(R.id.tests_tests_list);
         testList.setAdapter(adapter);
@@ -55,13 +60,44 @@ public class TestsPageTwo extends Fragment {
         }
     }
     
-    private void createDummyTests(){
-        //// TODO: 5/9/2017
+//    private void createDummyTests(){
+//        //// TODO: 5/9/2017
+//        DataSource dataSource = new DataSource(getContext());
+//        dataSource.open();
+//        dataSource.createInitialTestValues(getContext(), "");
+//        tests = dataSource.getTests("german");
+//        dataSource.close();
+//    }
+
+    private class TestRetrievalTask extends AsyncTask<Void, Void, Void> {
+
+        private ProgressDialog progressDialog = new ProgressDialog(getContext());
         DataSource dataSource = new DataSource(getContext());
-        dataSource.open();
-        dataSource.createInitialTestValues(getContext(), "");
-        tests = dataSource.getTests("german");
-        dataSource.close();
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog.setMessage("\tRetrieving data...");
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            tests = dataSource.getTests("german");
+            dataSource.close();
+            setupGrid();
+            progressDialog.dismiss();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            RequestHandler requestHandler = new RequestHandler();
+            String testString =  requestHandler.sendGetRequest(DBConfig.URL_GET_LESSON);
+            dataSource.open();
+            dataSource.createInitialTestValues(getContext(), testString);
+            return null;
+        }
+
     }
 
 

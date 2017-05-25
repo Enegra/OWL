@@ -118,13 +118,13 @@ public class Lessons extends AppCompatActivity {
     }
 
     private void prepareLessons() {
-        LessonJsonRetrievalTask task = new LessonJsonRetrievalTask();
+        LessonRetrievalTask task = new LessonRetrievalTask();
         task.execute();
 //        lessons = dataSource.getLessons("polish", "english");
 
     }
 
-        private class LessonJsonRetrievalTask extends AsyncTask<Void, Void, Void> {
+        private class LessonRetrievalTask extends AsyncTask<Void, Void, Void> {
 
             private ProgressDialog progressDialog = new ProgressDialog(Lessons.this);
             DataSource dataSource = new DataSource(getApplicationContext());
