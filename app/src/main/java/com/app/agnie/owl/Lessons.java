@@ -27,7 +27,6 @@ public class Lessons extends AppCompatActivity {
 
     private ArrayList<Lesson> lessons;
     private DrawerLayout drawerLayout;
-    private String lessonString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,8 +119,6 @@ public class Lessons extends AppCompatActivity {
     private void prepareLessons() {
         LessonRetrievalTask task = new LessonRetrievalTask();
         task.execute();
-//        lessons = dataSource.getLessons("polish", "english");
-
     }
 
         private class LessonRetrievalTask extends AsyncTask<Void, Void, Void> {

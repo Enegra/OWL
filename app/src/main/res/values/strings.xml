@@ -39,35 +39,6 @@
     <!-- lessons -->
     <string name="lessons_title">Lessons</string>
 
-    <!-- webtest -->
-       <string name="html_test">
-        <![CDATA[
-        <html>
-        <head>
-        <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"/>
-        </head>
-        <body>
-        <h1>Main Title</h1>
-        <h2>A sub-title</h2>
-        <p>This is some html. Look, here\'s an <u>underline</u>.</p>
-        <p>Look, this is <em>emphasized.</em> And here\'s some <b>bold</b>.</p>
-        <p>This is a UL list:
-        <ul>
-        <li>One</li>
-        <li>Two</li>
-        <li>Three</li>
-        </ul>
-        <p>This is an OL list:
-        <ol>
-        <li>One</li>
-        <li>Two</li>
-        <li>Three</li>
-        </ol>
-        </body>
-        </html>
-        ]]>
-    </string>
-
     <!-- tests -->
     <string name="tests_no_scores">Currently you have no saved scores</string>
     <string name="tests_no_tests">Currently there are no tests</string>
@@ -79,4 +50,17 @@
     <string name="score_comment_fair">Could\'ve been worse!</string>
     <string name="score_comment_bad">You have yet things to learn!</string>
     <string name="score_comment_terrible">You should consider checking lessons first!</string>
+
+    <!--settings -->
+    <string name="settings_first_section">App language</string>
+    <string name="settings_first_section_language">Learning language</string>
+    <string-array
+        name="settings_language_choices">
+        <item>German</item>
+    </string-array>
+    <string name="settings_first_section_interface_language">Interface language</string>
+    <string-array name="settings_interface_language_choices">
+        <item>English</item>
+    </string-array>
+    <string name="settings_second_section">Saved data</string>
 </resources>

@@ -59,15 +59,6 @@ public class TestsPageTwo extends Fragment {
             textView.setText(R.string.tests_no_tests);
         }
     }
-    
-//    private void createDummyTests(){
-//        //// TODO: 5/9/2017
-//        DataSource dataSource = new DataSource(getContext());
-//        dataSource.open();
-//        dataSource.createInitialTestValues(getContext(), "");
-//        tests = dataSource.getTests("german");
-//        dataSource.close();
-//    }
 
     private class TestRetrievalTask extends AsyncTask<Void, Void, Void> {
 
@@ -92,9 +83,15 @@ public class TestsPageTwo extends Fragment {
         @Override
         protected Void doInBackground(Void... params) {
             RequestHandler requestHandler = new RequestHandler();
-            String testString =  requestHandler.sendGetRequest(DBConfig.URL_GET_LESSON);
+            String testString =  requestHandler.sendGetRequest(DBConfig.URL_GET_TEST);
+            String questionString = requestHandler.sendGetRequest(DBConfig.URL_GET_QUESTION);
+            String answerString = requestHandler.sendGetRequest(DBConfig.URL_GET_ANSWER);
+            ArrayList<String> testStrings = new ArrayList<>();
+            testStrings.add(testString);
+            testStrings.add(questionString);
+            testStrings.add(answerString);
             dataSource.open();
-            dataSource.createInitialTestValues(getContext(), testString);
+            dataSource.createInitialTestValues(getContext(), testStrings);
             return null;
         }
 

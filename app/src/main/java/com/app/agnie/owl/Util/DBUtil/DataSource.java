@@ -159,39 +159,21 @@ public class DataSource {
     }
 
 
-    public void createInitialTestValues(Context context, String databaseString){
+    public void createInitialTestValues(Context context, ArrayList<String> databaseString){
         SharedPreferences preferences = context.getSharedPreferences("OWLData", 0);
         if (!preferences.getBoolean("tests_fetched", false)) {
-            addTest("german", "Leseverstehen", "A test for reading with comprehension, basic level", "Seit zwei Jahren wohne ich in einer Wohngemeinschaft. Wir sind vier zusammen – Sandra, Torsten, Markus und ich. Die Jungs studieren an der Technischen Universität. Ich bin Medizinstudentin, und Sandra ist  Journalistin bei einer Stadtzeitung. \n" +
-                    "Die Wohnung ist nicht schlecht, sie liegt zentral und doch ruhig, hinter dem Haus ist ein Park, Wir haben vier Zimmer im dritten Stock. Die Miete ist ziemlich hoch, deshalb wohnen wir ja zu viert. Dafür haben wir eine große Küche mit einem Fenster, ein richtiges Bad und sogar eine Gästetoilette. Das Haus hat zwar eine Tiefgarage, die muss man aber extra bezahlen. Sonst aber finde ich meine Wohnung ganz toll. Es ist immer jemand und ich muss auch nicht die ganze Hausarbeit allein machen. Wir räumen jeden Freitag am Abend auf, mal die Männer, mal ich und Sandra.\n");
-            addQuestion("Wo wohnt die Autorin?",1);
-            addAnswer("in einer Wohngemeinschaft", 1, 1);
-            addAnswer("im Wohnheim", 0, 1);
-            addAnswer("im Einfamilienhaus", 0, 1);
-            addAnswer("im Einzelzimmer", 0, 1);
-            addQuestion("Was studiert sie?", 1);
-            addAnswer("Wirtschaftskunde", 0, 2);
-            addAnswer("Medizin", 1, 2);
-            addAnswer("Informatik", 0, 2);
-            addAnswer("Architektur", 0, 2);
-            addQuestion("Wohnen in der Wohngemeinschaft nur Studenten?", 1);
-            addAnswer("Ja", 1, 3);
-            addAnswer("Nein", 0, 3);
-            addQuestion("Wie viele Räume gibt es in der Wohnung?", 1);
-            addAnswer("Sieben", 0, 4);
-            addAnswer("Vier", 1, 4);
-            addQuestion("Was findet die Autorin positiv?", 1);
-            addAnswer("Die Wohnung ist super", 1, 5);
-            addAnswer("Die Wohnung ist billig", 0, 5);
-            addQuestion("Hat die Wohnung keine nachteile?", 1);
-            addAnswer("Nein, alles ist OK", 0, 6);
-            addAnswer("Doch, die Garage ist kostenpflichtig", 1, 6);
-            addTest("german", "Leseverstehen 2", "Another reading test", "Dummy");
+            String jsonTestString = databaseString.get(0);
+            String jsonQuestionString = databaseString.get(1);
+            String jsonAnswerString = databaseString.get(2);
+
+            getAndAddTests(jsonTestString);
+            getAndAddQuestions(jsonQuestionString);
+            getAndAddAnswers(jsonAnswerString);
+
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean("tests_fetched", true);
             editor.apply();
         }
-        //// TODO: 5/21/2017 
     }
 
     private void getAndAddLanguages(String jsonLanguageString) {
@@ -283,6 +265,68 @@ public class DataSource {
                 String subtitle = jo.getString(DBConfig.TAG_LESSON_SUBTITLE);
                 String translationLanguage = jo.getString(DBConfig.TAG_LESSON_TRANSLATIONLANGUAGE);
                 addLesson(caption, subtitle, content, originLanguage, translationLanguage);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getAndAddTests(String jsonTestString) {
+        JSONObject jsonObject;
+        try {
+            jsonObject = new JSONObject(jsonTestString);
+            JSONArray result = jsonObject.getJSONArray(DBConfig.TAG_JSON_ARRAY);
+
+            for (int i = 0; i < result.length(); i++) {
+                JSONObject jo = result.getJSONObject(i);
+                String caption = jo.getString(DBConfig.TAG_TEST_CAPTION);
+                String description = jo.getString(DBConfig.TAG_TEST_DESCRIPTION);
+                String languageName = jo.getString(DBConfig.TAG_TEST_LANGUAGENAME);
+                String textContent = jo.getString(DBConfig.TAG_TEST_TEXTCONTENT);
+                addTest(languageName, caption, description, textContent);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getAndAddQuestions(String jsonQuestionString) {
+        JSONObject jsonObject;
+        try {
+            jsonObject = new JSONObject(jsonQuestionString);
+            JSONArray result = jsonObject.getJSONArray(DBConfig.TAG_JSON_ARRAY);
+
+            for (int i = 0; i < result.length(); i++) {
+                JSONObject jo = result.getJSONObject(i);
+                String content = jo.getString(DBConfig.TAG_QUESTION_CONTENT);
+                String test = jo.getString(DBConfig.TAG_QUESTION_TEST);
+                int testId = Integer.parseInt(test);
+                addQuestion(content, testId);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getAndAddAnswers(String jsonAnswerString) {
+        JSONObject jsonObject;
+        try {
+            jsonObject = new JSONObject(jsonAnswerString);
+            JSONArray result = jsonObject.getJSONArray(DBConfig.TAG_JSON_ARRAY);
+
+            for (int i = 0; i < result.length(); i++) {
+                JSONObject jo = result.getJSONObject(i);
+                String content = jo.getString(DBConfig.TAG_ANSWER_CONTENT);
+                String isCorrect = jo.getString(DBConfig.TAG_ANSWER_ISCORRECT);
+                String question = jo.getString(DBConfig.TAG_ANSWER_QUESTION);
+
+                int correct = Integer.parseInt(isCorrect);
+                int questionId = Integer.parseInt(question);
+
+                addAnswer(content, correct, questionId);
             }
 
         } catch (JSONException e) {
