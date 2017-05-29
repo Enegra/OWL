@@ -104,8 +104,6 @@ public class Settings extends AppCompatActivity{
 
     public static class SettingsFragment extends PreferenceFragmentCompat {
 
-//        private ListPreference listPreference;
-
         @Override
         public void onCreatePreferencesFix(@Nullable Bundle savedInstanceState, String rootKey) {
             addPreferencesFromResource(R.xml.settings_preferences);

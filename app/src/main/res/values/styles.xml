@@ -13,6 +13,7 @@
             @color/navigationBarColour
         </item>
         <item name="android:popupBackground">@color/transparentBeige</item>
+        <item name="preferenceTheme">@style/OwlPreferenceStyle</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -28,5 +29,11 @@
         <item name="android:textColorPrimary">@color/primaryTextColour</item>
         <item name="android:textColorSecondary">@color/primaryTextColour</item>
         <item name="android:background">@color/colorPrimary</item>
+    </style>
+    
+    <style name="OwlPreferenceStyle" parent="@style/PreferenceFixTheme">
+        <item name="android:textColor">@color/primaryTextColour</item>
+        <item name="android:background">@color/backgroundColour</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 </resources>

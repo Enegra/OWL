@@ -55,11 +55,18 @@
     <string name="settings_first_section">App language</string>
     <string name="settings_first_section_language">Learning language</string>
     <string-array
-        name="settings_language_choices">
-        <item>German</item>
+        name="settings_language_choice_entries">
+        <item>german</item>
+    </string-array>
+    <string-array
+        name="settings_language_choice_entry_values">
+        <item>german</item>
     </string-array>
     <string name="settings_first_section_interface_language">Interface language</string>
-    <string-array name="settings_interface_language_choices">
+    <string-array name="settings_interface_language_choice_entries">
+    <item>english</item>
+</string-array>
+    <string-array name="settings_interface_language_choice_entry_values">
         <item>English</item>
     </string-array>
     <string name="settings_second_section">Saved data</string>
