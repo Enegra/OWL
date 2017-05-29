@@ -195,12 +195,13 @@ public class Dictionary extends AppCompatActivity {
                 list.add(words);
                 list.add(descriptions);
                 list.add(sentences);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean("dictionary_fetched", true);
-                editor.apply();
                 dataSource.open();
                 dataSource.createInitialDictionaryValues(Dictionary.this, list);
                 dataSource.close();
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("dictionary_fetched", true);
+                editor.apply();
+
             }
             dataSource.open();
             dictionaryEntries = dataSource.getDictionaryEntries(language, interfaceLanguage);

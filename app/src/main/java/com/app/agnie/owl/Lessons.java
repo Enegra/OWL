@@ -2,6 +2,7 @@ package com.app.agnie.owl;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -125,6 +126,9 @@ public class Lessons extends AppCompatActivity {
 
             private ProgressDialog progressDialog = new ProgressDialog(Lessons.this);
             DataSource dataSource = new DataSource(getApplicationContext());
+            SharedPreferences preferences = getApplicationContext().getSharedPreferences("OWLData", 0);
+
+
 
             @Override
             protected void onPreExecute() {
@@ -135,18 +139,25 @@ public class Lessons extends AppCompatActivity {
             @Override
             protected void onPostExecute(Void result) {
                 super.onPostExecute(result);
-                lessons = dataSource.getLessons("german", "english");
-                dataSource.close();
                 setupGrid();
                 progressDialog.dismiss();
             }
 
             @Override
             protected Void doInBackground(Void... params) {
-                RequestHandler requestHandler = new RequestHandler();
-                String lessonString =  requestHandler.sendGetRequest(DBConfig.URL_GET_LESSON);
+                if (!preferences.getBoolean("lessons_fetched", false)){
+                    RequestHandler requestHandler = new RequestHandler();
+                    String lessonString =  requestHandler.sendGetRequest(DBConfig.URL_GET_LESSON);
+                    dataSource.open();
+                    dataSource.createInitialLessonValues(getApplicationContext(), lessonString);
+                    dataSource.close();
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putBoolean("lessons_fetched", true);
+                    editor.apply();
+                }
                 dataSource.open();
-                dataSource.createInitialLessonValues(getApplicationContext(), lessonString);
+                lessons = dataSource.getLessons("german", "english");
+                dataSource.close();
                 return null;
             }
 

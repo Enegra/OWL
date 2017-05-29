@@ -28,8 +28,7 @@ public class DictionaryItemDetail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         favouritePreference = new FavouritePreference();
-        int position = getIntent().getIntExtra("selectedEntry",0);
-        selectedEntry = SingletonSession.Instance().getDictionaryData().get(position);
+        selectedEntry = SingletonSession.Instance().getSelectedEntry();
         setContentView(R.layout.activity_dictionary_item_detail);
         setupLayout();
     }

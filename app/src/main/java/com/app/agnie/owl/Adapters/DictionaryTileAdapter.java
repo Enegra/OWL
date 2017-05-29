@@ -3,18 +3,17 @@ package com.app.agnie.owl.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.app.agnie.owl.DictionaryItemDetail;
 import com.app.agnie.owl.R;
 import com.app.agnie.owl.Util.CompressionTools;
 import com.app.agnie.owl.Util.DictionaryEntry;
+import com.app.agnie.owl.Util.SingletonSession;
 
 import java.util.ArrayList;
 
@@ -40,7 +39,7 @@ public class DictionaryTileAdapter extends RecyclerView.Adapter<DictionaryTileAd
             public void onClick(View view) {
                 int position = holder.getAdapterPosition();
                 Intent detailIntent = new Intent(dictionaryItem.getContext(), DictionaryItemDetail.class);
-                detailIntent.putExtra("selectedEntry", position);
+                SingletonSession.Instance().setSelectedEntry(dictionaryEntries.get(position));
                 dictionaryItem.getContext().startActivity(detailIntent);
             }
         });

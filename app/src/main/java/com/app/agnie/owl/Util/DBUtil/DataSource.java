@@ -2,7 +2,6 @@ package com.app.agnie.owl.Util.DBUtil;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -149,31 +148,17 @@ public class DataSource {
     }
 
     public void createInitialLessonValues(Context context, String databaseString) {
-        SharedPreferences preferences = context.getSharedPreferences("OWLData", 0);
-        if (!preferences.getBoolean("lessons_fetched", false)) {
             getAndAddLessons(databaseString);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean("lessons_fetched", true);
-            editor.apply();
-        }
     }
 
 
     public void createInitialTestValues(Context context, ArrayList<String> databaseString){
-        SharedPreferences preferences = context.getSharedPreferences("OWLData", 0);
-        if (!preferences.getBoolean("tests_fetched", false)) {
             String jsonTestString = databaseString.get(0);
             String jsonQuestionString = databaseString.get(1);
             String jsonAnswerString = databaseString.get(2);
-
             getAndAddTests(jsonTestString);
             getAndAddQuestions(jsonQuestionString);
             getAndAddAnswers(jsonAnswerString);
-
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean("tests_fetched", true);
-            editor.apply();
-        }
     }
 
     private void getAndAddLanguages(String jsonLanguageString) {

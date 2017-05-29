@@ -35,5 +35,6 @@
         <item name="android:textColor">@color/primaryTextColour</item>
         <item name="android:background">@color/backgroundColour</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:popupBackground">@color/backgroundColour</item>
     </style>
 </resources>

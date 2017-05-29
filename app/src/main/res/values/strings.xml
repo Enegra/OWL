@@ -67,7 +67,7 @@
     <item>english</item>
 </string-array>
     <string-array name="settings_interface_language_choice_entry_values">
-        <item>English</item>
+        <item>english</item>
     </string-array>
     <string name="settings_second_section">Saved data</string>
 </resources>

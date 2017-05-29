@@ -1,6 +1,7 @@
 package com.app.agnie.owl.Fragments;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -74,24 +75,32 @@ public class TestsPageTwo extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            tests = dataSource.getTests("german");
-            dataSource.close();
             setupGrid();
             progressDialog.dismiss();
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            RequestHandler requestHandler = new RequestHandler();
-            String testString =  requestHandler.sendGetRequest(DBConfig.URL_GET_TEST);
-            String questionString = requestHandler.sendGetRequest(DBConfig.URL_GET_QUESTION);
-            String answerString = requestHandler.sendGetRequest(DBConfig.URL_GET_ANSWER);
-            ArrayList<String> testStrings = new ArrayList<>();
-            testStrings.add(testString);
-            testStrings.add(questionString);
-            testStrings.add(answerString);
+            SharedPreferences preferences = getContext().getSharedPreferences("OWLData", 0);
+            if (!preferences.getBoolean("tests_fetched", false)){
+                RequestHandler requestHandler = new RequestHandler();
+                String testString =  requestHandler.sendGetRequest(DBConfig.URL_GET_TEST);
+                String questionString = requestHandler.sendGetRequest(DBConfig.URL_GET_QUESTION);
+                String answerString = requestHandler.sendGetRequest(DBConfig.URL_GET_ANSWER);
+                ArrayList<String> testStrings = new ArrayList<>();
+                testStrings.add(testString);
+                testStrings.add(questionString);
+                testStrings.add(answerString);
+                dataSource.open();
+                dataSource.createInitialTestValues(getContext(), testStrings);
+                dataSource.close();
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("tests_fetched", true);
+                editor.apply();
+            }
             dataSource.open();
-            dataSource.createInitialTestValues(getContext(), testStrings);
+            tests = dataSource.getTests("german");
+            dataSource.close();
             return null;
         }
 
