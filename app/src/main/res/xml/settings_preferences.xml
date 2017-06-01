@@ -8,14 +8,14 @@
         android:summary="%s"
         android:entries="@array/settings_language_choice_entries"
         android:entryValues="@array/settings_language_choice_entry_values"
-        android:defaultValue="0"/>
+        android:defaultValue="@string/settings_learning_language_default"/>
     <ListPreference
         android:key="interface_language_preference"
         android:title="@string/settings_first_section_interface_language"
         android:summary="%s"
         android:entries="@array/settings_interface_language_choice_entries"
         android:entryValues="@array/settings_interface_language_choice_entry_values"
-        android:defaultValue="0"/>
+        android:defaultValue="@string/settings_interface_language_default"/>
 </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/settings_second_section"></PreferenceCategory>

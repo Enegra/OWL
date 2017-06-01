@@ -10,4 +10,6 @@
     <color name="secondaryTextColour">#baa393</color>
     <color name="transparentBeige">#40f9e1cf</color>
     <color name="navigationBarColour">#30261f</color>
+    <color name="dialogBackground">#68594e</color>
+    <color name="preference_fallback_accent_color">@color/colorAccent</color>
 </resources>

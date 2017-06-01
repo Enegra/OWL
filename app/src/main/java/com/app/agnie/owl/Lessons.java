@@ -128,8 +128,6 @@ public class Lessons extends AppCompatActivity {
             DataSource dataSource = new DataSource(getApplicationContext());
             SharedPreferences preferences = getApplicationContext().getSharedPreferences("OWLData", 0);
 
-
-
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();

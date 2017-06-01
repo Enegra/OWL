@@ -54,6 +54,7 @@
     <!--settings -->
     <string name="settings_first_section">App language</string>
     <string name="settings_first_section_language">Learning language</string>
+    <string name="settings_learning_language_default">"german"</string>
     <string-array
         name="settings_language_choice_entries">
         <item>german</item>
@@ -63,6 +64,7 @@
         <item>german</item>
     </string-array>
     <string name="settings_first_section_interface_language">Interface language</string>
+    <string name="settings_interface_language_default">"english"</string>
     <string-array name="settings_interface_language_choice_entries">
     <item>english</item>
 </string-array>
