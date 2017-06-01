@@ -90,7 +90,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void createWord(SQLiteDatabase database) {
-        String createWord = "create table if not exists " + TABLE_WORD + "(" + COLUMN_ID + " integer primary key autoincrement,  " + COLUMN_PICTURE_CONTENT + " blob" + ");";
+        String createWord = "create table if not exists " + TABLE_WORD + "(" + COLUMN_ID + " integer primary key,  " + COLUMN_PICTURE_CONTENT + " blob" + ");";
         database.execSQL(createWord);
     }
 
@@ -108,7 +108,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void createWordDescription(SQLiteDatabase database) {
-        String createWordDescription = "create table if not exists " + TABLE_WORD_DESCRIPTION + "(" + COLUMN_ID + " integer primary key autoincrement, " + COLUMN_WORD_DESCRIPTION + " text not null, " + COLUMN_WORD_ID + " integer not null, " + COLUMN_LANGUAGE + " text not null, foreign key (" + COLUMN_WORD_ID + ") references " + TABLE_WORD + "(" + COLUMN_ID + "), foreign key (" + COLUMN_LANGUAGE + ") references " + TABLE_LANGUAGE + "( " + COLUMN_LANGUAGE + ") );";
+        String createWordDescription = "create table if not exists " + TABLE_WORD_DESCRIPTION + "(" + COLUMN_ID + " integer primary key, " + COLUMN_WORD_DESCRIPTION + " text not null, " + COLUMN_WORD_ID + " integer not null, " + COLUMN_LANGUAGE + " text not null, foreign key (" + COLUMN_WORD_ID + ") references " + TABLE_WORD + "(" + COLUMN_ID + "), foreign key (" + COLUMN_LANGUAGE + ") references " + TABLE_LANGUAGE + "( " + COLUMN_LANGUAGE + ") );";
         database.execSQL(createWordDescription);
     }
 
@@ -117,7 +117,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void createSentence(SQLiteDatabase database) {
-        String createSentence = "create table if not exists " + TABLE_SENTENCE + "(" + COLUMN_ID + " integer primary key autoincrement, " + COLUMN_SENTENCE + " text not null, " + COLUMN_WORD_ID + " integer not null, " + COLUMN_LANGUAGE + " text not null, " + "foreign key (" + COLUMN_WORD_ID + ") references " + TABLE_WORD + "(" + COLUMN_ID + "), foreign key (" + COLUMN_LANGUAGE + ") references " + TABLE_LANGUAGE + "( " + COLUMN_LANGUAGE + ") );";
+        String createSentence = "create table if not exists " + TABLE_SENTENCE + "(" + COLUMN_ID + " integer primary key, " + COLUMN_SENTENCE + " text not null, " + COLUMN_WORD_ID + " integer not null, " + COLUMN_LANGUAGE + " text not null, " + "foreign key (" + COLUMN_WORD_ID + ") references " + TABLE_WORD + "(" + COLUMN_ID + "), foreign key (" + COLUMN_LANGUAGE + ") references " + TABLE_LANGUAGE + "( " + COLUMN_LANGUAGE + ") );";
         database.execSQL(createSentence);
     }
 
@@ -126,7 +126,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void createLesson(SQLiteDatabase database){
-        String createLesson = "create table if not exists " + TABLE_LESSON + "(" + COLUMN_ID + " integer primary key autoincrement, " + COLUMN_CATEGORY + " integer, " + COLUMN_CAPTION + " text not null, " + COLUMN_SUBTITLE + " text not null, " + COLUMN_CONTENT + " text not null, " + COLUMN_ORIGIN_LANGUAGE + " text not null, " + COLUMN_TRANSLATION_LANGUAGE + " text not null, " + "foreign key (" + COLUMN_ORIGIN_LANGUAGE + ") references " + TABLE_LANGUAGE + "( " + COLUMN_LANGUAGE + "), foreign key (" + COLUMN_TRANSLATION_LANGUAGE + ") references " + TABLE_LANGUAGE + "( " + COLUMN_LANGUAGE + ")) ";
+        String createLesson = "create table if not exists " + TABLE_LESSON + "(" + COLUMN_ID + " integer primary key, " + COLUMN_CATEGORY + " integer, " + COLUMN_CAPTION + " text not null, " + COLUMN_SUBTITLE + " text not null, " + COLUMN_CONTENT + " text not null, " + COLUMN_ORIGIN_LANGUAGE + " text not null, " + COLUMN_TRANSLATION_LANGUAGE + " text not null, " + "foreign key (" + COLUMN_ORIGIN_LANGUAGE + ") references " + TABLE_LANGUAGE + "( " + COLUMN_LANGUAGE + "), foreign key (" + COLUMN_TRANSLATION_LANGUAGE + ") references " + TABLE_LANGUAGE + "( " + COLUMN_LANGUAGE + ")) ";
         database.execSQL(createLesson);
     }
 
@@ -135,7 +135,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void createTest(SQLiteDatabase database){
-        String createTest = "create table if not exists " + TABLE_TEST + "(" + COLUMN_ID + " integer primary key autoincrement, " + COLUMN_LANGUAGE + " text not null, " + COLUMN_CAPTION + " text not null, " + COLUMN_DESCRIPTION + " text not null, " + COLUMN_TEXT_CONTENT + " text not null, foreign key (" + COLUMN_LANGUAGE +") references " + TABLE_LANGUAGE + "( " + COLUMN_LANGUAGE + "));";
+        String createTest = "create table if not exists " + TABLE_TEST + "(" + COLUMN_ID + " integer primary key, " + COLUMN_LANGUAGE + " text not null, " + COLUMN_CAPTION + " text not null, " + COLUMN_DESCRIPTION + " text not null, " + COLUMN_TEXT_CONTENT + " text not null, foreign key (" + COLUMN_LANGUAGE +") references " + TABLE_LANGUAGE + "( " + COLUMN_LANGUAGE + "));";
         database.execSQL(createTest);
     }
 
@@ -144,7 +144,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void createQuestion(SQLiteDatabase database){
-        String createQuestion = "create table if not exists " + TABLE_QUESTION + "(" + COLUMN_ID + " integer primary key autoincrement, " + COLUMN_CONTENT + " text not null, " + COLUMN_TEST + " integer not null, foreign key (" + COLUMN_TEST + ") references " + TABLE_TEST + "(" + COLUMN_ID + "));";
+        String createQuestion = "create table if not exists " + TABLE_QUESTION + "(" + COLUMN_ID + " integer primary key, " + COLUMN_CONTENT + " text not null, " + COLUMN_TEST + " integer not null, foreign key (" + COLUMN_TEST + ") references " + TABLE_TEST + "(" + COLUMN_ID + "));";
         database.execSQL(createQuestion);
     }
 
@@ -153,7 +153,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void createAnswer(SQLiteDatabase database){
-        String createAnswer = "create table if not exists " + TABLE_ANSWER + "(" + COLUMN_ID + " integer primary key autoincrement, " + COLUMN_CONTENT + " text not null, " + COLUMN_CORRECT + " integer not null, " + COLUMN_QUESTION + " integer not null, foreign key (" + COLUMN_QUESTION + ") references " + TABLE_QUESTION + "(" + COLUMN_ID + "));";
+        String createAnswer = "create table if not exists " + TABLE_ANSWER + "(" + COLUMN_ID + " integer primary key, " + COLUMN_CONTENT + " text not null, " + COLUMN_CORRECT + " integer not null, " + COLUMN_QUESTION + " integer not null, foreign key (" + COLUMN_QUESTION + ") references " + TABLE_QUESTION + "(" + COLUMN_ID + "));";
         database.execSQL(createAnswer);
     }
 

@@ -6,29 +6,29 @@ public class DBConfig {
     public static final String URL_GET_SENTENCE = "http://stasis.eu/Android/db/dbGetSentence.php";
     public static final String URL_GET_WORD = "http://stasis.eu/Android/db/dbGetWord.php";
     public static final String URL_GET_WORDDESCRIPTION = "http://stasis.eu/Android/db/dbGetWordDescription.php";
+    public static final String URL_GET_LESSON = "http://stasis.eu/Android/db/dbGetLesson.php";
     public static final String URL_GET_TEST = "http://stasis.eu/Android/db/dbGetTest.php";
     public static final String URL_GET_QUESTION = "http://stasis.eu/Android/db/dbGetQuestion.php";
     public static final String URL_GET_ANSWER = "http://stasis.eu/Android/db/dbGetAnswer.php";
 
     //JSON Tags
+
+    public static final String TAG_ID = "id";
+
     public static final String TAG_JSON_ARRAY="result";
 
     public static final String TAG_LANGUAGE_NAME = "language_name";
 
-    public static final String TAG_SENTENCE_ID = "id";
     public static final String TAG_SENTECE_LANGUAGENAME = "language_name";
     public static final String TAG_SENTENCE_SENTENCE = "sentence";
     public static final String TAG_SENTENCE_WORDID = "word_id";
 
-    public static final String TAG_WORD_ID = "id";
     public static final String TAG_WORD_PICTURECONTENT = "picture_content";
 
-    public static final String TAG_WORDDES_ID = "id";
     public static final String TAG_WORDDES_LANGUAGENAME = "language_name";
     public static final String TAG_WORDDES_WORDDESCRIPTION = "word_description";
     public static final String TAG_WORDDES_WORDID = "word_id";
 
-    public static final String URL_GET_LESSON = "http://stasis.eu/Android/db/dbGetLesson.php";
     public static final String TAG_LESSON_CAPTION = "caption";
     public static final String TAG_LESSON_CATEGORY = "category";
     public static final String TAG_LESSON_CONTENT = "content";
@@ -39,16 +39,13 @@ public class DBConfig {
 
     public static final String TAG_TEST_CAPTION = "caption";
     public static final String TAG_TEST_DESCRIPTION = "description";
-    public static final String TAG_TEST_ID = "id";
     public static final String TAG_TEST_LANGUAGENAME = "language_name";
     public static final String TAG_TEST_TEXTCONTENT = "text_content";
 
     public static final String TAG_QUESTION_CONTENT = "content";
-    public static final String TAG_QUESTION_ID = "id";
     public static final String TAG_QUESTION_TEST = "test";
 
     public static final String TAG_ANSWER_CONTENT = "content";
-    public static final String TAG_ANSWER_ID = "id";
     public static final String TAG_ANSWER_ISCORRECT = "is_correct";
     public static final String TAG_ANSWER_QUESTION = "question";
 }

@@ -49,8 +49,9 @@ public class DataSource {
         database.insert(DatabaseHelper.TABLE_CATEGORY, null, values);
     }
 
-    void addWord(String wordPicture) {
+    void addWord(int id, String wordPicture) {
         ContentValues values = new ContentValues();
+        values.put(DatabaseHelper.COLUMN_ID, id);
         byte[] pictureContent = retrievePictureContent(wordPicture);
         byte[] compressedPicture = CompressionTools.compress(pictureContent);
         values.put(DatabaseHelper.COLUMN_PICTURE_CONTENT, compressedPicture);
@@ -63,24 +64,27 @@ public class DataSource {
         database.insert(DatabaseHelper.TABLE_LANGUAGE, null, values);
     }
 
-    void addWordDescription(String description, int wordID, String language) {
+    void addWordDescription(int id, String description, int wordID, String language) {
         ContentValues values = new ContentValues();
+        values.put(DatabaseHelper.COLUMN_ID, id);
         values.put(DatabaseHelper.COLUMN_WORD_DESCRIPTION, description);
         values.put(DatabaseHelper.COLUMN_WORD_ID, wordID);
         values.put(DatabaseHelper.COLUMN_LANGUAGE, language);
         database.insert(DatabaseHelper.TABLE_WORD_DESCRIPTION, null, values);
     }
 
-    void addSentence(String sentence, int wordID, String language) {
+    void addSentence(int id, String sentence, int wordID, String language) {
         ContentValues values = new ContentValues();
+        values.put(DatabaseHelper.COLUMN_ID, id);
         values.put(DatabaseHelper.COLUMN_SENTENCE, sentence);
         values.put(DatabaseHelper.COLUMN_WORD_ID, wordID);
         values.put(DatabaseHelper.COLUMN_LANGUAGE, language);
         database.insert(DatabaseHelper.TABLE_SENTENCE, null, values);
     }
 
-    void addLesson(String caption, String subtitle, String content, String originLanguage, String translationLanguage) {
+    void addLesson(int id, String caption, String subtitle, String content, String originLanguage, String translationLanguage) {
         ContentValues values = new ContentValues();
+        values.put(DatabaseHelper.COLUMN_ID, id);
         values.put(DatabaseHelper.COLUMN_CAPTION, caption);
         values.put(DatabaseHelper.COLUMN_SUBTITLE, subtitle);
         values.put(DatabaseHelper.COLUMN_CONTENT, content);
@@ -89,8 +93,9 @@ public class DataSource {
         database.insert(DatabaseHelper.TABLE_LESSON, null, values);
     }
 
-    void addTest(String language, String caption, String description, String textContent){
+    void addTest(int id, String language, String caption, String description, String textContent){
         ContentValues values = new ContentValues();
+        values.put(DatabaseHelper.COLUMN_ID, id);
         values.put(DatabaseHelper.COLUMN_LANGUAGE, language);
         values.put(DatabaseHelper.COLUMN_CAPTION, caption);
         values.put(DatabaseHelper.COLUMN_DESCRIPTION, description);
@@ -98,15 +103,17 @@ public class DataSource {
         database.insert(DatabaseHelper.TABLE_TEST, null, values);
     }
 
-    void addQuestion(String content, int testId){
+    void addQuestion(int id, String content, int testId){
         ContentValues values = new ContentValues();
+        values.put(DatabaseHelper.COLUMN_ID, id);
         values.put(DatabaseHelper.COLUMN_CONTENT, content);
         values.put(DatabaseHelper.COLUMN_TEST, testId);
         database.insert(DatabaseHelper.TABLE_QUESTION, null, values);
     }
 
-    void addAnswer(String content, int isCorrect, int questionId){
+    void addAnswer(int id, String content, int isCorrect, int questionId){
         ContentValues values = new ContentValues();
+        values.put(DatabaseHelper.COLUMN_ID, id);
         values.put(DatabaseHelper.COLUMN_CONTENT, content);
         values.put(DatabaseHelper.COLUMN_CORRECT, isCorrect);
         values.put(DatabaseHelper.COLUMN_QUESTION, questionId);
@@ -182,11 +189,11 @@ public class DataSource {
         try {
             jsonObject = new JSONObject(jsonWordString);
             JSONArray result = jsonObject.getJSONArray(DBConfig.TAG_JSON_ARRAY);
-
             for (int i = 0; i < result.length(); i++) {
                 JSONObject jo = result.getJSONObject(i);
+                int id = Integer.parseInt(jo.getString(DBConfig.TAG_ID));
                 String picture_content = jo.getString(DBConfig.TAG_WORD_PICTURECONTENT);
-                addWord(picture_content);
+                addWord(id, picture_content);
             }
 
         } catch (JSONException e) {
@@ -203,11 +210,11 @@ public class DataSource {
 
             for (int i = 0; i < result.length(); i++) {
                 JSONObject jo = result.getJSONObject(i);
+                int id = Integer.parseInt(jo.getString(DBConfig.TAG_ID));
                 String name = jo.getString(DBConfig.TAG_SENTECE_LANGUAGENAME);
                 String sentence = jo.getString(DBConfig.TAG_SENTENCE_SENTENCE);
-                String word_id = jo.getString(DBConfig.TAG_SENTENCE_WORDID);
-                int wId = Integer.parseInt(word_id);
-                addSentence(sentence, wId, name);
+                int wId = Integer.parseInt(jo.getString(DBConfig.TAG_SENTENCE_WORDID));
+                addSentence(id, sentence, wId, name);
             }
 
         } catch (JSONException e) {
@@ -220,14 +227,13 @@ public class DataSource {
         try {
             jsonObject = new JSONObject(jsonDescriptionString);
             JSONArray result = jsonObject.getJSONArray(DBConfig.TAG_JSON_ARRAY);
-
             for (int i = 0; i < result.length(); i++) {
                 JSONObject jo = result.getJSONObject(i);
+                int id = Integer.parseInt(jo.getString(DBConfig.TAG_ID));
                 String language_name = jo.getString(DBConfig.TAG_WORDDES_LANGUAGENAME);
                 String word_description = jo.getString(DBConfig.TAG_WORDDES_WORDDESCRIPTION);
-                String word_id = jo.getString(DBConfig.TAG_WORDDES_WORDID);
-                int wId = Integer.parseInt(word_id);
-                addWordDescription(word_description, wId, language_name);
+                int wId = Integer.parseInt(jo.getString(DBConfig.TAG_WORDDES_WORDID));
+                addWordDescription(id, word_description, wId, language_name);
             }
 
         } catch (JSONException e) {
@@ -243,13 +249,14 @@ public class DataSource {
 
             for (int i = 0; i < result.length(); i++) {
                 JSONObject jo = result.getJSONObject(i);
+                int id = Integer.parseInt(jo.getString(DBConfig.TAG_ID));
                 String caption = jo.getString(DBConfig.TAG_LESSON_CAPTION);
                 //     String category = jo.getString(DBConfig.TAG_LESSON_CATEGORY);
                 String content = jo.getString(DBConfig.TAG_LESSON_CONTENT);
                 String originLanguage = jo.getString(DBConfig.TAG_LESSON_ORIGINLANGUAGE);
                 String subtitle = jo.getString(DBConfig.TAG_LESSON_SUBTITLE);
                 String translationLanguage = jo.getString(DBConfig.TAG_LESSON_TRANSLATIONLANGUAGE);
-                addLesson(caption, subtitle, content, originLanguage, translationLanguage);
+                addLesson(id, caption, subtitle, content, originLanguage, translationLanguage);
             }
 
         } catch (JSONException e) {
@@ -265,11 +272,12 @@ public class DataSource {
 
             for (int i = 0; i < result.length(); i++) {
                 JSONObject jo = result.getJSONObject(i);
+                int id = Integer.parseInt(jo.getString(DBConfig.TAG_ID));
                 String caption = jo.getString(DBConfig.TAG_TEST_CAPTION);
                 String description = jo.getString(DBConfig.TAG_TEST_DESCRIPTION);
                 String languageName = jo.getString(DBConfig.TAG_TEST_LANGUAGENAME);
                 String textContent = jo.getString(DBConfig.TAG_TEST_TEXTCONTENT);
-                addTest(languageName, caption, description, textContent);
+                addTest(id, languageName, caption, description, textContent);
             }
 
         } catch (JSONException e) {
@@ -285,10 +293,10 @@ public class DataSource {
 
             for (int i = 0; i < result.length(); i++) {
                 JSONObject jo = result.getJSONObject(i);
+                int id = Integer.parseInt(jo.getString(DBConfig.TAG_ID));
                 String content = jo.getString(DBConfig.TAG_QUESTION_CONTENT);
-                String test = jo.getString(DBConfig.TAG_QUESTION_TEST);
-                int testId = Integer.parseInt(test);
-                addQuestion(content, testId);
+                int testId = Integer.parseInt(jo.getString(DBConfig.TAG_QUESTION_TEST));
+                addQuestion(id, content, testId);
             }
 
         } catch (JSONException e) {
@@ -304,14 +312,12 @@ public class DataSource {
 
             for (int i = 0; i < result.length(); i++) {
                 JSONObject jo = result.getJSONObject(i);
+                int id = Integer.parseInt(jo.getString(DBConfig.TAG_ID));
                 String content = jo.getString(DBConfig.TAG_ANSWER_CONTENT);
-                String isCorrect = jo.getString(DBConfig.TAG_ANSWER_ISCORRECT);
-                String question = jo.getString(DBConfig.TAG_ANSWER_QUESTION);
+                int correct = Integer.parseInt(jo.getString(DBConfig.TAG_ANSWER_ISCORRECT));
+                int questionId = Integer.parseInt(jo.getString(DBConfig.TAG_ANSWER_QUESTION));
 
-                int correct = Integer.parseInt(isCorrect);
-                int questionId = Integer.parseInt(question);
-
-                addAnswer(content, correct, questionId);
+                addAnswer(id, content, correct, questionId);
             }
 
         } catch (JSONException e) {
