@@ -328,7 +328,7 @@ public class DataSource {
     public ArrayList<DictionaryEntry> getDictionaryEntries(String language, String interfaceLanguage) {
         ArrayList<DictionaryEntry> dictionaryEntries = new ArrayList<>();
 //        Cursor cursor = database.query(DatabaseHelper.TABLE_WORD, null, null, null, null, null, null);
-        Cursor cursor = database.rawQuery("select word_id, picture_content, word_description, language_name from word join word_description on word.id=word_description.word_id order by word_id asc", null);
+        Cursor cursor = database.rawQuery("select word_id, picture_content, word_description, sound, language_name from word join word_description on word.id=word_description.word_id order by word_id asc", null);
         Cursor sentenceCursor = database.rawQuery("select * from sentence order by word_id, id asc", null);
         sentenceCursor.moveToFirst();
         cursor.moveToFirst();
@@ -343,7 +343,9 @@ public class DataSource {
             String wordLanguage = cursor.getString(cursor.getColumnIndex("language_name"));
             if (wordLanguage.equals(language)) {
                 String caption = cursor.getString(cursor.getColumnIndex("word_description"));
+                String captionSound = cursor.getString(cursor.getColumnIndex("sound"));
                 dictionaryEntries.get(dictionaryEntries.size() - 1).setCaption(caption);
+                dictionaryEntries.get(dictionaryEntries.size() - 1).setCaptionSound(captionSound);
             } else if (wordLanguage.equals(interfaceLanguage)) {
                 String captionTranslation = cursor.getString(cursor.getColumnIndex("word_description"));
                 dictionaryEntries.get(dictionaryEntries.size() - 1).setCaptionTranslation(captionTranslation);
@@ -354,10 +356,12 @@ public class DataSource {
                     String sentenceLanguage = sentenceCursor.getString(sentenceCursor.getColumnIndex("language_name"));
                     if (sentenceLanguage.equals(language)) {
                         String sentence = sentenceCursor.getString(sentenceCursor.getColumnIndex("sentence"));
-                        dictionaryEntries.get(dictionaryEntries.size() - 1).setSentence(sentence);
+                        String sentenceSound = sentenceCursor.getString(sentenceCursor.getColumnIndex("sound"));
+                        dictionaryEntries.get(dictionaryEntries.size() - 1).addSentence(sentence);
+                        dictionaryEntries.get(dictionaryEntries.size() - 1).addExampleSentenceSound(sentenceSound);
                     } else if (sentenceLanguage.equals(interfaceLanguage)) {
                         String sentence = sentenceCursor.getString(sentenceCursor.getColumnIndex("sentence"));
-                        dictionaryEntries.get(dictionaryEntries.size() - 1).setSentenceTranslation(sentence);
+                        dictionaryEntries.get(dictionaryEntries.size() - 1).addSentenceTranslation(sentence);
                     }
                     sentenceCursor.moveToNext();
                     if (sentenceCursor.isAfterLast()) {

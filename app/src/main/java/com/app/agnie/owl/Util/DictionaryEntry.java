@@ -11,17 +11,21 @@ public class DictionaryEntry implements Parcelable {
     private int id;
     private byte[] imageContent;
     private String caption;
+    private String captionSound;
     private String captionTranslation;
     private ArrayList<String> exampleSentences;
     private ArrayList<String> exampleSentenceTranslations;
+    private ArrayList<String> exampleSentenceSounds;
 
-    public DictionaryEntry(int id, byte[] imageContent, String caption, String captionTranslation, ArrayList<String> exampleSentences, ArrayList<String> exampleSentenceTranslations) {
+    public DictionaryEntry(int id, byte[] imageContent, String caption, String captionSound, String captionTranslation, ArrayList<String> exampleSentences, ArrayList<String> exampleSentenceTranslations, ArrayList<String> exampleSentenceSounds) {
         this.id = id;
         this.imageContent = imageContent;
         this.caption = caption;
+        this.captionSound = captionSound;
         this.captionTranslation = captionTranslation;
         this.exampleSentences = exampleSentences;
         this.exampleSentenceTranslations = exampleSentenceTranslations;
+        this.exampleSentenceSounds = exampleSentenceSounds;
     }
 
     public DictionaryEntry(int id, byte[] imageContent) {
@@ -29,6 +33,7 @@ public class DictionaryEntry implements Parcelable {
         this.imageContent = imageContent;
         this.exampleSentences = new ArrayList<>();
         this.exampleSentenceTranslations = new ArrayList<>();
+        this.exampleSentenceSounds = new ArrayList<>();
     }
 
     public int getId() {
@@ -59,7 +64,7 @@ public class DictionaryEntry implements Parcelable {
         return exampleSentences;
     }
 
-    public void setSentence(String sentence) {
+    public void addSentence(String sentence) {
         exampleSentences.add(sentence);
     }
 
@@ -67,8 +72,24 @@ public class DictionaryEntry implements Parcelable {
         return exampleSentenceTranslations;
     }
 
-    public void setSentenceTranslation(String sentenceTranslation) {
+    public void addSentenceTranslation(String sentenceTranslation) {
         exampleSentenceTranslations.add(sentenceTranslation);
+    }
+
+    public String getCaptionSound(){
+        return captionSound;
+    }
+
+    public void setCaptionSound(String captionSound){
+        this.captionSound = captionSound;
+    }
+
+    public ArrayList<String> getExampleSentenceSounds(){
+        return exampleSentenceSounds;
+    }
+
+    public void addExampleSentenceSound(String exampleSentenceSound){
+        exampleSentenceSounds.add(exampleSentenceSound);
     }
 
     @Override
@@ -81,18 +102,22 @@ public class DictionaryEntry implements Parcelable {
         dest.writeInt(this.id);
         dest.writeByteArray(this.imageContent);
         dest.writeString(this.caption);
+        dest.writeString(this.captionSound);
         dest.writeString(this.captionTranslation);
         dest.writeStringList(this.exampleSentences);
         dest.writeStringList(this.exampleSentenceTranslations);
+        dest.writeStringList(this.exampleSentenceSounds);
     }
 
     protected DictionaryEntry(Parcel in) {
         this.id = in.readInt();
         this.imageContent = in.createByteArray();
         this.caption = in.readString();
+        this.captionSound = in.readString();
         this.captionTranslation = in.readString();
         this.exampleSentences = in.createStringArrayList();
         this.exampleSentenceTranslations = in.createStringArrayList();
+        this.exampleSentenceSounds = in.createStringArrayList();
     }
 
     public static final Parcelable.Creator<DictionaryEntry> CREATOR = new Parcelable.Creator<DictionaryEntry>() {
