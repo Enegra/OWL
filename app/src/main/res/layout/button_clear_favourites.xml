@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:paddingStart="@dimen/text_margin"
+    android:paddingEnd="@dimen/text_margin"
+    android:paddingBottom="@dimen/small_text_margin"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/clear_favourites_header"
+        android:paddingBottom="@dimen/small_text_margin"/>
+    <Button
+        android:text="@string/clear_favourites_button_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/clear_favourites_button"
+        android:onClick="onClearFavouritesButtonClick"
+        android:background="@color/transparentBeige"
+        android:paddingTop="@dimen/tiny_picture_padding"
+        android:paddingBottom="@dimen/tiny_picture_padding"
+        style="@style/Widget.AppCompat.Button"
+        />
+</LinearLayout>

@@ -35,7 +35,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:textColor">@color/primaryTextColour</item>
-        <item name="android:background">@color/backgroundColour</item>
+        <item name="android:windowBackground">@color/backgroundColour</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="dialogTheme">@style/DialogOwl</item>
         <item name="alertDialogTheme">@style/AlertDialogOwl</item>

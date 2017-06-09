@@ -1,8 +1,10 @@
 package com.app.agnie.owl;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
@@ -12,8 +14,15 @@ public class OWLMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owlmain);
+        setupLayout();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+    }
+
+    private void setupLayout(){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String language = preferences.getString("interface_language_preference", "english");
+        System.out.println("selected language: " + language);
     }
 
     public void enterDictionary(View view) {

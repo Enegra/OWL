@@ -55,23 +55,20 @@ public class TestScoreFragment extends Fragment {
     }
 
     private String getScoreComment(){
-        double percentage = ((double)score) / ((double)maxScore);
-        if (percentage>0.95){
+        double percentage = (double)score / maxScore;
+        System.out.println(percentage);
+        if (percentage > 0.95){
             return getString(R.string.score_comment_excellent);
         }
-        if (percentage>80){
+        else if (percentage > 0.80){
             return getString(R.string.score_comment_very_good);
-        }
-        if (percentage>70){
+        } else if (percentage > 0.70){
             return getString(R.string.score_comment_good);
-        }
-        if (percentage>55){
+        } else if (percentage > 0.55){
             return getString(R.string.score_comment_fair);
-        }
-        if (percentage>40){
+        } else if (percentage > 0.40){
             return getString(R.string.score_comment_bad);
-        }
-        return getString(R.string.score_comment_terrible);
+        } else return getString(R.string.score_comment_terrible);
     }
 
 }

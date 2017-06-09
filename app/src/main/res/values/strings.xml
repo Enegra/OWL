@@ -1,4 +1,13 @@
 <resources>
+
+    <string-array name="english_interface_options">
+        <!-- main activity -->
+        <item>Dictionary</item>
+        <item>Lessons</item>
+        <item>Tests</item>
+        <item>Favourites</item>
+    </string-array>
+
     <string name="app_name">O.W.L.</string>
     <string name="main_dictionary_button_text">Dictionary</string>
     <string name="main_lessons_button_text">Lessons</string>
@@ -72,4 +81,10 @@
         <item>english</item>
     </string-array>
     <string name="settings_second_section">Saved data</string>
+    <string name="update_button_header">Database content</string>
+    <string name="update_button_title">Check for updates</string>
+    <string name="clear_favourites_header">Saved favourite words and lessons</string>
+    <string name="clear_favourites_button_title">Clear favourites</string>
+    <string name="clear_scores_button_header">Saved test scores</string>
+    <string name="clear_scores_button_title">Clear scores</string>
 </resources>

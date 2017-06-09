@@ -1,17 +1,24 @@
 package com.app.agnie.owl;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat;
 
@@ -108,6 +115,28 @@ public class Settings extends AppCompatActivity{
         public void onCreatePreferencesFix(@Nullable Bundle savedInstanceState, String rootKey) {
             addPreferencesFromResource(R.xml.settings_preferences);
         }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            View view = super.onCreateView(inflater, container, savedInstanceState);
+            view.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.backgroundColour));
+            setDivider(new ColorDrawable(Color.TRANSPARENT));
+            setDividerHeight(0);
+            return view;
+        }
+
+    }
+
+    public void onUpdateButtonClick(View v) {
+        Log.d("Button", "Yeah, button was clicked");
+    }
+
+    public void onClearFavouritesButtonClick(View v) {
+        Log.d("Button", "Yeah, button was clicked");
+    }
+
+    public void onClearScoresButtonClick(View v) {
+        Log.d("Button", "Yeah, button was clicked");
     }
 
 }
