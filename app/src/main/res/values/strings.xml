@@ -1,38 +1,95 @@
 <resources>
 
-    <string-array name="english_interface_options">
-        <!-- main activity -->
+    <string name="app_name">O.W.L.</string>
+
+    <!-- main activity -->
+    <string-array name="main_english_interface">
         <item>Dictionary</item>
         <item>Lessons</item>
         <item>Tests</item>
         <item>Favourites</item>
     </string-array>
 
-    <string name="app_name">O.W.L.</string>
-    <string name="main_dictionary_button_text">Dictionary</string>
-    <string name="main_lessons_button_text">Lessons</string>
-    <string name="main_tests_button_text">Tests</string>
-    <string name="main_favourites_button_text">Favourites</string>
+    <string-array name="main_polish_interface">
+        <item>Słownik</item>
+        <item>Lekcje</item>
+        <item>Testy</item>
+        <item>Ulubione</item>
+    </string-array>
 
     <!-- dictionary -->
-    <string name="dictionary_title">Dictionary</string>
-    <string name="dictionary_word_header">Word of the day</string>
-    <string name="dictionary_word_translation">Word translation</string>
-    <string name="dictionary_word_sentence_example">Example sentence with the word</string>
-    <string name="dictionary_word_sentence_example_translation">Translation of the sentence with the word</string>
-    <string name="dictionary_list_header">Dictionary list</string>
-    <string name="menu_dictionary_item_menu">Menu</string>
+    <string-array name="dictionary_english_interface">
+        <item>Dictionary</item>
+        <item>Daily word</item>
+        <item>Dictionary list</item>
+    </string-array>
+
+    <string-array name="dictionary_polish_interface">
+        <item>Słownik</item>
+        <item>Słowo dnia</item>
+        <item>Lista słów</item>
+    </string-array>
 
     <!-- dictionary detail -->
+    <string name="menu_detail">Menu</string>
     <string name="dictionary_detail_title">Dictionary Item</string>
     <string name="dictionary_item_favourite">Add to favourites</string>
 
     <!-- favourites -->
-    <string name="favourites_title">Favourites</string>
-    <string name="favourites_no_favourites">Currently you have no favourites</string>
+    <string-array name="favourites_english_interface">
+        <item>Favourites</item>
+        <item>Words</item>
+        <item>Lessons</item>
+        <item>Currently you have no favourites</item>
+    </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="favourites_polish_interface">
+        <item>Ulubione</item>
+        <item>Słowa</item>
+        <item>Lekcje</item>
+        <item>Obecnie nie masz żadnych ulubionych</item>
+    </string-array>
+
+    <!-- lessons -->
+    <string-array name="lessons_english_interface">
+        <item>Lessons</item>
+    </string-array>
+    <string-array name="lessons_polish_interface">
+        <item>Lekcje</item>
+    </string-array>
+
+    <!-- tests -->
+    <string-array name="tests_english_interface">
+        <item>Tests</item>
+        <item>Scores</item>
+        <item>Currently there are no saved scores</item>
+        <item>Currently there are no tests</item>
+        <item>Next</item>
+        <item>You completed </item>
+        <item>You achieved score:</item>
+        <item>Excellent!</item>
+        <item>Very good!</item>
+        <item>Well done!</item>
+        <item>Could\'ve been worse!</item>
+        <item>You have yet things to learn!</item>
+        <item>You should consider checking lessons first!</item>
+    </string-array>
+
+    <string-array name="tests_polish_interface">
+        <item>Testy</item>
+        <item>Wyniki</item>
+        <item>Obecnie nie ma zapisanych wyników</item>
+        <item>Obecnie nie ma testów</item>
+        <item>Dalej</item>
+        <item>Ukończyłeś </item>
+        <item>Osiągnąłeś wynik:</item>
+        <item>Znakomicie!</item>
+        <item>Bardzo dobrze!</item>
+        <item>Nieźle!</item>
+        <item>Mogło być gorzej!</item>
+        <item>Masz trochę nauki do odrobienia!</item>
+        <item>Naprawdę powinieneś sprawdzić wcześniej lekcje!</item>
+    </string-array>
 
     <!-- navigation drawer -->
     <string name="nav_home">Home</string>
@@ -45,40 +102,25 @@
     <string name="nav_header_title">One With Language</string>
     <string name="nav_header_subtitle">A language learning app</string>
 
-    <!-- lessons -->
-    <string name="lessons_title">Lessons</string>
-
-    <!-- tests -->
-    <string name="tests_no_scores">Currently you have no saved scores</string>
-    <string name="tests_no_tests">Currently there are no tests</string>
-    <string name="button_next">Next</string>
-    <string name="score_page_subheader">"You achieved score:"</string>
-    <string name="score_comment_excellent">Excellent!</string>
-    <string name="score_comment_very_good">Very good job!</string>
-    <string name="score_comment_good">Well done!</string>
-    <string name="score_comment_fair">Could\'ve been worse!</string>
-    <string name="score_comment_bad">You have yet things to learn!</string>
-    <string name="score_comment_terrible">You should consider checking lessons first!</string>
-
     <!--settings -->
     <string name="settings_first_section">App language</string>
     <string name="settings_first_section_language">Learning language</string>
     <string name="settings_learning_language_default">"german"</string>
-    <string-array
-        name="settings_language_choice_entries">
+    <string-array name="settings_language_choice_entries">
         <item>german</item>
     </string-array>
-    <string-array
-        name="settings_language_choice_entry_values">
+    <string-array name="settings_language_choice_entry_values">
         <item>german</item>
     </string-array>
     <string name="settings_first_section_interface_language">Interface language</string>
     <string name="settings_interface_language_default">"english"</string>
     <string-array name="settings_interface_language_choice_entries">
-    <item>english</item>
-</string-array>
+        <item>english</item>
+        <item>polski</item>
+    </string-array>
     <string-array name="settings_interface_language_choice_entry_values">
         <item>english</item>
+        <item>polish</item>
     </string-array>
     <string name="settings_second_section">Saved data</string>
     <string name="update_button_header">Database content</string>

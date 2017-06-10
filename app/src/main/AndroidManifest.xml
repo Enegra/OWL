@@ -18,21 +18,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Dictionary"
-            android:label="@string/dictionary_title" />
+            android:name=".Dictionary" />
         <activity
-            android:name=".DictionaryItemDetail"
-            android:label="@string/dictionary_detail_title" />
+            android:name=".DictionaryItemDetail" />
         <activity
-            android:name=".Favourites"
-            android:label="@string/favourites_title" />
+            android:name=".Favourites" />
         <activity
-            android:name=".Lessons"
-            android:label="@string/lessons_title" />
+            android:name=".Lessons" />
         <activity android:name=".LessonDetail" />
         <activity
-            android:name=".Tests"
-            android:label="Tests" />
+            android:name=".Tests" />
         <activity android:name=".TestDetail" />
         <activity android:name=".Settings"></activity>
     </application>

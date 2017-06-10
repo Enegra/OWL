@@ -34,12 +34,9 @@ public class Dictionary extends AppCompatActivity {
 
     private ArrayList<DictionaryEntry> dictionaryEntries;
     private DrawerLayout drawerLayout;
-    private static final String DICTIONARY_FRAGMENT_ONE = "Daily Screech";
-    private static final String DICTIONARY_FRAGMENT_TWO = "Dictionary List";
     private static final String FEATURED_ENTRY = "FEATURED_ENTRY";
     private int featuredEntry;
-    private String interfaceLanguage = "english";
-    private String language = "german";
+    private String[] interfaceStrings;
 
 
     @Override
@@ -60,6 +57,8 @@ public class Dictionary extends AppCompatActivity {
     }
 
     private void setupLayout() {
+        interfaceStrings = getResources().getStringArray(SingletonSession.Instance().getInterfaceResources()[1]);
+        setTitle(interfaceStrings[0]);
         Toolbar toolbar = (Toolbar) findViewById(R.id.dictionary_toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -85,9 +84,9 @@ public class Dictionary extends AppCompatActivity {
         bundle.putInt(FEATURED_ENTRY, featuredEntry);
         DictionaryPageOne dictionaryPageOne = new DictionaryPageOne();
         dictionaryPageOne.setArguments(bundle);
-        tabsPagerAdapter.addFragment(dictionaryPageOne, DICTIONARY_FRAGMENT_ONE);
+        tabsPagerAdapter.addFragment(dictionaryPageOne, interfaceStrings[1]);
         DictionaryPageTwo dictionaryPageTwo = new DictionaryPageTwo();
-        tabsPagerAdapter.addFragment(dictionaryPageTwo, DICTIONARY_FRAGMENT_TWO);
+        tabsPagerAdapter.addFragment(dictionaryPageTwo, interfaceStrings[2]);
         viewPager.setAdapter(tabsPagerAdapter);
     }
 
@@ -204,7 +203,7 @@ public class Dictionary extends AppCompatActivity {
 
             }
             dataSource.open();
-            dictionaryEntries = dataSource.getDictionaryEntries(language, interfaceLanguage);
+            dictionaryEntries = dataSource.getDictionaryEntries(SingletonSession.Instance().getLearningLanguage(), SingletonSession.Instance().getInterfaceLanguage());
             SingletonSession.Instance().setDictionaryData(dictionaryEntries);
             dataSource.close();
             return null;

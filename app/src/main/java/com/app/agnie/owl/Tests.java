@@ -16,10 +16,12 @@ import android.view.MenuItem;
 import com.app.agnie.owl.Adapters.TabsPagerAdapter;
 import com.app.agnie.owl.Fragments.TestsPageOne;
 import com.app.agnie.owl.Fragments.TestsPageTwo;
+import com.app.agnie.owl.Util.SingletonSession;
 
 public class Tests extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
+    private String[] interfaceStrings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,8 @@ public class Tests extends AppCompatActivity {
     }
 
     private void setupLayout() {
+        interfaceStrings = getResources().getStringArray(SingletonSession.Instance().getInterfaceResources()[4]);
+        setTitle(interfaceStrings[0]);
         Toolbar toolbar = (Toolbar) findViewById(R.id.tests_toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -44,8 +48,8 @@ public class Tests extends AppCompatActivity {
 
     private void setupTabPager(ViewPager viewPager) {
         TabsPagerAdapter tabsPagerAdapter = new TabsPagerAdapter(getSupportFragmentManager());
-        tabsPagerAdapter.addFragment(new TestsPageOne(), "Scores");
-        tabsPagerAdapter.addFragment(new TestsPageTwo(), "Tests");
+        tabsPagerAdapter.addFragment(new TestsPageOne(), interfaceStrings[1]);
+        tabsPagerAdapter.addFragment(new TestsPageTwo(), interfaceStrings[0]);
         viewPager.setAdapter(tabsPagerAdapter);
     }
 

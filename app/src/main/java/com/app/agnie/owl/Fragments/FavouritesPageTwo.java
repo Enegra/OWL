@@ -13,6 +13,7 @@ import com.app.agnie.owl.Adapters.LessonTileAdapter;
 import com.app.agnie.owl.R;
 import com.app.agnie.owl.Util.FavouritePreference;
 import com.app.agnie.owl.Util.Lesson;
+import com.app.agnie.owl.Util.SingletonSession;
 
 import java.util.ArrayList;
 
@@ -60,7 +61,7 @@ public class FavouritesPageTwo extends Fragment {
             favouriteList.setVisibility(View.GONE);
             TextView textView = (TextView) view.findViewById(R.id.favourites_list_textview);
             textView.setVisibility(View.VISIBLE);
-            textView.setText(R.string.favourites_no_favourites);
+            textView.setText(getResources().getStringArray(SingletonSession.Instance().getInterfaceResources()[2])[3]);
         }
     }
 }

@@ -16,10 +16,12 @@ import android.view.MenuItem;
 import com.app.agnie.owl.Adapters.TabsPagerAdapter;
 import com.app.agnie.owl.Fragments.FavouritesPageOne;
 import com.app.agnie.owl.Fragments.FavouritesPageTwo;
+import com.app.agnie.owl.Util.SingletonSession;
 
 public class Favourites extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
+    private String[] interfaceStrings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,8 @@ public class Favourites extends AppCompatActivity {
     }
 
     private void setupLayout() {
+        interfaceStrings = getResources().getStringArray(SingletonSession.Instance().getInterfaceResources()[2]);
+        setTitle(interfaceStrings[0]);
         Toolbar toolbar = (Toolbar) findViewById(R.id.favourites_toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -44,8 +48,8 @@ public class Favourites extends AppCompatActivity {
 
     private void setupTabPager(ViewPager viewPager) {
         TabsPagerAdapter tabsPagerAdapter = new TabsPagerAdapter(getSupportFragmentManager());
-        tabsPagerAdapter.addFragment(new FavouritesPageOne(), "Words");
-        tabsPagerAdapter.addFragment(new FavouritesPageTwo(), "Lessons");
+        tabsPagerAdapter.addFragment(new FavouritesPageOne(), interfaceStrings[1]);
+        tabsPagerAdapter.addFragment(new FavouritesPageTwo(), interfaceStrings[2]);
         viewPager.setAdapter(tabsPagerAdapter);
     }
 

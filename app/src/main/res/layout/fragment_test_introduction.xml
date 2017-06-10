@@ -18,6 +18,6 @@
         android:padding="@dimen/text_margin"
         android:gravity="center"
         android:layout_alignParentBottom="true"
-        android:text="@string/button_next" />
+        />
 
 </RelativeLayout>

@@ -34,22 +34,22 @@
             android:layout_height="wrap_content">
 
             <Button
+                android:id="@+id/main_dictionary_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawableTop="@drawable/dictionary_icon"
                 android:onClick="enterDictionary"
-                android:padding="@dimen/main_button_padding"
-                android:text="@string/main_dictionary_button_text" />
+                android:padding="@dimen/main_button_padding" />
 
             <Button
+                android:id="@+id/main_lessons_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawableTop="@drawable/dictionary_icon"
                 android:onClick="enterLessons"
-                android:padding="@dimen/main_button_padding"
-                android:text="@string/main_lessons_button_text" />
+                android:padding="@dimen/main_button_padding" />
         </LinearLayout>
 
         <LinearLayout
@@ -58,22 +58,22 @@
             android:layout_below="@id/main_linear_layout_top">
 
             <Button
+                android:id="@+id/main_tests_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawableTop="@drawable/dictionary_icon"
                 android:onClick="enterTests"
-                android:padding="@dimen/main_button_padding"
-                android:text="@string/main_tests_button_text" />
+                android:padding="@dimen/main_button_padding" />
 
             <Button
+                android:id="@+id/main_favourites_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawableTop="@drawable/dictionary_icon"
                 android:onClick="enterFavourites"
-                android:padding="@dimen/main_button_padding"
-                android:text="@string/main_favourites_button_text" />
+                android:padding="@dimen/main_button_padding" />
         </LinearLayout>
     </RelativeLayout>
 

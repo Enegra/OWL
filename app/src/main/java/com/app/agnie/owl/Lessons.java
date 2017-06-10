@@ -21,6 +21,7 @@ import com.app.agnie.owl.Util.DBUtil.DBConfig;
 import com.app.agnie.owl.Util.DBUtil.DataSource;
 import com.app.agnie.owl.Util.DBUtil.RequestHandler;
 import com.app.agnie.owl.Util.Lesson;
+import com.app.agnie.owl.Util.SingletonSession;
 
 import java.util.ArrayList;
 
@@ -38,6 +39,7 @@ public class Lessons extends AppCompatActivity {
     }
 
     private void setupLayout() {
+        setTitle(getResources().getStringArray(SingletonSession.Instance().getInterfaceResources()[3])[0]);
         Toolbar toolbar = (Toolbar) findViewById(R.id.lessons_toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -154,7 +156,7 @@ public class Lessons extends AppCompatActivity {
                     editor.apply();
                 }
                 dataSource.open();
-                lessons = dataSource.getLessons("german", "english");
+                lessons = dataSource.getLessons(SingletonSession.Instance().getLearningLanguage(), SingletonSession.Instance().getInterfaceLanguage());
                 dataSource.close();
                 return null;
             }

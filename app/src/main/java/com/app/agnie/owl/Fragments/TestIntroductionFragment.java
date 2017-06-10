@@ -50,6 +50,7 @@ public class TestIntroductionFragment extends Fragment {
 
     private void setupNextButton(View view){
         Button nextButton = (Button)view.findViewById(R.id.test_button_next);
+        nextButton.setText(getResources().getStringArray(SingletonSession.Instance().getInterfaceResources()[4])[4]);
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

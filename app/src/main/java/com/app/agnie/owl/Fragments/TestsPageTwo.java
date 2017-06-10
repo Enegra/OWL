@@ -17,6 +17,7 @@ import com.app.agnie.owl.R;
 import com.app.agnie.owl.Util.DBUtil.DBConfig;
 import com.app.agnie.owl.Util.DBUtil.DataSource;
 import com.app.agnie.owl.Util.DBUtil.RequestHandler;
+import com.app.agnie.owl.Util.SingletonSession;
 import com.app.agnie.owl.Util.Test;
 
 import java.util.ArrayList;
@@ -57,7 +58,7 @@ public class TestsPageTwo extends Fragment {
             testList.setVisibility(View.GONE);
             TextView textView = (TextView) view.findViewById(R.id.tests_list_textview);
             textView.setVisibility(View.VISIBLE);
-            textView.setText(R.string.tests_no_tests);
+            textView.setText(getResources().getStringArray(SingletonSession.Instance().getInterfaceResources()[4])[3]);
         }
     }
 
@@ -99,7 +100,7 @@ public class TestsPageTwo extends Fragment {
                 editor.apply();
             }
             dataSource.open();
-            tests = dataSource.getTests("german");
+            tests = dataSource.getTests(SingletonSession.Instance().getLearningLanguage());
             dataSource.close();
             return null;
         }

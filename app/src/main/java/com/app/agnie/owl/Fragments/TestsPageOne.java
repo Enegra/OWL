@@ -13,6 +13,7 @@ import com.app.agnie.owl.Adapters.ScoreTileAdapter;
 import com.app.agnie.owl.R;
 import com.app.agnie.owl.Util.Score;
 import com.app.agnie.owl.Util.ScorePreference;
+import com.app.agnie.owl.Util.SingletonSession;
 
 import java.util.ArrayList;
 
@@ -61,7 +62,7 @@ public class TestsPageOne extends Fragment {
             scoreList.setVisibility(View.GONE);
             TextView textView = (TextView) view.findViewById(R.id.tests_scores_list_textview);
             textView.setVisibility(View.VISIBLE);
-            textView.setText(R.string.tests_no_scores);
+            textView.setText(getResources().getStringArray(SingletonSession.Instance().getInterfaceResources()[4])[2]);
         }
     }
 

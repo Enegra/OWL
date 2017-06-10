@@ -12,6 +12,9 @@ public class SingletonSession {
     private ArrayList<DictionaryEntry> dictionaryData;
     private Test selectedTest;
     private DictionaryEntry selectedEntry;
+    private int[] interfaceResources;
+    private String interfaceLanguage;
+    private String learningLanguage;
 
     private SingletonSession() {}
 
@@ -49,4 +52,29 @@ public class SingletonSession {
     public void setSelectedEntry(DictionaryEntry selectedEntry){
         this.selectedEntry = selectedEntry;
     }
+
+    public void setInterfaceResources(int[] interfaceResources){
+        this.interfaceResources = interfaceResources;
+    }
+
+    public int[] getInterfaceResources(){
+        return interfaceResources;
+    }
+
+    public String getLearningLanguage() {
+        return learningLanguage;
+    }
+
+    public void setLearningLanguage(String learningLanguage) {
+        this.learningLanguage = learningLanguage;
+    }
+
+    public String getInterfaceLanguage() {
+        return interfaceLanguage;
+    }
+
+    public void setInterfaceLanguage(String interfaceLanguage) {
+        this.interfaceLanguage = interfaceLanguage;
+    }
+
 }

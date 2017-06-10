@@ -19,6 +19,7 @@ public class TestScoreFragment extends Fragment {
     private Test selectedTest;
     private int maxScore;
     private int score;
+    private String[] interfaceStrings;
 
     public TestScoreFragment() {
         // Required empty public constructor
@@ -35,6 +36,7 @@ public class TestScoreFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        interfaceStrings = getResources().getStringArray(SingletonSession.Instance().getInterfaceResources()[4]);
         score = getArguments().getInt("testScore");
         maxScore = getArguments().getInt("maxScore");
         selectedTest = SingletonSession.Instance().getSelectedTest();
@@ -43,10 +45,10 @@ public class TestScoreFragment extends Fragment {
 
     private void setupLayout(View view){
         TextView scoreHeader = (TextView)view.findViewById(R.id.test_score_header);
-        String headerContent = "You completed " + selectedTest.getCaption() + "!";
+        String headerContent = interfaceStrings[5] + selectedTest.getCaption() + "!";
         scoreHeader.setText(headerContent);
         TextView scoreSubheader = (TextView)view.findViewById(R.id.test_score_subheader);
-        scoreSubheader.setText(R.string.score_page_subheader);
+        scoreSubheader.setText(interfaceStrings[6]);
         TextView achievedScore = (TextView)view.findViewById(R.id.test_achieved_score);
         String achievedScoreContent = score + "/" + maxScore;
         achievedScore.setText(achievedScoreContent);
@@ -58,17 +60,17 @@ public class TestScoreFragment extends Fragment {
         double percentage = (double)score / maxScore;
         System.out.println(percentage);
         if (percentage > 0.95){
-            return getString(R.string.score_comment_excellent);
+            return interfaceStrings[7];
         }
         else if (percentage > 0.80){
-            return getString(R.string.score_comment_very_good);
+            return interfaceStrings[8];
         } else if (percentage > 0.70){
-            return getString(R.string.score_comment_good);
+            return interfaceStrings[9];
         } else if (percentage > 0.55){
-            return getString(R.string.score_comment_fair);
+            return interfaceStrings[10];
         } else if (percentage > 0.40){
-            return getString(R.string.score_comment_bad);
-        } else return getString(R.string.score_comment_terrible);
+            return interfaceStrings[11];
+        } else return interfaceStrings[12];
     }
 
 }

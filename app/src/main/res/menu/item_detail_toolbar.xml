@@ -12,7 +12,7 @@
     <item
         android:id="@+id/action_menu"
         android:icon="@drawable/ic_menu_beige_48dp"
-        android:title="@string/menu_dictionary_item_menu"
+        android:title="@string/menu_detail"
         app:showAsAction="ifRoom" />
 
 </menu>
