@@ -46,7 +46,7 @@ public class DataSource {
     public void addCategory(int category) {
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.COLUMN_CATEGORY, category);
-        database.insert(DatabaseHelper.TABLE_CATEGORY, null, values);
+        database.insertWithOnConflict(DatabaseHelper.TABLE_CATEGORY, null, values, SQLiteDatabase.CONFLICT_REPLACE);
     }
 
     void addWord(int id, String wordPicture) {
@@ -55,13 +55,13 @@ public class DataSource {
         byte[] pictureContent = retrievePictureContent(wordPicture);
         byte[] compressedPicture = CompressionTools.compress(pictureContent);
         values.put(DatabaseHelper.COLUMN_PICTURE_CONTENT, compressedPicture);
-        database.insert(DatabaseHelper.TABLE_WORD, null, values);
+        database.insertWithOnConflict(DatabaseHelper.TABLE_WORD, null, values, SQLiteDatabase.CONFLICT_REPLACE);
     }
 
     void addLanguage(String languageName) {
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.COLUMN_LANGUAGE, languageName);
-        database.insert(DatabaseHelper.TABLE_LANGUAGE, null, values);
+        database.insertWithOnConflict(DatabaseHelper.TABLE_LANGUAGE, null, values, SQLiteDatabase.CONFLICT_REPLACE);
     }
 
     void addWordDescription(int id, String description, int wordID, String language) {
@@ -70,7 +70,7 @@ public class DataSource {
         values.put(DatabaseHelper.COLUMN_WORD_DESCRIPTION, description);
         values.put(DatabaseHelper.COLUMN_WORD_ID, wordID);
         values.put(DatabaseHelper.COLUMN_LANGUAGE, language);
-        database.insert(DatabaseHelper.TABLE_WORD_DESCRIPTION, null, values);
+        database.insertWithOnConflict(DatabaseHelper.TABLE_WORD_DESCRIPTION, null, values, SQLiteDatabase.CONFLICT_REPLACE);
     }
 
     void addSentence(int id, String sentence, int wordID, String language) {
@@ -79,7 +79,7 @@ public class DataSource {
         values.put(DatabaseHelper.COLUMN_SENTENCE, sentence);
         values.put(DatabaseHelper.COLUMN_WORD_ID, wordID);
         values.put(DatabaseHelper.COLUMN_LANGUAGE, language);
-        database.insert(DatabaseHelper.TABLE_SENTENCE, null, values);
+        database.insertWithOnConflict(DatabaseHelper.TABLE_SENTENCE, null, values, SQLiteDatabase.CONFLICT_REPLACE);
     }
 
     void addLesson(int id, String caption, String subtitle, String content, String originLanguage, String translationLanguage) {
@@ -90,7 +90,7 @@ public class DataSource {
         values.put(DatabaseHelper.COLUMN_CONTENT, content);
         values.put(DatabaseHelper.COLUMN_ORIGIN_LANGUAGE, originLanguage);
         values.put(DatabaseHelper.COLUMN_TRANSLATION_LANGUAGE, translationLanguage);
-        database.insert(DatabaseHelper.TABLE_LESSON, null, values);
+        database.insertWithOnConflict(DatabaseHelper.TABLE_LESSON, null, values, SQLiteDatabase.CONFLICT_REPLACE);
     }
 
     void addTest(int id, String language, String caption, String description, String textContent){
@@ -100,7 +100,7 @@ public class DataSource {
         values.put(DatabaseHelper.COLUMN_CAPTION, caption);
         values.put(DatabaseHelper.COLUMN_DESCRIPTION, description);
         values.put(DatabaseHelper.COLUMN_TEXT_CONTENT, textContent);
-        database.insert(DatabaseHelper.TABLE_TEST, null, values);
+        database.insertWithOnConflict(DatabaseHelper.TABLE_TEST, null, values, SQLiteDatabase.CONFLICT_REPLACE);
     }
 
     void addQuestion(int id, String content, int testId){
@@ -108,7 +108,7 @@ public class DataSource {
         values.put(DatabaseHelper.COLUMN_ID, id);
         values.put(DatabaseHelper.COLUMN_CONTENT, content);
         values.put(DatabaseHelper.COLUMN_TEST, testId);
-        database.insert(DatabaseHelper.TABLE_QUESTION, null, values);
+        database.insertWithOnConflict(DatabaseHelper.TABLE_QUESTION, null, values, SQLiteDatabase.CONFLICT_REPLACE);
     }
 
     void addAnswer(int id, String content, int isCorrect, int questionId){
@@ -117,7 +117,7 @@ public class DataSource {
         values.put(DatabaseHelper.COLUMN_CONTENT, content);
         values.put(DatabaseHelper.COLUMN_CORRECT, isCorrect);
         values.put(DatabaseHelper.COLUMN_QUESTION, questionId);
-        database.insert(DatabaseHelper.TABLE_ANSWER, null, values);
+        database.insertWithOnConflict(DatabaseHelper.TABLE_ANSWER, null, values, SQLiteDatabase.CONFLICT_REPLACE);
     }
 
     private byte[] retrievePictureContent(String pictureName) {
@@ -142,7 +142,7 @@ public class DataSource {
         return null;
     }
 
-    public void createInitialDictionaryValues(Context context, ArrayList<String> databaseString) {
+    public void insertDictionaryValues(Context context, ArrayList<String> databaseString) {
             String jsonLanguageString = databaseString.get(0);
             String jsonWordString = databaseString.get(1);
             String jsonDescriptionString = databaseString.get(2);
@@ -154,12 +154,12 @@ public class DataSource {
             getAndAddSentences(jsonSentenceString);
     }
 
-    public void createInitialLessonValues(Context context, String databaseString) {
+    public void insertLessonValues(Context context, String databaseString) {
             getAndAddLessons(databaseString);
     }
 
 
-    public void createInitialTestValues(Context context, ArrayList<String> databaseString){
+    public void insertTestValues(Context context, ArrayList<String> databaseString){
             String jsonTestString = databaseString.get(0);
             String jsonQuestionString = databaseString.get(1);
             String jsonAnswerString = databaseString.get(2);

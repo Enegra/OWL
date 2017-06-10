@@ -149,7 +149,7 @@ public class Lessons extends AppCompatActivity {
                     RequestHandler requestHandler = new RequestHandler();
                     String lessonString =  requestHandler.sendGetRequest(DBConfig.URL_GET_LESSON);
                     dataSource.open();
-                    dataSource.createInitialLessonValues(getApplicationContext(), lessonString);
+                    dataSource.insertLessonValues(getApplicationContext(), lessonString);
                     dataSource.close();
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putBoolean("lessons_fetched", true);

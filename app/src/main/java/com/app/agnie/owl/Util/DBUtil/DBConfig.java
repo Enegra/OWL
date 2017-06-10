@@ -10,6 +10,7 @@ public class DBConfig {
     public static final String URL_GET_TEST = "http://stasis.eu/Android/db/dbGetTest.php";
     public static final String URL_GET_QUESTION = "http://stasis.eu/Android/db/dbGetQuestion.php";
     public static final String URL_GET_ANSWER = "http://stasis.eu/Android/db/dbGetAnswer.php";
+    public static final String TAG_MODIFICATION_DATE = "modification_date";
 
     //JSON Tags
 
@@ -48,4 +49,13 @@ public class DBConfig {
     public static final String TAG_ANSWER_CONTENT = "content";
     public static final String TAG_ANSWER_ISCORRECT = "is_correct";
     public static final String TAG_ANSWER_QUESTION = "question";
+
+    public static final String URL_GET_LANGUAGEDATE = "http://stasis.eu/Android/db/dbGetLanguageDate.php";
+    public static final String URL_GET_SENTENCEDATE = "http://stasis.eu/Android/db/dbGetSentenceDate.php";
+    public static final String URL_GET_WORDDATE = "http://stasis.eu/Android/db/dbGetWordDate.php";
+    public static final String URL_GET_WORDDESCRIPTIONDATE = "http://stasis.eu/Android/db/dbGetWordDescriptionDate.php";
+    public static final String URL_GET_LESSONDATE = "http://stasis.eu/Android/db/dbGetLessonDate.php";
+    public static final String URL_GET_TESTDATE = "http://stasis.eu/Android/db/dbGetTestDate.php";
+    public static final String URL_GET_QUESTIONDATE = "http://stasis.eu/Android/db/dbGetQuestionDate.php";
+    public static final String URL_GET_ANSWERDATE = "http://stasis.eu/Android/db/dbGetAnswerDate.php";
 }
