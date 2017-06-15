@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
 
 import com.app.agnie.owl.Util.Answer;
 import com.app.agnie.owl.Util.CompressionTools;
@@ -19,11 +18,16 @@ import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+
+import io.requery.android.database.sqlite.SQLiteDatabase;
 
 public class DataSource {
 
@@ -142,6 +146,29 @@ public class DataSource {
         return null;
     }
 
+    private void downloadSentenceSounds(Context context, String name, String soundUrl) {
+        int count;
+        try {
+            URL url = new URL(soundUrl);
+            URLConnection connection = url.openConnection();
+            connection.connect();
+            File newDir = context.getDir("sentencedir", Context.MODE_PRIVATE);
+            File audio = new File(newDir, name + ".mp3");
+            InputStream input = new BufferedInputStream(url.openStream());
+            OutputStream output = new FileOutputStream(audio);
+            byte data[] = new byte[1024];
+            while ((count = input.read(data)) != -1) {
+                output.write(data, 0, count);
+            }
+            output.flush();
+            output.close();
+            input.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public void insertDictionaryValues(Context context, ArrayList<String> databaseString) {
             String jsonLanguageString = databaseString.get(0);
             String jsonWordString = databaseString.get(1);
@@ -151,15 +178,14 @@ public class DataSource {
             getAndAddLanguages(jsonLanguageString);
             getAndAddWords(jsonWordString);
             getAndAddWordDescriptions(jsonDescriptionString);
-            getAndAddSentences(jsonSentenceString);
+            getAndAddSentences(context, jsonSentenceString);
     }
 
-    public void insertLessonValues(Context context, String databaseString) {
+    public void insertLessonValues(String databaseString) {
             getAndAddLessons(databaseString);
     }
 
-
-    public void insertTestValues(Context context, ArrayList<String> databaseString){
+    public void insertTestValues(ArrayList<String> databaseString){
             String jsonTestString = databaseString.get(0);
             String jsonQuestionString = databaseString.get(1);
             String jsonAnswerString = databaseString.get(2);
@@ -202,7 +228,7 @@ public class DataSource {
     }
 
 
-    private void getAndAddSentences(String jsonSentenceString) {
+    private void getAndAddSentences(Context context, String jsonSentenceString) {
         JSONObject jsonObject;
         try {
             jsonObject = new JSONObject(jsonSentenceString);
@@ -211,10 +237,14 @@ public class DataSource {
             for (int i = 0; i < result.length(); i++) {
                 JSONObject jo = result.getJSONObject(i);
                 int id = Integer.parseInt(jo.getString(DBConfig.TAG_ID));
-                String name = jo.getString(DBConfig.TAG_SENTECE_LANGUAGENAME);
+                String languageName = jo.getString(DBConfig.TAG_SENTECE_LANGUAGENAME);
                 String sentence = jo.getString(DBConfig.TAG_SENTENCE_SENTENCE);
                 int wId = Integer.parseInt(jo.getString(DBConfig.TAG_SENTENCE_WORDID));
-                addSentence(id, sentence, wId, name);
+                addSentence(id, sentence, wId, languageName);
+                String soundUrl = jo.getString(DBConfig.TAG_SOUND);
+                if (!soundUrl.isEmpty()) {
+                    downloadSentenceSounds(context, sentence, soundUrl);
+                }
             }
 
         } catch (JSONException e) {
@@ -427,11 +457,7 @@ public class DataSource {
                 String answerContent = cursor.getString(cursor.getColumnIndex("answer_content"));
                 int answerIsCorrect = cursor.getInt(cursor.getColumnIndex("answer_is_correct"));
                 boolean isCorrect;
-                if (answerIsCorrect==0){
-                    isCorrect = false;
-                } else {
-                    isCorrect = true;
-                }
+                isCorrect = answerIsCorrect != 0;
                 Answer newAnswer = new Answer(answerContent, isCorrect);
                 tests.get(tests.size()-1).getQuestions().get(tests.get(tests.size()-1).getQuestions().size()-1).addAnswer(newAnswer);
             }

@@ -3,6 +3,8 @@ package com.app.agnie.owl.Fragments;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -105,6 +107,12 @@ public class DictionaryItemDetailFragment extends Fragment {
         }
         sentence.setTypeface(null, Typeface.ITALIC);
         parent.addView(sentence);
+    }
+
+    private void playSentence(String name) {
+        String sentencePath = "/data/user/o/com.app.agn" + name;
+        MediaPlayer player = MediaPlayer.create(getContext(), Uri.parse(sentencePath));
+        player.start();
     }
 
 }

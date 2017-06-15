@@ -236,13 +236,13 @@ public class Settings extends AppCompatActivity{
             updatedDatabase = getUpdatedDatabase(preferencesArray, updatesAvailable);
             dataSource.open();
             if(updatesAvailable[0] || updatesAvailable[1] || updatesAvailable[2]){
-                dataSource.insertDictionaryValues(Settings.this, updatedDatabase.get(0));
+                dataSource.insertDictionaryValues(updatedDatabase.get(0));
             }
             if(updatesAvailable[3]){
-                dataSource.insertLessonValues(Settings.this, updatedDatabase.get(1).get(0));
+                dataSource.insertLessonValues(updatedDatabase.get(1).get(0));
             }
             if(updatesAvailable[4] || updatesAvailable[5] ||updatesAvailable[6]){
-                dataSource.insertTestValues(Settings.this, updatedDatabase.get(2));
+                dataSource.insertTestValues(updatedDatabase.get(2));
             }
             dataSource.close();
             return null;

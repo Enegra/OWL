@@ -93,7 +93,7 @@ public class TestsPageTwo extends Fragment {
                 testStrings.add(questionString);
                 testStrings.add(answerString);
                 dataSource.open();
-                dataSource.insertTestValues(getContext(), testStrings);
+                dataSource.insertTestValues(testStrings);
                 dataSource.close();
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putBoolean("tests_fetched", true);

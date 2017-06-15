@@ -11,6 +11,7 @@ public class DBConfig {
     public static final String URL_GET_QUESTION = "http://stasis.eu/Android/db/dbGetQuestion.php";
     public static final String URL_GET_ANSWER = "http://stasis.eu/Android/db/dbGetAnswer.php";
     public static final String TAG_MODIFICATION_DATE = "modification_date";
+    public static final String TAG_SOUND = "sound";
 
     //JSON Tags
 

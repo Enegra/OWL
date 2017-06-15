@@ -92,6 +92,16 @@
     </string-array>
 
     <!-- navigation drawer -->
+    <string-array name="navigation_english_interface">
+        <item>Home</item>
+        <item>Dictionary</item>
+        <item>Lessons</item>
+        <item>Tests</item>
+        <item>Favourites</item>
+        <item>Settings</item>
+        <item>One With Language</item>
+        <item>A language learning app</item>
+    </string-array>
     <string name="nav_home">Home</string>
     <string name="nav_dictionary">Dictionary</string>
     <string name="nav_lessons">Lessons</string>
