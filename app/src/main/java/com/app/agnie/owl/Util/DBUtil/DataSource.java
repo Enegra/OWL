@@ -47,13 +47,13 @@ public class DataSource {
         databaseHelper.close();
     }
 
-    public void addCategory(int category) {
-        ContentValues values = new ContentValues();
-        values.put(DatabaseHelper.COLUMN_CATEGORY, category);
-        database.insertWithOnConflict(DatabaseHelper.TABLE_CATEGORY, null, values, SQLiteDatabase.CONFLICT_REPLACE);
-    }
+//    private void addCategory(int category) {
+//        ContentValues values = new ContentValues();
+//        values.put(DatabaseHelper.COLUMN_CATEGORY, category);
+//        database.insertWithOnConflict(DatabaseHelper.TABLE_CATEGORY, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+//    }
 
-    void addWord(int id, String wordPicture) {
+    private void addWord(int id, String wordPicture) {
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.COLUMN_ID, id);
         byte[] pictureContent = retrievePictureContent(wordPicture);
@@ -62,13 +62,13 @@ public class DataSource {
         database.insertWithOnConflict(DatabaseHelper.TABLE_WORD, null, values, SQLiteDatabase.CONFLICT_REPLACE);
     }
 
-    void addLanguage(String languageName) {
+    private void addLanguage(String languageName) {
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.COLUMN_LANGUAGE, languageName);
         database.insertWithOnConflict(DatabaseHelper.TABLE_LANGUAGE, null, values, SQLiteDatabase.CONFLICT_REPLACE);
     }
 
-    void addWordDescription(int id, String description, int wordID, String language) {
+    private void addWordDescription(int id, String description, int wordID, String language) {
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.COLUMN_ID, id);
         values.put(DatabaseHelper.COLUMN_WORD_DESCRIPTION, description);
@@ -77,7 +77,7 @@ public class DataSource {
         database.insertWithOnConflict(DatabaseHelper.TABLE_WORD_DESCRIPTION, null, values, SQLiteDatabase.CONFLICT_REPLACE);
     }
 
-    void addSentence(int id, String sentence, int wordID, String language) {
+    private void addSentence(int id, String sentence, int wordID, String language) {
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.COLUMN_ID, id);
         values.put(DatabaseHelper.COLUMN_SENTENCE, sentence);
@@ -86,7 +86,7 @@ public class DataSource {
         database.insertWithOnConflict(DatabaseHelper.TABLE_SENTENCE, null, values, SQLiteDatabase.CONFLICT_REPLACE);
     }
 
-    void addLesson(int id, String caption, String subtitle, String content, String originLanguage, String translationLanguage) {
+    private void addLesson(int id, String caption, String subtitle, String content, String originLanguage, String translationLanguage) {
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.COLUMN_ID, id);
         values.put(DatabaseHelper.COLUMN_CAPTION, caption);
@@ -97,7 +97,7 @@ public class DataSource {
         database.insertWithOnConflict(DatabaseHelper.TABLE_LESSON, null, values, SQLiteDatabase.CONFLICT_REPLACE);
     }
 
-    void addTest(int id, String language, String caption, String description, String textContent){
+    private void addTest(int id, String language, String caption, String description, String textContent){
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.COLUMN_ID, id);
         values.put(DatabaseHelper.COLUMN_LANGUAGE, language);
@@ -107,7 +107,7 @@ public class DataSource {
         database.insertWithOnConflict(DatabaseHelper.TABLE_TEST, null, values, SQLiteDatabase.CONFLICT_REPLACE);
     }
 
-    void addQuestion(int id, String content, int testId){
+    private void addQuestion(int id, String content, int testId){
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.COLUMN_ID, id);
         values.put(DatabaseHelper.COLUMN_CONTENT, content);
@@ -115,7 +115,7 @@ public class DataSource {
         database.insertWithOnConflict(DatabaseHelper.TABLE_QUESTION, null, values, SQLiteDatabase.CONFLICT_REPLACE);
     }
 
-    void addAnswer(int id, String content, int isCorrect, int questionId){
+    private void addAnswer(int id, String content, int isCorrect, int questionId){
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.COLUMN_ID, id);
         values.put(DatabaseHelper.COLUMN_CONTENT, content);

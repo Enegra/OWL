@@ -13,7 +13,7 @@ public class ScorePreference {
     private static final String PREFERENCES_NAME = "OWL";
     private static final String SAVED_SCORES = "Saved_Scores";
 
-    public void saveScores(Context context, ArrayList<Score> scores) {
+    private void saveScores(Context context, ArrayList<Score> scores) {
         SharedPreferences settings;
         SharedPreferences.Editor editor;
         settings = context.getSharedPreferences(PREFERENCES_NAME,

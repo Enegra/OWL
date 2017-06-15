@@ -14,7 +14,7 @@ public class FavouritePreference {
     private static final String FAVOURITE_WORDS = "Favourite_Words";
     private static final String FAVOURITE_LESSONS = "Favourite_Lessons";
 
-    public void saveFavouriteWords(Context context, ArrayList<DictionaryEntry> favourites) {
+    private void saveFavouriteWords(Context context, ArrayList<DictionaryEntry> favourites) {
         SharedPreferences settings;
         SharedPreferences.Editor editor;
         settings = context.getSharedPreferences(PREFERENCES_NAME,
@@ -26,7 +26,7 @@ public class FavouritePreference {
         editor.apply();
     }
 
-    public void saveFavouriteLessons(Context context, ArrayList<Lesson> favourites){
+    private void saveFavouriteLessons(Context context, ArrayList<Lesson> favourites){
         SharedPreferences settings;
         SharedPreferences.Editor editor;
         settings = context.getSharedPreferences(PREFERENCES_NAME,

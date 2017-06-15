@@ -4,8 +4,6 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 
-
-
 public class DictionaryEntry implements Parcelable {
 
     private int id;
