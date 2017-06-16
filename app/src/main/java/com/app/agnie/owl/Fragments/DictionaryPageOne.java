@@ -1,6 +1,5 @@
 package com.app.agnie.owl.Fragments;
 
-import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -15,7 +14,7 @@ import android.widget.TextView;
 
 import com.app.agnie.owl.R;
 import com.app.agnie.owl.Util.CompressionTools;
-import com.app.agnie.owl.Util.DictionaryEntry;
+import com.app.agnie.owl.Util.Entities.DictionaryEntry;
 import com.app.agnie.owl.Util.SingletonSession;
 
 import java.util.ArrayList;

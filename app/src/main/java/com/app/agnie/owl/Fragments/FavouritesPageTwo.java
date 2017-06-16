@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.app.agnie.owl.Adapters.LessonTileAdapter;
 import com.app.agnie.owl.R;
 import com.app.agnie.owl.Util.FavouritePreference;
-import com.app.agnie.owl.Util.Lesson;
+import com.app.agnie.owl.Util.Entities.Lesson;
 import com.app.agnie.owl.Util.SingletonSession;
 
 import java.util.ArrayList;

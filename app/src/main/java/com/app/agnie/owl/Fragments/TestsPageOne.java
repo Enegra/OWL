@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.app.agnie.owl.Adapters.ScoreTileAdapter;
 import com.app.agnie.owl.R;
-import com.app.agnie.owl.Util.Score;
+import com.app.agnie.owl.Util.Entities.Score;
 import com.app.agnie.owl.Util.ScorePreference;
 import com.app.agnie.owl.Util.SingletonSession;
 

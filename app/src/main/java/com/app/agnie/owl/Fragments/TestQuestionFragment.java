@@ -16,13 +16,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.agnie.owl.R;
-import com.app.agnie.owl.Util.Answer;
+import com.app.agnie.owl.Util.Entities.Answer;
 import com.app.agnie.owl.Util.FragmentChangeListener;
-import com.app.agnie.owl.Util.Question;
-import com.app.agnie.owl.Util.Score;
+import com.app.agnie.owl.Util.Entities.Question;
+import com.app.agnie.owl.Util.Entities.Score;
 import com.app.agnie.owl.Util.ScorePreference;
 import com.app.agnie.owl.Util.SingletonSession;
-import com.app.agnie.owl.Util.Test;
+import com.app.agnie.owl.Util.Entities.Test;
 
 import java.text.DateFormat;
 import java.util.ArrayList;

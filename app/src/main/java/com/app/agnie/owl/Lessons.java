@@ -20,7 +20,7 @@ import com.app.agnie.owl.Adapters.LessonTileAdapter;
 import com.app.agnie.owl.Util.DBUtil.DBConfig;
 import com.app.agnie.owl.Util.DBUtil.DataSource;
 import com.app.agnie.owl.Util.DBUtil.RequestHandler;
-import com.app.agnie.owl.Util.Lesson;
+import com.app.agnie.owl.Util.Entities.Lesson;
 import com.app.agnie.owl.Util.SingletonSession;
 
 import java.util.ArrayList;

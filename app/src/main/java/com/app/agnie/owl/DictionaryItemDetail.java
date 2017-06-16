@@ -13,7 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.app.agnie.owl.Fragments.DictionaryItemDetailFragment;
-import com.app.agnie.owl.Util.DictionaryEntry;
+import com.app.agnie.owl.Util.Entities.DictionaryEntry;
 import com.app.agnie.owl.Util.FavouritePreference;
 import com.app.agnie.owl.Util.SingletonSession;
 

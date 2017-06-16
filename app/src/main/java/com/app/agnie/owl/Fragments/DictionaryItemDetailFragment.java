@@ -19,7 +19,7 @@ import android.widget.TextView;
 import com.app.agnie.owl.DictionaryItemDetail;
 import com.app.agnie.owl.R;
 import com.app.agnie.owl.Util.CompressionTools;
-import com.app.agnie.owl.Util.DictionaryEntry;
+import com.app.agnie.owl.Util.Entities.DictionaryEntry;
 
 import java.util.ArrayList;
 

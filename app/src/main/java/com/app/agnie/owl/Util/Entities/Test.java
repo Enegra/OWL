@@ -1,4 +1,4 @@
-package com.app.agnie.owl.Util;
+package com.app.agnie.owl.Util.Entities;
 
 import android.os.Parcel;
 import android.os.Parcelable;

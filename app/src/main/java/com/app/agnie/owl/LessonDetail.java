@@ -14,7 +14,7 @@ import android.view.MenuItem;
 
 import com.app.agnie.owl.Fragments.LessonDetailFragment;
 import com.app.agnie.owl.Util.FavouritePreference;
-import com.app.agnie.owl.Util.Lesson;
+import com.app.agnie.owl.Util.Entities.Lesson;
 
 public class LessonDetail extends AppCompatActivity {
 

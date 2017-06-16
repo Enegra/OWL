@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.app.agnie.owl.Adapters.DictionaryTileAdapter;
 import com.app.agnie.owl.R;
-import com.app.agnie.owl.Util.DictionaryEntry;
+import com.app.agnie.owl.Util.Entities.DictionaryEntry;
 import com.app.agnie.owl.Util.SingletonSession;
 import java.util.ArrayList;
 

@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.app.agnie.owl.R;
 import com.app.agnie.owl.Util.FragmentChangeListener;
 import com.app.agnie.owl.Util.SingletonSession;
-import com.app.agnie.owl.Util.Test;
+import com.app.agnie.owl.Util.Entities.Test;
 
 public class TestIntroductionFragment extends Fragment {
 

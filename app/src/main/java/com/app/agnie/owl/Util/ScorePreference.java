@@ -3,6 +3,8 @@ package com.app.agnie.owl.Util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.app.agnie.owl.Util.Entities.DictionaryEntry;
+import com.app.agnie.owl.Util.Entities.Score;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;

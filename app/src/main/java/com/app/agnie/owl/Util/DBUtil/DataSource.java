@@ -5,12 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 
-import com.app.agnie.owl.Util.Answer;
+import com.app.agnie.owl.Util.Entities.Answer;
 import com.app.agnie.owl.Util.CompressionTools;
-import com.app.agnie.owl.Util.DictionaryEntry;
-import com.app.agnie.owl.Util.Lesson;
-import com.app.agnie.owl.Util.Question;
-import com.app.agnie.owl.Util.Test;
+import com.app.agnie.owl.Util.Entities.DictionaryEntry;
+import com.app.agnie.owl.Util.Entities.Lesson;
+import com.app.agnie.owl.Util.Entities.Question;
+import com.app.agnie.owl.Util.Entities.Test;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -68,21 +68,23 @@ public class DataSource {
         database.insertWithOnConflict(DatabaseHelper.TABLE_LANGUAGE, null, values, SQLiteDatabase.CONFLICT_REPLACE);
     }
 
-    private void addWordDescription(int id, String description, int wordID, String language) {
+    private void addWordDescription(int id, String description, int wordID, String language, String sound) {
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.COLUMN_ID, id);
         values.put(DatabaseHelper.COLUMN_WORD_DESCRIPTION, description);
         values.put(DatabaseHelper.COLUMN_WORD_ID, wordID);
         values.put(DatabaseHelper.COLUMN_LANGUAGE, language);
+        values.put(DatabaseHelper.COLUMN_SOUND, sound);
         database.insertWithOnConflict(DatabaseHelper.TABLE_WORD_DESCRIPTION, null, values, SQLiteDatabase.CONFLICT_REPLACE);
     }
 
-    private void addSentence(int id, String sentence, int wordID, String language) {
+    private void addSentence(int id, String sentence, int wordID, String language, String sound) {
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.COLUMN_ID, id);
         values.put(DatabaseHelper.COLUMN_SENTENCE, sentence);
         values.put(DatabaseHelper.COLUMN_WORD_ID, wordID);
         values.put(DatabaseHelper.COLUMN_LANGUAGE, language);
+        values.put(DatabaseHelper.COLUMN_SOUND, sound);
         database.insertWithOnConflict(DatabaseHelper.TABLE_SENTENCE, null, values, SQLiteDatabase.CONFLICT_REPLACE);
     }
 
@@ -146,10 +148,11 @@ public class DataSource {
         return null;
     }
 
-    private void downloadSentenceSounds(Context context, String name, String soundUrl) {
+    private void downloadSentenceSounds(Context context, String name, String soundName) {
         int count;
         try {
-            URL url = new URL(soundUrl);
+            //// TODO: 6/16/2017  FIX THE URL HERE
+            URL url = new URL(soundName);
             URLConnection connection = url.openConnection();
             connection.connect();
             File newDir = context.getDir("sentencedir", Context.MODE_PRIVATE);
@@ -240,10 +243,10 @@ public class DataSource {
                 String languageName = jo.getString(DBConfig.TAG_SENTECE_LANGUAGENAME);
                 String sentence = jo.getString(DBConfig.TAG_SENTENCE_SENTENCE);
                 int wId = Integer.parseInt(jo.getString(DBConfig.TAG_SENTENCE_WORDID));
-                addSentence(id, sentence, wId, languageName);
-                String soundUrl = jo.getString(DBConfig.TAG_SOUND);
-                if (!soundUrl.isEmpty()) {
-                    downloadSentenceSounds(context, sentence, soundUrl);
+                String soundName = jo.getString(DBConfig.TAG_SOUND);
+                addSentence(id, sentence, wId, languageName, soundName);
+                if (!soundName.isEmpty()) {
+                    downloadSentenceSounds(context, sentence, soundName);
                 }
             }
 
@@ -263,7 +266,8 @@ public class DataSource {
                 String language_name = jo.getString(DBConfig.TAG_WORDDES_LANGUAGENAME);
                 String word_description = jo.getString(DBConfig.TAG_WORDDES_WORDDESCRIPTION);
                 int wId = Integer.parseInt(jo.getString(DBConfig.TAG_WORDDES_WORDID));
-                addWordDescription(id, word_description, wId, language_name);
+                String soundName = jo.getString(DBConfig.TAG_SOUND);
+                addWordDescription(id, word_description, wId, language_name, soundName);
             }
 
         } catch (JSONException e) {

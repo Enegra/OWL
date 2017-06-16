@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 import com.app.agnie.owl.R;
 import com.app.agnie.owl.TestDetail;
 import com.app.agnie.owl.Util.SingletonSession;
-import com.app.agnie.owl.Util.Test;
+import com.app.agnie.owl.Util.Entities.Test;
 
 import java.util.ArrayList;
 import java.util.Random;

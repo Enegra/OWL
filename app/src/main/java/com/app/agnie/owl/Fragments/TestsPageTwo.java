@@ -18,7 +18,7 @@ import com.app.agnie.owl.Util.DBUtil.DBConfig;
 import com.app.agnie.owl.Util.DBUtil.DataSource;
 import com.app.agnie.owl.Util.DBUtil.RequestHandler;
 import com.app.agnie.owl.Util.SingletonSession;
-import com.app.agnie.owl.Util.Test;
+import com.app.agnie.owl.Util.Entities.Test;
 
 import java.util.ArrayList;
 

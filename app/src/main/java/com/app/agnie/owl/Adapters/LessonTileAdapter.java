@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 
 import com.app.agnie.owl.LessonDetail;
 import com.app.agnie.owl.R;
-import com.app.agnie.owl.Util.Lesson;
+import com.app.agnie.owl.Util.Entities.Lesson;
 
 import java.util.ArrayList;
 import java.util.Random;

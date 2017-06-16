@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.app.agnie.owl.R;
-import com.app.agnie.owl.Util.Score;
+import com.app.agnie.owl.Util.Entities.Score;
 
 import java.util.ArrayList;
 import java.util.Random;

@@ -1,5 +1,8 @@
 package com.app.agnie.owl.Util;
 
+import com.app.agnie.owl.Util.Entities.DictionaryEntry;
+import com.app.agnie.owl.Util.Entities.Test;
+
 import java.util.ArrayList;
 
 /**

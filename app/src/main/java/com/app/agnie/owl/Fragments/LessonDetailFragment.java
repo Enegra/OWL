@@ -10,13 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebResourceRequest;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.TextView;
 
 import com.app.agnie.owl.R;
-import com.app.agnie.owl.Util.Lesson;
+import com.app.agnie.owl.Util.Entities.Lesson;
 
 public class LessonDetailFragment extends Fragment {
 
