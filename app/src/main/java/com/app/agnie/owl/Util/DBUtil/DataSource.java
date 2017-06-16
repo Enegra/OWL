@@ -128,7 +128,7 @@ public class DataSource {
 
     private byte[] retrievePictureContent(String pictureName) {
         try {
-            URL imageUrl = new URL("http://users.jyu.fi/~anvalton/pollo/" + pictureName);
+            URL imageUrl = new URL("http://stasis.eu/Android/images/" + pictureName);
             URLConnection connection = imageUrl.openConnection();
             InputStream inputStream = connection.getInputStream();
             BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
@@ -151,8 +151,7 @@ public class DataSource {
     private void downloadSentenceSounds(Context context, String name, String soundName) {
         int count;
         try {
-            //// TODO: 6/16/2017  FIX THE URL HERE
-            URL url = new URL(soundName);
+            URL url = new URL("http://stasis.eu/Android/sounds/" + soundName);
             URLConnection connection = url.openConnection();
             connection.connect();
             File newDir = context.getDir("sentencedir", Context.MODE_PRIVATE);
