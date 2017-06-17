@@ -16,10 +16,21 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/owlmain_header"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar"
-        android:text="Hello World!" />
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:layout_marginTop="@dimen/text_margin"
+        android:textSize="40sp"
+        android:gravity="center"
+        android:text="@string/main_header" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        android:layout_below="@id/owlmain_header"
+        app:srcCompat="@drawable/ic_owl"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -27,7 +38,6 @@
         android:layout_alignParentBottom="true"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin">
-
         <LinearLayout
             android:id="@+id/main_linear_layout_top"
             android:layout_width="match_parent"

@@ -3,6 +3,7 @@
     <string name="app_name">O.W.L.</string>
 
     <!-- main activity -->
+    <string name="main_header">One With Language</string>
     <string-array name="main_english_interface">
         <item>Dictionary</item>
         <item>Lessons</item>
