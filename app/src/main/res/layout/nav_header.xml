@@ -14,7 +14,7 @@
         android:layout_height="@dimen/profile_height"
         android:layout_gravity="center_horizontal"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@android:drawable/sym_def_app_icon" />
+        app:srcCompat="@drawable/ic_owl" />
 
     <TextView
         android:id="@+id/nav_appname"

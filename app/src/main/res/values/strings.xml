@@ -4,11 +4,13 @@
 
     <!-- main activity -->
     <string name="main_header">One With Language</string>
+    <string name="owl_description">Owl logo</string>
     <string-array name="main_english_interface">
         <item>Dictionary</item>
         <item>Lessons</item>
         <item>Tests</item>
         <item>Favourites</item>
+        <item>Welcome!</item>
     </string-array>
 
     <string-array name="main_polish_interface">
@@ -16,6 +18,7 @@
         <item>Lekcje</item>
         <item>Testy</item>
         <item>Ulubione</item>
+        <item>Witaj!</item>
     </string-array>
 
     <!-- dictionary -->
@@ -93,6 +96,8 @@
     </string-array>
 
     <!-- navigation drawer -->
+    <string name="nav_info_default">Info</string>
+    <string name="nav_info_about">About us</string>
     <string-array name="navigation_english_interface">
         <item>Home</item>
         <item>Dictionary</item>
@@ -100,8 +105,16 @@
         <item>Tests</item>
         <item>Favourites</item>
         <item>Settings</item>
-        <item>One With Language</item>
         <item>A language learning app</item>
+    </string-array>
+    <string-array name="navigation_polish_interface">
+        <item>Aktywność Główna</item>
+        <item>Słownik</item>
+        <item>Lekcje</item>
+        <item>Testy</item>
+        <item>Ulubione</item>
+        <item>Ustawienia</item>
+        <item>Aplikacja do nauki języków</item>
     </string-array>
     <string name="nav_home">Home</string>
     <string name="nav_dictionary">Dictionary</string>

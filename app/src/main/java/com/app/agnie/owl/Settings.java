@@ -22,11 +22,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.agnie.owl.Util.DBUtil.DBConfig;
 import com.app.agnie.owl.Util.DBUtil.DataSource;
 import com.app.agnie.owl.Util.DBUtil.RequestHandler;
+import com.app.agnie.owl.Util.SingletonSession;
 import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat;
 
 import org.json.JSONArray;
@@ -89,6 +91,9 @@ public class Settings extends AppCompatActivity{
         drawerLayout = (DrawerLayout) findViewById(R.id.settings_drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setCheckedItem(R.id.nav_settings);
+        if (!SingletonSession.Instance().getInterfaceLanguage().equals("english")) {
+            changeMenuLanguage(navigationView);
+        }
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -126,6 +131,26 @@ public class Settings extends AppCompatActivity{
                 startActivity(intent);
                 break;
         }
+    }
+
+    private void changeMenuLanguage(NavigationView navigationView) {
+        String[] menuStrings = getResources().getStringArray(SingletonSession.Instance().getInterfaceResources()[5]);
+        Menu menu = navigationView.getMenu();
+        MenuItem home = menu.findItem(R.id.nav_home);
+        home.setTitle(menuStrings[0]);
+        MenuItem dictionary = menu.findItem(R.id.nav_dictionary);
+        dictionary.setTitle(menuStrings[1]);
+        MenuItem lessons = menu.findItem(R.id.nav_lessons);
+        lessons.setTitle(menuStrings[2]);
+        MenuItem tests = menu.findItem(R.id.nav_tests);
+        tests.setTitle(menuStrings[3]);
+        MenuItem favourites = menu.findItem(R.id.nav_lessons);
+        favourites.setTitle(menuStrings[4]);
+        MenuItem settings = menu.findItem(R.id.nav_settings);
+        settings.setTitle(menuStrings[5]);
+        View headerLayout = navigationView.getHeaderView(0);
+        TextView subtitle = (TextView) headerLayout.findViewById(R.id.nav_subtitle);
+        subtitle.setText(menuStrings[6]);
     }
 
     public static class SettingsFragment extends PreferenceFragmentCompat {

@@ -11,10 +11,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.app.agnie.owl.Fragments.LessonDetailFragment;
-import com.app.agnie.owl.Util.FavouritePreference;
 import com.app.agnie.owl.Util.Entities.Lesson;
+import com.app.agnie.owl.Util.FavouritePreference;
+import com.app.agnie.owl.Util.SingletonSession;
 
 public class LessonDetail extends AppCompatActivity {
 
@@ -57,6 +60,9 @@ public class LessonDetail extends AppCompatActivity {
         drawerLayout = (DrawerLayout) findViewById(R.id.lesson_detail_drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setCheckedItem(R.id.nav_lessons);
+        if (!SingletonSession.Instance().getInterfaceLanguage().equals("english")) {
+            changeMenuLanguage(navigationView);
+        }
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -108,6 +114,26 @@ public class LessonDetail extends AppCompatActivity {
                 startActivity(intent);
                 break;
         }
+    }
+
+    private void changeMenuLanguage(NavigationView navigationView) {
+        String[] menuStrings = getResources().getStringArray(SingletonSession.Instance().getInterfaceResources()[5]);
+        Menu menu = navigationView.getMenu();
+        MenuItem home = menu.findItem(R.id.nav_home);
+        home.setTitle(menuStrings[0]);
+        MenuItem dictionary = menu.findItem(R.id.nav_dictionary);
+        dictionary.setTitle(menuStrings[1]);
+        MenuItem lessons = menu.findItem(R.id.nav_lessons);
+        lessons.setTitle(menuStrings[2]);
+        MenuItem tests = menu.findItem(R.id.nav_tests);
+        tests.setTitle(menuStrings[3]);
+        MenuItem favourites = menu.findItem(R.id.nav_lessons);
+        favourites.setTitle(menuStrings[4]);
+        MenuItem settings = menu.findItem(R.id.nav_settings);
+        settings.setTitle(menuStrings[5]);
+        View headerLayout = navigationView.getHeaderView(0);
+        TextView subtitle = (TextView) headerLayout.findViewById(R.id.nav_subtitle);
+        subtitle.setText(menuStrings[6]);
     }
 
     @Override
