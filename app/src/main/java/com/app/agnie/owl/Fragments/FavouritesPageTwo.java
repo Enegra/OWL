@@ -2,7 +2,7 @@ package com.app.agnie.owl.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import com.app.agnie.owl.Adapters.LessonTileAdapter;
 import com.app.agnie.owl.R;
-import com.app.agnie.owl.Util.FavouritePreference;
 import com.app.agnie.owl.Util.Entities.Lesson;
+import com.app.agnie.owl.Util.FavouritePreference;
 import com.app.agnie.owl.Util.SingletonSession;
 
 import java.util.ArrayList;
@@ -55,7 +55,7 @@ public class FavouritesPageTwo extends Fragment {
         adapter = new LessonTileAdapter(getActivity(), favourites);
         favouriteList = (RecyclerView) view.findViewById(R.id.favourites_list);
         favouriteList.setAdapter(adapter);
-        favouriteList.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
+        favouriteList.setLayoutManager(new LinearLayoutManager(getContext()));
         favouriteList.setHasFixedSize(true);
         if (favourites.isEmpty()) {
             favouriteList.setVisibility(View.GONE);

@@ -3,7 +3,6 @@ package com.app.agnie.owl.Util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.app.agnie.owl.Util.Entities.DictionaryEntry;
 import com.app.agnie.owl.Util.Entities.Score;
 import com.google.gson.Gson;
 
@@ -33,7 +32,7 @@ public class ScorePreference {
         saveScores(context, scores);
     }
 
-    public void clearScores(Context context, DictionaryEntry entry) {
+    public void clearScores(Context context) {
         ArrayList<Score> emptyScores = new ArrayList<>();
         saveScores(context, emptyScores);
     }

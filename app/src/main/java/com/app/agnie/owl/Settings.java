@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.app.agnie.owl.Util.DBUtil.DBConfig;
 import com.app.agnie.owl.Util.DBUtil.DataSource;
 import com.app.agnie.owl.Util.DBUtil.RequestHandler;
+import com.app.agnie.owl.Util.ScorePreference;
 import com.app.agnie.owl.Util.SingletonSession;
 import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat;
 
@@ -178,11 +179,14 @@ public class Settings extends AppCompatActivity{
     }
 
     public void onClearFavouritesButtonClick(View v) {
+//        FavouritePreference favouritePreference = new FavouritePreference();
         Log.d("Button", "Yeah, button was clicked");
     }
 
     public void onClearScoresButtonClick(View v) {
-        Log.d("Button", "Yeah, button was clicked");
+        ScorePreference scorePreference = new ScorePreference();
+        scorePreference.clearScores(getApplicationContext());
+        Toast.makeText(this, "Scores cleared", Toast.LENGTH_SHORT).show();
     }
 
     private class CheckLatestVersion extends AsyncTask<Void, Void, Void> {
@@ -357,8 +361,7 @@ public class Settings extends AppCompatActivity{
 
     private String dateToString(Date date) {
         Format formatter = new SimpleDateFormat("yyyy-MM-dd");
-        String dateAsString = formatter.format(date);
-        return dateAsString;
+        return formatter.format(date);
     }
 
     private boolean isNewer(String currentString, Date databaseDate) {
