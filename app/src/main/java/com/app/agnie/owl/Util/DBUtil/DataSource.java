@@ -5,8 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 
-import com.app.agnie.owl.Util.Entities.Answer;
 import com.app.agnie.owl.Util.CompressionTools;
+import com.app.agnie.owl.Util.Entities.Answer;
 import com.app.agnie.owl.Util.Entities.DictionaryEntry;
 import com.app.agnie.owl.Util.Entities.Lesson;
 import com.app.agnie.owl.Util.Entities.Question;
@@ -148,14 +148,14 @@ public class DataSource {
         return null;
     }
 
-    private void downloadSentenceSounds(Context context, String name, String soundName) {
+    private void downloadSounds(Context context, String soundName) {
         int count;
         try {
-            URL url = new URL("http://stasis.eu/Android/sounds/" + soundName);
+            URL url = new URL("http://stasis.eu/Android/sounds/" + soundName + ".mp3");
             URLConnection connection = url.openConnection();
             connection.connect();
-            File newDir = context.getDir("sentencedir", Context.MODE_PRIVATE);
-            File audio = new File(newDir, name + ".mp3");
+            File newDir = context.getDir("sounds_directory", Context.MODE_PRIVATE);
+            File audio = new File(newDir, soundName + ".mp3");
             InputStream input = new BufferedInputStream(url.openStream());
             OutputStream output = new FileOutputStream(audio);
             byte data[] = new byte[1024];
@@ -165,11 +165,11 @@ public class DataSource {
             output.flush();
             output.close();
             input.close();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 
     public void insertDictionaryValues(Context context, ArrayList<String> databaseString) {
             String jsonLanguageString = databaseString.get(0);
@@ -179,7 +179,7 @@ public class DataSource {
 
             getAndAddLanguages(jsonLanguageString);
             getAndAddWords(jsonWordString);
-            getAndAddWordDescriptions(jsonDescriptionString);
+        getAndAddWordDescriptions(context, jsonDescriptionString);
             getAndAddSentences(context, jsonSentenceString);
     }
 
@@ -235,7 +235,6 @@ public class DataSource {
         try {
             jsonObject = new JSONObject(jsonSentenceString);
             JSONArray result = jsonObject.getJSONArray(DBConfig.TAG_JSON_ARRAY);
-
             for (int i = 0; i < result.length(); i++) {
                 JSONObject jo = result.getJSONObject(i);
                 int id = Integer.parseInt(jo.getString(DBConfig.TAG_ID));
@@ -244,17 +243,16 @@ public class DataSource {
                 int wId = Integer.parseInt(jo.getString(DBConfig.TAG_SENTENCE_WORDID));
                 String soundName = jo.getString(DBConfig.TAG_SOUND);
                 addSentence(id, sentence, wId, languageName, soundName);
-                if (!soundName.isEmpty()) {
-                    downloadSentenceSounds(context, sentence, soundName);
+                if (!soundName.equals("null")) {
+                    downloadSounds(context, soundName);
                 }
             }
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    private void getAndAddWordDescriptions(String jsonDescriptionString) {
+    private void getAndAddWordDescriptions(Context context, String jsonDescriptionString) {
         JSONObject jsonObject;
         try {
             jsonObject = new JSONObject(jsonDescriptionString);
@@ -267,8 +265,10 @@ public class DataSource {
                 int wId = Integer.parseInt(jo.getString(DBConfig.TAG_WORDDES_WORDID));
                 String soundName = jo.getString(DBConfig.TAG_SOUND);
                 addWordDescription(id, word_description, wId, language_name, soundName);
+                if (!soundName.equals("null")) {
+                    downloadSounds(context, soundName);
+                }
             }
-
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -66,19 +67,28 @@ public class DictionaryItemDetailFragment extends Fragment {
     }
 
     private void setupCaption(View view) {
+        String sound = selectedEntry.getCaptionSound();
         TextView caption = (TextView) view.findViewById(R.id.dictionary_item_detail_title);
         TextView captionTranslation = (TextView) view.findViewById(R.id.dictionary_item_detail_title_translation);
         caption.setText(selectedEntry.getCaption());
         captionTranslation.setText(selectedEntry.getCaptionTranslation());
+        LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.dictionary_item_detail_linear_layout);
+        if (!sound.equals("null")) {
+            setSound(sound, linearLayout);
+        }
     }
 
     private void setupSentences(View view) {
         ArrayList<String> sentences = selectedEntry.getExampleSentences();
         ArrayList<String> translations = selectedEntry.getExampleSentenceTranslations();
+        ArrayList<String> sounds = selectedEntry.getExampleSentenceSounds();
         LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.dictionary_item_detail_linear_layout);
         for (int i = 0; i < sentences.size(); i++) {
             setSentence(sentences.get(i), linearLayout);
             setTranslation(translations.get(i), linearLayout);
+            if (!sounds.get(i).equals("null")) {
+                setSound(sounds.get(i), linearLayout);
+            }
         }
     }
 
@@ -109,8 +119,21 @@ public class DictionaryItemDetailFragment extends Fragment {
         parent.addView(sentence);
     }
 
-    private void playSentence(String name) {
-        String sentencePath = "/data/user/o/com.app.agn" + name;
+    private void setSound(final String string, LinearLayout parent) {
+        Button playSound = new Button(this.getContext());
+        playSound.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        playSound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                playSound(string);
+            }
+        });
+        playSound.setText("Play " + string);
+        parent.addView(playSound);
+    }
+
+    private void playSound(String name) {
+        String sentencePath = "/data/user/0/com.app.agnie.owl/app_sounds_directory/" + name;
         MediaPlayer player = MediaPlayer.create(getContext(), Uri.parse(sentencePath));
         player.start();
     }

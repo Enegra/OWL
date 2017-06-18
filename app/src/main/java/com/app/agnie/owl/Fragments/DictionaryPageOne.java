@@ -2,12 +2,15 @@ package com.app.agnie.owl.Fragments;
 
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -44,12 +47,12 @@ public class DictionaryPageOne extends Fragment {
     }
 
     private void setupLayout() {
-            View parent = getView();
-            if (featuredEntry!=null){
-                setupImage(parent, featuredEntry);
-                setupCaption(parent, featuredEntry);
-                setupSentences(parent, featuredEntry);
-            }
+        View parent = getView();
+        if (featuredEntry != null) {
+            setupImage(parent, featuredEntry);
+            setupCaption(parent, featuredEntry);
+            setupSentences(parent, featuredEntry);
+        }
     }
 
     private void setupImage(View view, DictionaryEntry dictionaryEntry) {
@@ -61,19 +64,28 @@ public class DictionaryPageOne extends Fragment {
     }
 
     private void setupCaption(View view, DictionaryEntry dictionaryEntry) {
+        String sound = dictionaryEntry.getCaptionSound();
         TextView caption = (TextView) view.findViewById(R.id.screech_title);
         TextView captionTranslation = (TextView) view.findViewById(R.id.screech_title_translation);
         caption.setText(dictionaryEntry.getCaption());
         captionTranslation.setText(dictionaryEntry.getCaptionTranslation());
+        LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.screech_linear_layout);
+        if (!sound.equals("null")) {
+            setSound(sound, linearLayout);
+        }
     }
 
     private void setupSentences(View view, DictionaryEntry dictionaryEntry) {
         ArrayList<String> sentences = dictionaryEntry.getExampleSentences();
         ArrayList<String> translations = dictionaryEntry.getExampleSentenceTranslations();
+        ArrayList<String> sounds = dictionaryEntry.getExampleSentenceSounds();
         LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.screech_linear_layout);
         for (int i = 0; i < sentences.size(); i++) {
             setSentence(sentences.get(i), linearLayout);
             setTranslation(translations.get(i), linearLayout);
+            if (!sounds.get(i).equals("null")) {
+                setSound(sounds.get(i), linearLayout);
+            }
         }
     }
 
@@ -102,6 +114,25 @@ public class DictionaryPageOne extends Fragment {
         }
         sentence.setTypeface(null, Typeface.ITALIC);
         parent.addView(sentence);
+    }
+
+    private void setSound(final String string, LinearLayout parent) {
+        Button playSound = new Button(this.getContext());
+        playSound.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        playSound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                playSound(string);
+            }
+        });
+        playSound.setText("Play " + string);
+        parent.addView(playSound);
+    }
+
+    private void playSound(String name) {
+        String sentencePath = "/data/user/0/com.app.agnie.owl/app_sounds_directory/" + name;
+        MediaPlayer player = MediaPlayer.create(getContext(), Uri.parse(sentencePath));
+        player.start();
     }
 
 }

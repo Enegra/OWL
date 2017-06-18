@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.app.agnie.owl.R;
-import com.app.agnie.owl.Util.SingletonSession;
 import com.app.agnie.owl.Util.Entities.Test;
+import com.app.agnie.owl.Util.SingletonSession;
 
 
 public class TestScoreFragment extends Fragment {
@@ -45,7 +45,7 @@ public class TestScoreFragment extends Fragment {
 
     private void setupLayout(View view){
         TextView scoreHeader = (TextView)view.findViewById(R.id.test_score_header);
-        String headerContent = interfaceStrings[5] + selectedTest.getCaption() + "!";
+        String headerContent = interfaceStrings[5] + " " + selectedTest.getCaption() + "!";
         scoreHeader.setText(headerContent);
         TextView scoreSubheader = (TextView)view.findViewById(R.id.test_score_subheader);
         scoreSubheader.setText(interfaceStrings[6]);
