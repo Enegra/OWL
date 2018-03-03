@@ -73,9 +73,9 @@ public class DictionaryItemDetailFragment extends Fragment {
         caption.setText(selectedEntry.getCaption());
         captionTranslation.setText(selectedEntry.getCaptionTranslation());
         LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.dictionary_item_detail_linear_layout);
-        if (!sound.equals("null")) {
-            setSound(sound, linearLayout);
-        }
+//        if (sound.equals("null")) {
+//            setSound(sound, linearLayout);
+//        }
     }
 
     private void setupSentences(View view) {
@@ -86,9 +86,9 @@ public class DictionaryItemDetailFragment extends Fragment {
         for (int i = 0; i < sentences.size(); i++) {
             setSentence(sentences.get(i), linearLayout);
             setTranslation(translations.get(i), linearLayout);
-            if (!sounds.get(i).equals("null")) {
-                setSound(sounds.get(i), linearLayout);
-            }
+//            if (!sounds.get(i).equals("null")) {
+//                setSound(sounds.get(i), linearLayout);
+//            }
         }
     }
 
@@ -120,20 +120,21 @@ public class DictionaryItemDetailFragment extends Fragment {
     }
 
     private void setSound(final String string, LinearLayout parent) {
-        Button playSound = new Button(this.getContext());
-        playSound.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        playSound.setOnClickListener(new View.OnClickListener() {
+        Button soundButton = new Button(getContext());
+        soundButton.setBackgroundResource(R.drawable.speaker_button);
+        soundButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_speaker, 0, 0, 0);
+        soundButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        soundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 playSound(string);
             }
         });
-        playSound.setText("Play " + string);
-        parent.addView(playSound);
+        parent.addView(soundButton);
     }
 
     private void playSound(String name) {
-        String sentencePath = "/data/user/0/com.app.agnie.owl/app_sounds_directory/" + name;
+        String sentencePath = getContext().getFilesDir().getAbsolutePath() + name;
         MediaPlayer player = MediaPlayer.create(getContext(), Uri.parse(sentencePath));
         player.start();
     }

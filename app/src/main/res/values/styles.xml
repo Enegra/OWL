@@ -16,6 +16,8 @@
         <item name="preferenceTheme">@style/OwlPreferenceStyle</item>
     </style>
 
+    <style name="FlatButton" parent="Widget.AppCompat.Button.Borderless"></style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

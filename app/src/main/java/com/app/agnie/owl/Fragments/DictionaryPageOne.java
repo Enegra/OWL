@@ -125,12 +125,11 @@ public class DictionaryPageOne extends Fragment {
                 playSound(string);
             }
         });
-        playSound.setText("Play " + string);
         parent.addView(playSound);
     }
 
     private void playSound(String name) {
-        String sentencePath = "/data/user/0/com.app.agnie.owl/app_sounds_directory/" + name;
+        String sentencePath = getContext().getFilesDir().getAbsolutePath() + name;
         MediaPlayer player = MediaPlayer.create(getContext(), Uri.parse(sentencePath));
         player.start();
     }

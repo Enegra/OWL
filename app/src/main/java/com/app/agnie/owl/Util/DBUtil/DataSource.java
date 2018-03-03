@@ -154,7 +154,7 @@ public class DataSource {
             URL url = new URL("http://stasis.eu/Android/sounds/" + soundName + ".mp3");
             URLConnection connection = url.openConnection();
             connection.connect();
-            File newDir = context.getDir("sounds_directory", Context.MODE_PRIVATE);
+            File newDir = context.getFilesDir();
             File audio = new File(newDir, soundName + ".mp3");
             InputStream input = new BufferedInputStream(url.openStream());
             OutputStream output = new FileOutputStream(audio);
