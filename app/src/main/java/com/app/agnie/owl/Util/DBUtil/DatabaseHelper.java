@@ -6,6 +6,7 @@ import android.util.Log;
 import io.requery.android.database.sqlite.SQLiteDatabase;
 import io.requery.android.database.sqlite.SQLiteOpenHelper;
 
+
 class DatabaseHelper extends SQLiteOpenHelper {
 
     static final String TABLE_CATEGORY = "category";
