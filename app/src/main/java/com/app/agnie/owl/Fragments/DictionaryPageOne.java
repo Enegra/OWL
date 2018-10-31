@@ -56,7 +56,7 @@ public class DictionaryPageOne extends Fragment {
     }
 
     private void setupImage(View view, DictionaryEntry dictionaryEntry) {
-        ImageView imageView = (ImageView) view.findViewById(R.id.dictionary_screech_image);
+        ImageView imageView = view.findViewById(R.id.dictionary_screech_image);
         byte[] decompressedPicture = CompressionTools.decompress(dictionaryEntry.getImageContent());
         if (decompressedPicture != null) {
             imageView.setImageBitmap(BitmapFactory.decodeByteArray(decompressedPicture, 0, decompressedPicture.length));
@@ -65,11 +65,11 @@ public class DictionaryPageOne extends Fragment {
 
     private void setupCaption(View view, DictionaryEntry dictionaryEntry) {
         String sound = dictionaryEntry.getCaptionSound();
-        TextView caption = (TextView) view.findViewById(R.id.screech_title);
-        TextView captionTranslation = (TextView) view.findViewById(R.id.screech_title_translation);
+        TextView caption = view.findViewById(R.id.screech_title);
+        TextView captionTranslation = view.findViewById(R.id.screech_title_translation);
         caption.setText(dictionaryEntry.getCaption());
         captionTranslation.setText(dictionaryEntry.getCaptionTranslation());
-        LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.screech_linear_layout);
+        LinearLayout linearLayout = view.findViewById(R.id.screech_linear_layout);
         if (!sound.equals("null")) {
             setSound(sound, linearLayout);
         }
@@ -79,7 +79,7 @@ public class DictionaryPageOne extends Fragment {
         ArrayList<String> sentences = dictionaryEntry.getExampleSentences();
         ArrayList<String> translations = dictionaryEntry.getExampleSentenceTranslations();
         ArrayList<String> sounds = dictionaryEntry.getExampleSentenceSounds();
-        LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.screech_linear_layout);
+        LinearLayout linearLayout = view.findViewById(R.id.screech_linear_layout);
         for (int i = 0; i < sentences.size(); i++) {
             setSentence(sentences.get(i), linearLayout);
             setTranslation(translations.get(i), linearLayout);

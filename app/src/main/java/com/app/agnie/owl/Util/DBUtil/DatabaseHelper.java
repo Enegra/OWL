@@ -83,6 +83,12 @@ class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(database);
     }
 
+    @Override
+    public void onOpen(SQLiteDatabase database) {
+        super.onOpen(database);
+        database.disableWriteAheadLogging();
+    }
+
     private void createCategory(SQLiteDatabase database) {
         String createCategory = "create table if not exists " + TABLE_CATEGORY + "(" + COLUMN_CATEGORY + " integer primary key);";
         database.execSQL(createCategory);

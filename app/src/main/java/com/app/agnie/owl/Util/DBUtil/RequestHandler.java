@@ -19,6 +19,7 @@ public class RequestHandler {
                 sb.append(s + "\n");
             }
         } catch (Exception e) {
+            System.out.println(e);
         }
         return sb.toString();
     }

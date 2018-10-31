@@ -61,7 +61,7 @@ public class Dictionary extends AppCompatActivity {
     private void setupLayout() {
         interfaceStrings = getResources().getStringArray(SingletonSession.Instance().getInterfaceResources()[1]);
         setTitle(interfaceStrings[0]);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.dictionary_toolbar);
+        Toolbar toolbar = findViewById(R.id.dictionary_toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -71,21 +71,23 @@ public class Dictionary extends AppCompatActivity {
     }
 
     private void setupTabs() {
-        ViewPager viewPager = (ViewPager) findViewById(R.id.dictionary_viewpager);
+        ViewPager viewPager = findViewById(R.id.dictionary_viewpager);
         setupTabPager(viewPager);
-        TabLayout tabs = (TabLayout) findViewById(R.id.dictionary_tabs);
+        TabLayout tabs = findViewById(R.id.dictionary_tabs);
         tabs.setupWithViewPager(viewPager);
     }
 
     private void setupTabPager(ViewPager viewPager) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         TabsPagerAdapter tabsPagerAdapter = new TabsPagerAdapter(fragmentManager);
-        Bundle bundle = new Bundle();
-        Random random = new Random();
-        featuredEntry = random.nextInt(dictionaryEntries.size());
-        bundle.putInt(FEATURED_ENTRY, featuredEntry);
         DictionaryPageOne dictionaryPageOne = new DictionaryPageOne();
-        dictionaryPageOne.setArguments(bundle);
+        if (dictionaryEntries.size() > 0){
+            Bundle bundle = new Bundle();
+            Random random = new Random();
+            featuredEntry = random.nextInt(dictionaryEntries.size());
+            bundle.putInt(FEATURED_ENTRY, featuredEntry);
+            dictionaryPageOne.setArguments(bundle);
+        }
         tabsPagerAdapter.addFragment(dictionaryPageOne, interfaceStrings[1]);
         DictionaryPageTwo dictionaryPageTwo = new DictionaryPageTwo();
         tabsPagerAdapter.addFragment(dictionaryPageTwo, interfaceStrings[2]);
@@ -97,8 +99,8 @@ public class Dictionary extends AppCompatActivity {
     }
 
     private void setupDrawer() {
-        drawerLayout = (DrawerLayout) findViewById(R.id.dictionary_drawer_layout);
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        drawerLayout = findViewById(R.id.dictionary_drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setCheckedItem(R.id.nav_dictionary);
         if (!SingletonSession.Instance().getInterfaceLanguage().equals("english")) {
             changeMenuLanguage(navigationView);
@@ -158,7 +160,7 @@ public class Dictionary extends AppCompatActivity {
         MenuItem settings = menu.findItem(R.id.nav_settings);
         settings.setTitle(menuStrings[5]);
         View headerLayout = navigationView.getHeaderView(0);
-        TextView subtitle = (TextView) headerLayout.findViewById(R.id.nav_subtitle);
+        TextView subtitle = headerLayout.findViewById(R.id.nav_subtitle);
         subtitle.setText(menuStrings[6]);
     }
 
@@ -222,11 +224,13 @@ public class Dictionary extends AppCompatActivity {
                 dataSource.open();
                 dataSource.insertDictionaryValues(Dictionary.this, list);
                 dataSource.close();
+                System.out.println("this should be first");
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putBoolean("dictionary_fetched", true);
                 editor.apply();
 
             }
+            System.out.println("this should be second");
             dataSource.open();
             dictionaryEntries = dataSource.getDictionaryEntries(SingletonSession.Instance().getLearningLanguage(), SingletonSession.Instance().getInterfaceLanguage());
             SingletonSession.Instance().setDictionaryData(dictionaryEntries);
